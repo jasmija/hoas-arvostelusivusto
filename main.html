@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="main.css" type="text/css" rel="stylesheet" />
+    <script src="main.js"></script>
+</head>
+<body>
+
+<ul id="menu">
+    <li><a class="active" href="#login">Log in</a></li>
+    <li><a href="#rekister">Register</a></li>
+    <!--<li><a href="#contact">Contact</a></li>-->
+</ul>
+
+<!--<p>Honest HOAS-apartment reviews from HOAS-tenants...</p>-->
+
+<div class="form-group">
+    <label for="search">Search:</label>
+    <input  id="search" type="text" placeholder="Street Address" name="search">
+    <button onclick="">Send</button>
+</div>
+
+<main class="primary-color">
+    <ul id="apartments">
+        <li>
+            <figure>
+                <a href="img/kimpitie.jpg"><img src="img/kimpitie.jpg"></a>
+                <figcaption>
+                    <h3>Kimpitie 10 00430 Helsinki</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/berliininkatu.jpg"><img src="img/berliininkatu.jpg"></a>
+                <figcaption>
+                    <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/hakaniemenranta.jpg"><img src="img/hakaniemenranta.jpg"></a>
+                <figcaption>
+                    <h3>Hakaniemenranta 12, Helsinki</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/siltakuja.jpg"><img src="img/siltakuja.jpg"></a>
+                <figcaption>
+                    <h3>Siltakuja 2, Espoon keskus</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/vaskivuorentie.jpg"><img src="img/vaskivuorentie.jpg"></a>
+                <figcaption>
+                    <h3>Vaskivuorentie 22, Myyrmaki Vantaa</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/juusintie.jpg"><img src="img/juusintie.jpg"></a>
+                <figcaption>
+                    <h3>Juusintie 5, Kauniainen</h3>
+                </figcaption>
+            </figure>
+        </li>
+    </ul>
+</main>
+
+<div class="form-group">
+    <label for="title">Write a question to start a new chat:</label>
+    <input  id="title" type="text" placeholder="New chat" name="chat">
+    <button onclick="addToList()">Send</button>
+</div>
+
+<ul id="chat"></ul>
+
+<div class="footer">
+    <p>If any issues or questions:</p>
+    <p>jasmin.janka@metropolia.fi</p>
+    <p>040 5124051</p>
+</div>
+
+</body>
+</html>

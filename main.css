@@ -1,0 +1,96 @@
+ul#menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    border-radius: 3px;
+}
+
+ul#menu li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: Arial;
+}
+
+ul li a:hover {
+    background-color: #111;
+}
+
+.footer {
+    border-radius: 3px;
+    position: relative;
+    padding: 20px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    opacity: 70%;
+    color: white;
+    text-align: center;
+}
+
+div{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input{
+    width: 50%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button{
+    padding: 8px;
+}
+
+.form-group{
+   margin-left: 50px;
+}
+
+
+
+
+
+figcaption h3{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 0;
+    padding: 5px;
+    margin: 0;
+    background: rgba(255,255,255,0.5);
+}
+
+figure {
+    position: relative;
+}
+
+img{
+    vertical-align: middle;
+}
+
+ul#apartments{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+main.primary-color{
+    margin-top: 30px;
+    background-color: white;
+}
+
+
+
