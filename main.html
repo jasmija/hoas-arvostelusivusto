@@ -3,6 +3,12 @@
 <head>
     <link href="main.css" type="text/css" rel="stylesheet" />
     <script src="main.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -16,19 +22,47 @@
 
 <div class="form-group">
     <label for="search">Search:</label>
-    <input  id="search" type="text" placeholder="Street Address" name="search">
-    <button onclick="">Send</button>
+    <input  id="search" type="text" placeholder="Street Address" name="search" >
+    <button onclick='findString()'>Find</button>
 </div>
 
 <main class="primary-color">
     <ul id="apartments">
-        <li>
+        <!--When li element clicked modal opens-->
+        <li class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
             <figure>
-                <a href="img/kimpitie.jpg"><img src="img/kimpitie.jpg"></a>
+                <!--Display div with text when image clicked-->
+                <a href="javascript: text(1);"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
-                    <h3>Kimpitie 10 00430 Helsinki</h3>
+                    <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
             </figure>
+            <div id="display"></div>
+
+
+                <!-- Trigger the modal with a button -->
+                <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open rating</button>-->
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                <h4 class="modal-title">Kimpitie 10</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Comments about apartments..</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
         </li>
         <li>
             <figure>
@@ -63,7 +97,7 @@
             </figure>
         </li>
         <li>
-            <figure>
+            <figure id="6">
                 <a href="img/juusintie.jpg"><img src="img/juusintie.jpg"></a>
                 <figcaption>
                     <h3>Juusintie 5, Kauniainen</h3>

@@ -1,14 +1,18 @@
-ul#menu{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    border-radius: 3px;
-}
 
 ul#menu li {
     float: left;
+}
+
+ul#menu li a:hover {
+    background-color: #111;
+}
+
+ul#menu{
+    width: 100%;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #333;
+    border-radius: 3px;
 }
 
 li a {
@@ -20,8 +24,12 @@ li a {
     font-family: Arial;
 }
 
-ul li a:hover {
-    background-color: #111;
+ul#chat li{
+    list-style-type: none;
+    border-radius: 3px;
+    border: 2px solid black;
+    padding: 3px;
+    margin-top: 1px;
 }
 
 .footer {
@@ -35,6 +43,8 @@ ul li a:hover {
     opacity: 70%;
     color: white;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div{
@@ -56,10 +66,6 @@ button{
 .form-group{
    margin-left: 50px;
 }
-
-
-
-
 
 figcaption h3{
     position: absolute;
@@ -90,6 +96,46 @@ ul#apartments{
 main.primary-color{
     margin-top: 30px;
     background-color: white;
+}
+
+/*new*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 
