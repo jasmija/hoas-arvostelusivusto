@@ -13,17 +13,17 @@
 <body>
 
 <ul id="menu">
-    <li><a class="active" href="#login">Log in</a></li>
-    <li><a href="#rekister">Register</a></li>
+    <li><a class="active" href="#login">Kirjaudu</a></li>
+    <li><a href="#rekister">Rekisteröidy</a></li>
     <!--<li><a href="#contact">Contact</a></li>-->
 </ul>
 
 <!--<p>Honest HOAS-apartment reviews from HOAS-tenants...</p>-->
 
 <div class="form-group">
-    <label for="search">Search:</label>
-    <input  id="search" type="text" placeholder="Street Address" name="search" >
-    <button onclick='findString()'>Find</button>
+    <!--<label for="search">Search:</label>-->
+    <input  id="search" type="text" placeholder="" name="search" >
+    <button onclick='findText()'>Hae</button>
 </div>
 
 <main class="primary-color">
@@ -37,8 +37,6 @@
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
             </figure>
-            <div id="display"></div>
-
 
                 <!-- Trigger the modal with a button -->
                 <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open rating</button>-->
@@ -108,17 +106,16 @@
 </main>
 
 <div class="form-group">
-    <label for="title">Write a question to start a new chat:</label>
-    <input  id="title" type="text" placeholder="New chat" name="chat">
-    <button onclick="addToList()">Send</button>
+    <label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>
+    <input  id="title" type="text" placeholder="" name="chat">
+    <button onclick="addToList()">Lähetä</button>
 </div>
 
 <ul id="chat"></ul>
 
 <div class="footer">
-    <p>If any issues or questions:</p>
-    <p>jasmin.janka@metropolia.fi</p>
-    <p>040 5124051</p>
+    <p>Kaikki kuvat ovat HOAS:in sivuilta:</p>
+    <a href="https://www.hoas.fi/">https://www.hoas.fi/</a>
 </div>
 
 </body>
