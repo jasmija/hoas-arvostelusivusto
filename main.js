@@ -14,6 +14,3 @@ function findText() {
     console.log(input);
     alert("String " + input + " found? " + window.find(input));
 }
-
-
-
