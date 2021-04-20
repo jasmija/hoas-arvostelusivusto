@@ -97,8 +97,8 @@ img{
 
 ul#apartments{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
     display: flex;
     flex-wrap: wrap;
 }
