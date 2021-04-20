@@ -6,16 +6,17 @@ body{
 h1{
     max-width: 20%;
     color: white;
+    float: left;
 }
 
 #search{
-    float: right;
+    float: left;
     margin-top: 20px;
-    margin-right: 20px;
+    margin-left: 40px;
 }
 
 #searchbutton{
-    float: right;
+    float: left;
     margin-top: 20px;
 }
 
@@ -48,8 +49,9 @@ a {
 ul#chat li{
     list-style-type: none;
     border-radius: 3px;
-    border: 2px solid black;
-    padding: 3px;
+    background-color: lightgray;
+    /*border: 2px solid black;*/
+    padding: 10px;
     margin-top: 1px;
 }
 
@@ -101,6 +103,10 @@ ul#apartments{
     margin-left: auto;
     display: flex;
     flex-wrap: wrap;
+}
+
+ul#apartments li a:hover{
+    opacity: 70%;
 }
 
 main{
