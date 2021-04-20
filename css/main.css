@@ -1,6 +1,27 @@
+body{
+    font-family: Arial;
+}
+
+/*Menu content*/
+h1{
+    max-width: 20%;
+    color: white;
+}
+
+#search{
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#searchbutton{
+    float: right;
+    margin-top: 20px;
+}
 
 ul#menu li {
-    float: left;
+    margin-top: 20px;
+    float: right;
 }
 
 ul#menu li a:hover {
@@ -13,15 +34,15 @@ ul#menu{
     overflow: hidden;
     background-color: #333;
     border-radius: 3px;
+    padding: 10px;
 }
 
-li a {
+a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-family: Arial;
 }
 
 ul#chat li{
@@ -36,25 +57,14 @@ ul#chat li{
     border-radius: 3px;
     position: relative;
     padding: 20px;
-    left: 0;
-    bottom: 0;
     width: 100%;
-    background-color: black;
-    opacity: 70%;
+    background-color: #333;
     color: white;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-div{
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 input{
-    width: 50%;
+    width: 30%;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -64,7 +74,7 @@ button{
 }
 
 .form-group{
-   margin-left: 50px;
+    margin-left: 50px;
 }
 
 figcaption h3{
@@ -93,13 +103,13 @@ ul#apartments{
     flex-wrap: wrap;
 }
 
-main.primary-color{
+main{
     margin-top: 30px;
     background-color: white;
 }
 
-/*new*/
-/* The Modal (background) */
+
+/* MODAL (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -137,6 +147,18 @@ main.primary-color{
     text-decoration: none;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
