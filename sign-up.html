@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
+    <link href="css/sign-up.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Rekisteröi käyttäjä</title>
+    <title>Rekisteröi uusi käyttäjä</title>
 </head>
-<body style="text-align: center">
-<p>Tällä sivulla luodaan käyttäjätunnus</p>
-<a href="main.html">Takaisin etusivulle</a>
-<p>Poistettiin kaksi liviä ja lisättiin yksi</p>
+<body>
+
+<article class="container">
+    <h1>Rekisteröi uusi käyttäjä</h1>
+    <p>Täytä kentät rekisteröidäksesi uuden käyttäjän.</p>
+    <hr>
+    <form>
+        <label class="label">Käyttäjätunnus:</label>
+        <br>
+        <input type="text" placeholder="Syötä käyttäjätunnus" name="email" required>
+        <br>
+        <label class="label">Salasana:</label>
+        <br>
+        <input type="password" placeholder="Syötä salasana" name="psw" required>
+        <br>
+        <label class="label">Toista salasana:</label>
+        <br>
+        <input type="password" placeholder="Salasana uudestaan" name="psw-repeat" required>
+        <br>
+        <label>
+            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Pidä minut kirjautuneena
+        </label>
+        <br>
+        <button type="submit" class="signupbtn">Rekisteröidy</button>
+    </form>
+    <a href="main.html" style="display: inline-block; margin-top: 15px">Takaisin etusivulle</a>
+</article>
+
 </body>
 </html>
