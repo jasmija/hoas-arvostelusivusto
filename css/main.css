@@ -15,6 +15,12 @@ h1{
     margin-left: 40px;
 }
 
+input{
+    width: 30%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 #searchbutton{
     float: left;
     margin-top: 20px;
@@ -38,45 +44,19 @@ ul#menu{
     padding: 10px;
 }
 
+/*Apartments*/
+main{
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+}
+
 a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-}
-
-ul#chat li{
-    list-style-type: none;
-    border-radius: 3px;
-    background-color: lightgray;
-    /*border: 2px solid black;*/
-    padding: 10px;
-    margin-top: 1px;
-}
-
-.footer {
-    border-radius: 3px;
-    position: relative;
-    padding: 20px;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
-}
-
-input{
-    width: 30%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-button{
-    padding: 8px;
-}
-
-.form-group{
-    margin-left: 50px;
 }
 
 figcaption h3{
@@ -99,8 +79,8 @@ img{
 
 ul#apartments{
     list-style-type: none;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -109,13 +89,32 @@ ul#apartments li a:hover{
     opacity: 70%;
 }
 
-main{
-    margin-top: 30px;
-    background-color: white;
+/*Chat*/
+ul#chat li{
+    list-style-type: none;
+    border-radius: 3px;
+    background-color: lightgray;
+    padding: 10px;
+    margin-top: 1px;
 }
 
+button{
+    padding: 8px;
+}
 
-/* MODAL (background) */
+/*Footer*/
+.footer {
+    border-radius: 3px;
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+/*MODAL*/
+/* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -141,9 +140,9 @@ main{
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: black;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -154,17 +153,12 @@ main{
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*Login*/
+#login_wrap {
+    visibility: hidden;
+    padding:10px;
+    margin:0;
+    float: right;
+    background-color: lightgray;
+    border-radius: 3px;
+}

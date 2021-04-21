@@ -4,59 +4,37 @@
     <title>Etusivu | HOAS-arvostelut</title>
     <link href="css/main.css" type="text/css" rel="stylesheet" />
     <script src="main.js"></script>
-
-    <!--MODAL-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <ul id="menu">
-    <li><a class="active" href="#login">Kirjaudu</a></li>
+    <li><a onclick="visibleLogin()" class="active" href="#login">Kirjaudu</a></li>
     <li><a href="sign-up.html">Rekisteröidy</a></li>
     <h1>HOAS-arvostelut</h1>
-    <input  id="search" type="text" placeholder="" name="search">
-    <button id="searchbutton" onclick='findText()'>Hae</button>
-
+    <input  id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
+
+<div id="login_wrap">
+    <div class="login_menu">
+        <form>
+            Käyttäjätunnus: <input  id="username" type="text" name="username">
+            Salasana:  <input id="password" type="password">
+            <button onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
+        </form>
+    </div>
+</div>
 
 <main>
     <ul id="apartments">
         <!--When li element clicked modal opens-->
-        <li class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+        <li id="ratings">
             <figure>
-                <!--Display div with text when image clicked-->
                 <a><img src="img/kimpitie.jpg"></a>
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
             </figure>
-
-            <!-- Trigger the modal with a button -->
-            <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open rating</button>-->
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                            <h4 class="modal-title">Kimpitie 10</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Comments about apartments..</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </li>
         <li>
             <figure>
@@ -122,6 +100,30 @@
                 </figcaption>
             </figure>
         </li>
+        <li>
+            <figure>
+                <a href="img/majurinkulma.jpg"><img src="img/majurinkulma.jpg"></a>
+                <figcaption>
+                    <h3>Majurinkulma 2, Leppävaara-Lintuvaara Espoo</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/servinkuja.jpg"><img src="img/servinkuja.jpg"></a>
+                <figcaption>
+                    <h3>Servinkuja 6, Otaniemi teekkarikylä Espoo</h3>
+                </figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure>
+                <a href="img/akanapolku.jpg"><img src="img/akanapolku.jpg"></a>
+                <figcaption>
+                    <h3>Akanapolku 2, Jokiniemi-Tikkurila Vantaa</h3>
+                </figcaption>
+            </figure>
+        </li>
     </ul>
 </main>
 
@@ -134,8 +136,17 @@
 <ul id="chat"></ul>
 
 <div class="footer">
-    <p>Kaikki kuvat ovat HOAS:in sivuilta:</p>
+    <p>Kaikki kuvat otettu HOAS:in sivuilta:</p>
     <a href="https://www.hoas.fi/">https://www.hoas.fi/</a>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">x</span>
+        <h2>Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
+        <p>Ja tähän kaikki muut tiedot ja arvostelut jne..</p>
+    </div>
 </div>
 
 </body>
