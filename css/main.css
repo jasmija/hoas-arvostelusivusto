@@ -36,12 +36,24 @@ ul#menu li a:hover {
 }
 
 ul#menu{
-    width: 100%;
     list-style-type: none;
     overflow: hidden;
     background-color: #333;
     border-radius: 3px;
     padding: 10px;
+    width: auto;
+
+}
+
+/*Login*/
+#login_wrap {
+    visibility: hidden;
+    padding:10px;
+    margin:0;
+    float: right;
+    background-color: lightgray;
+    border-radius: 3px;
+    display: none;
 }
 
 /*Apartments*/
@@ -90,12 +102,33 @@ ul#apartments li a:hover{
 }
 
 /*Chat*/
+#chatcontents{
+    display: none;
+    visibility: hidden;
+    padding: 20px;
+    border-style: solid;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+
+#newchat{
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+
+ul#chat{
+    margin: 0;
+    padding: 0;
+}
+
 ul#chat li{
     list-style-type: none;
     border-radius: 3px;
     background-color: lightgray;
     padding: 10px;
-    margin-top: 1px;
+    margin-top: 3px;
+    width: auto;
 }
 
 button{
@@ -107,7 +140,7 @@ button{
     border-radius: 3px;
     position: relative;
     padding: 20px;
-    width: 100%;
+    width: auto;
     background-color: #333;
     color: white;
     text-align: center;
@@ -153,12 +186,4 @@ button{
     cursor: pointer;
 }
 
-/*Login*/
-#login_wrap {
-    visibility: hidden;
-    padding:10px;
-    margin:0;
-    float: right;
-    background-color: lightgray;
-    border-radius: 3px;
-}
+

@@ -1,6 +1,5 @@
-
-function addToList() {
-    const title = document.getElementById('title').value;
+function addNewChat() {
+    const title = document.getElementById('chatTitle').value;
     console.log(title);
 
     const li = document.createElement('li');
@@ -10,11 +9,18 @@ function addToList() {
     chat.appendChild(li);
 }
 
-/*function findText() {
-    const input = document.getElementById('search').value;
-    console.log(input);
-    alert("String " + input + " found? " + window.find(input));
-}*/
+function openChat() {
+    var ischatopen = document.getElementById('chatcontents').style.visibility;
+    console.log(ischatopen);
+
+    if (ischatopen === "visible") {
+        document.getElementById('chatcontents').style.visibility = "hidden";
+        document.getElementById('chatcontents').style.display = "none";
+    } else {
+        document.getElementById('chatcontents').style.visibility = "visible";
+        document.getElementById('chatcontents').style.display = "block";
+    }
+}
 
 function searchApartment() {
     var input, uppercase, ul, li, h3, i, text;
@@ -69,12 +75,27 @@ window.onclick = function(event) {
 };
 
 function visibleLogin() {
-    document.getElementById("login_wrap").style.visibility = "visible";
+    var isloginopen = document.getElementById('login_wrap').style.visibility;
+    console.log(isloginopen);
+    if(isloginopen === "visible"){
+        document.getElementById('login_wrap').style.visibility = "hidden";
+        document.getElementById('login_wrap').style.display = "none";
+    }else{
+        document.getElementById("login_wrap").style.visibility = "visible";
+        document.getElementById('login_wrap').style.display = "block";
+    }
 };
 
 function hideLogin() {
     document.getElementById("login_wrap").style.visibility = "hidden";
 };
+
+/*CTRL F SEARCH FROM PAGE*/
+/*function findText() {
+    const input = document.getElementById('search').value;
+    console.log(input);
+    alert("String " + input + " found? " + window.find(input));
+}*/
 
 
 
