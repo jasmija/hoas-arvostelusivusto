@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Etusivu | HOAS-arvostelut</title>
-    <link href="css/main.css" type="text/css" rel="stylesheet" />
+    <link href="css/main.css" type="text/css" rel="stylesheet"/>
     <script src="main.js"></script>
     <meta charset="utf-8">
 </head>
@@ -12,18 +12,18 @@
     <li><a onclick="visibleLogin()" class="active" href="#login">Kirjaudu</a></li>
     <li><a href="sign-up.html">Rekisteröidy</a></li>
     <h1>HOAS-arvostelut</h1>
-    <input  id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
+    <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
 
+
 <div id="login_wrap">
-    <div class="login_menu">
-        <form>
-            Käyttäjätunnus: <input  id="username" type="text" name="username">
-            Salasana:  <input id="password" type="password">
-            <button onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
-        </form>
-    </div>
+    <form>
+        Käyttäjätunnus: <input id="username" type="text" name="username">
+        Salasana: <input id="password" type="password">
+        <button onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
+    </form>
 </div>
+
 
 <main>
     <ul id="apartments">
@@ -127,19 +127,13 @@
     </ul>
 </main>
 
-<div id="newchat">
-    <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input  id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-    <button onclick="addNewChat()">Lähetä</button>
-    <ul onclick="openChat()" id="chat"></ul>
+<div class="form-group">
+    <label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>
+    <input id="title" type="text" placeholder="" name="chat">
+    <button onclick="addToList()">Lähetä</button>
 </div>
 
-<div id="chatcontents">
-    <h2>Tähän klikatun keskustelun otsikko tietokannasta</h2>
-    <p>Tähän listana vastauksia kysymyksiin</p>
-    <input type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
-    <button>Lähetä vastaus</button>
-</div>
+<ul id="chat"></ul>
 
 <div class="footer">
     <p>Kaikki kuvat otettu HOAS:in sivuilta:</p>
