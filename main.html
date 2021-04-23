@@ -18,8 +18,8 @@
 <div id="login_wrap">
     <div class="login_menu">
         <form>
-            Käyttäjätunnus: <input  id="username" type="text" name="username">
-            Salasana:  <input id="password" type="password">
+             <input  id="username" type="text" placeholder="käyttäjätunnus" name="username">
+             <input id="password" placeholder="salasana" type="password">
             <button onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
         </form>
     </div>
@@ -28,12 +28,13 @@
 <main>
     <ul id="apartments">
         <!--When li element clicked modal opens-->
-        <li id="ratings">
+        <li >
             <figure>
-                <a><img src="img/kimpitie.jpg"></a>
+                <a id="ratings"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
+                <button class="rate" id="kimpitie">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -42,6 +43,7 @@
                 <figcaption>
                     <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -50,6 +52,7 @@
                 <figcaption>
                     <h3>Hakaniemenranta 12, Helsinki</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -58,6 +61,7 @@
                 <figcaption>
                     <h3>Siltakuja 2, Espoon keskus</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -66,6 +70,7 @@
                 <figcaption>
                     <h3>Vaskivuorentie 22, Myyrmaki Vantaa</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -74,6 +79,7 @@
                 <figcaption>
                     <h3>Juusintie 5, Kauniainen</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -82,14 +88,16 @@
                 <figcaption>
                     <h3>Kilonkallio 10, Kilo Espoo</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
             <figure>
                 <a href="img/haukilahdenkuja.jpg"><img src="img/haukilahdenkuja.jpg"></a>
                 <figcaption>
-                    <h3>Haukilahdenkuja 15, Hermanni-Sörnäinen Helsinki</h3>
+                    <h3>Haukilahdenkuja 15, Helsinki</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -98,30 +106,34 @@
                 <figcaption>
                     <h3>Leppäsuonkatu 7, Kamppi Helsinki</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
             <figure>
                 <a href="img/majurinkulma.jpg"><img src="img/majurinkulma.jpg"></a>
                 <figcaption>
-                    <h3>Majurinkulma 2, Leppävaara-Lintuvaara Espoo</h3>
+                    <h3>Majurinkulma 2, Espoo</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
             <figure>
                 <a href="img/servinkuja.jpg"><img src="img/servinkuja.jpg"></a>
                 <figcaption>
-                    <h3>Servinkuja 6, Otaniemi teekkarikylä Espoo</h3>
+                    <h3>Servinkuja 6, Espoo</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
             <figure>
                 <a href="img/akanapolku.jpg"><img src="img/akanapolku.jpg"></a>
                 <figcaption>
-                    <h3>Akanapolku 2, Jokiniemi-Tikkurila Vantaa</h3>
+                    <h3>Akanapolku 2, Vantaa</h3>
                 </figcaption>
+                <button class="rate">Arvostele</button>
             </figure>
         </li>
     </ul>
@@ -151,9 +163,56 @@
     <div class="modal-content">
         <span class="close">x</span>
         <h2>Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
-        <p>Ja tähän kaikki muut tiedot ja arvostelut jne..</p>
+        <p id="rating">Ja tähän kaikki muut tiedot ja arvostelut jne..</p>
     </div>
 </div>
+
+<div id="modal2" class="modal2">
+    <div class="modal-content2">
+        <span class="close2">x</span>
+        <h2>Arvostelu kohteeseen: "asunnon osoite"</h2>
+        <form>
+            <fieldset>
+                <legend>Kunto</legend>
+            <select>
+                <option value="item1">Kiitettävä</option>
+                <option value="item2">Hyvä</option>
+                <option value="item3">Tyydyttävä</option>
+                <option value="item4">Välttävä</option>
+            </select>
+            </fieldset>
+            <fieldset>
+                <legend>Viihtyvyys</legend>
+            <select>
+                <option value="item1">5</option>
+                <option value="item2">4</option>
+                <option value="item3">3</option>
+                <option value="item4">2</option>
+                <option value="item4">1</option>
+            </select>
+            </fieldset>
+            <fieldset>
+                <legend>Kokonaisarvosana</legend>
+            <select>
+                <option value="item1">5</option>
+                <option value="item2">4</option>
+                <option value="item3">3</option>
+                <option value="item4">2</option>
+                <option value="item4">1</option>
+            </select>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Vapaa sana</legend>
+            <input type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">
+            </fieldset>
+            <button>Lähetä</button>
+        </form>
+    </div>
+</div>
+
+<input id="searchid">
+<button onclick="makeQuery()">Hae id:tä</button>
 
 </body>
 </html>

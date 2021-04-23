@@ -46,7 +46,7 @@ function searchApartment() {
 }
 
 window.onload = function(){
-
+//VIEW REVIEWS
 //Get the modal
 var modal = document.getElementById("modal");
 
@@ -56,7 +56,7 @@ var btn = document.getElementById("ratings");
 //Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-//Open the modal, when the user clicks the kirjaudu button
+//Open the modal, when the user clicks the image
 btn.onclick = function() {
     modal.style.display = "block";
 }
@@ -72,7 +72,37 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+//ADD REVIEW
+    var modal2 = document.getElementById("modal2");
+    console.log("after get modal");
+
+    var ratebuttom = document.getElementById("kimpitie");
+    console.log("after get arvostele button");
+
+    var span2 = document.getElementsByClassName("close2")[0];
+    console.log("after get close");
+
+    ratebuttom.onclick = function() {
+        console.log("open modal when user clicks arvostelebutton");
+        modal2.style.display = "block";
+    }
+
+    span2.onclick = function() {
+        modal2.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    }
 };
+
+
+function rateApartment(){
+
+}
 
 function visibleLogin() {
     var isloginopen = document.getElementById('login_wrap').style.visibility;
@@ -96,6 +126,55 @@ function hideLogin() {
     console.log(input);
     alert("String " + input + " found? " + window.find(input));
 }*/
+
+//SERVER JS
+var json; //json is global...
+
+function makeQuery() {
+    var id = document.getElementById("searchid").value;
+    if (id.length == 0) { // fix this and support empty field
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                json = JSON.parse(xmlhttp.responseText);
+                console.log(json);
+                //myFunction(resultArr);
+                //document.getElementById("info").innerHTML = xmlhttp.responseText;
+                if (json.length> 0){ // something found
+                    //console.log(json.length + ", " + json.rows[0].Name);
+                    showList(json);
+                }
+                else {
+                    document.getElementById("rating").innerHTML = "<br/>Arvosteluita ei löytynyt yhtään.";
+                }
+            }
+        };
+        var searchedid = id;
+        console.log("Haettu id: " + searchedid);
+        console.log("http://localhost:8084/api/results?id=" + searchedid);
+        xmlhttp.open("GET", "http://localhost:8084/api/results?id=" + searchedid, true);
+        xmlhttp.send();
+    }
+}
+
+function showList(json) {
+    console.log("showList");
+
+    var divElement = document.getElementById("rating");
+
+    var i;
+    var string;
+
+    //var inputvalue = document.getElementsByTagName("input").value;
+    //console.log("inputavalue " + inputvalue);
+    for (i in json) {
+        string = json[i].id + ", " + json[i].osoite + ", "+json[i].kunto +", "+json[i].viihtyvyys+", "+json[i].kokonaisarvosana + ", " + json[i].vapaasana;
+        divElement.innerHTML = string;
+        console.log(string);
+    }
+}
 
 
 
