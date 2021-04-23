@@ -9,8 +9,9 @@
 <body>
 
 <ul id="menu">
-    <li><a onclick="visibleLogin()" class="active" href="#login">Kirjaudu</a></li>
-    <li><a href="sign-up.html">Rekisteröidy</a></li>
+    <!--onclick="visibleLogin()"-->
+    <li><a class="active" href="/login">Kirjaudu</a></li>
+    <li><a href="/register">Rekisteröidy</a></li>
     <h1>HOAS-arvostelut</h1>
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
@@ -27,7 +28,7 @@
 <main>
     <ul id="apartments">
         <!--When li element clicked modal opens-->
-        <li >
+        <li>
             <figure>
                 <a id="ratings"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
@@ -140,7 +141,7 @@
 
 <div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input  id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+    <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
     <button onclick="addNewChat()">Lähetä</button>
     <ul onclick="openChat()" id="chat"></ul>
 </div>
@@ -173,37 +174,37 @@
         <form>
             <fieldset>
                 <legend>Kunto</legend>
-            <select>
-                <option value="item1">Kiitettävä</option>
-                <option value="item2">Hyvä</option>
-                <option value="item3">Tyydyttävä</option>
-                <option value="item4">Välttävä</option>
-            </select>
+                <select>
+                    <option value="item1">Kiitettävä</option>
+                    <option value="item2">Hyvä</option>
+                    <option value="item3">Tyydyttävä</option>
+                    <option value="item4">Välttävä</option>
+                </select>
             </fieldset>
             <fieldset>
                 <legend>Viihtyvyys</legend>
-            <select>
-                <option value="item1">5</option>
-                <option value="item2">4</option>
-                <option value="item3">3</option>
-                <option value="item4">2</option>
-                <option value="item4">1</option>
-            </select>
+                <select>
+                    <option value="item1">5</option>
+                    <option value="item2">4</option>
+                    <option value="item3">3</option>
+                    <option value="item4">2</option>
+                    <option value="item4">1</option>
+                </select>
             </fieldset>
             <fieldset>
                 <legend>Kokonaisarvosana</legend>
-            <select>
-                <option value="item1">5</option>
-                <option value="item2">4</option>
-                <option value="item3">3</option>
-                <option value="item4">2</option>
-                <option value="item4">1</option>
-            </select>
+                <select>
+                    <option value="item1">5</option>
+                    <option value="item2">4</option>
+                    <option value="item3">3</option>
+                    <option value="item4">2</option>
+                    <option value="item4">1</option>
+                </select>
             </fieldset>
             <br>
             <fieldset>
                 <legend>Vapaa sana</legend>
-            <input type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">
+                <input type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">
             </fieldset>
             <button>Lähetä</button>
         </form>

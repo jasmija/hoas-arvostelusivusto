@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/signup&login.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Kirjaudu sisään | HOAS-arvostelut</title>
+</head>
+<body>
+
+<div class="login-form">
+    <h1>Kirjaudu sisään</h1>
+    <form action="auth" method="POST">
+        <input type="text" name="username" placeholder="Käyttäjätunnus" pattern="[A-Z, a-z, 0-9].{2,}">
+        <input type="password" name="password" placeholder="Salasana">
+        <input type="submit" value="Kirjaudu">
+    </form>
+    <a href="/register">
+        <button class="back" style="margin-top: 50px">Luo uusi tunnus</button>
+    </a>
+    <a href="/">
+        <button class="back">Etusivulle</button>
+    </a>
+</div>
+
+</body>
+</html>
