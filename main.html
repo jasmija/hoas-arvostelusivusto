@@ -3,14 +3,14 @@
 <head>
     <title>Etusivu | HOAS-arvostelut</title>
     <link href="css/main.css" type="text/css" rel="stylesheet"/>
-    <script src="main.js"></script>
+    <!--<script src="main.js"></script>-->
     <meta charset="utf-8">
 </head>
 <body>
 
 <ul id="menu">
     <!--onclick="visibleLogin()"-->
-    <li><a class="active" href="/login">Kirjaudu</a></li>
+    <li><a onclick="visibleLogin()" class="active" href="/login">Kirjaudu</a></li>
     <li><a href="/register">Rekisteröidy</a></li>
     <h1>HOAS-arvostelut</h1>
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
@@ -141,7 +141,7 @@
 
 <div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+    <input  id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
     <button onclick="addNewChat()">Lähetä</button>
     <ul onclick="openChat()" id="chat"></ul>
 </div>
@@ -213,6 +213,131 @@
 
 <input id="searchid">
 <button onclick="makeQuery()">Hae id:tä</button>
+<script>
+    function addNewChat() {
+        const title = document.getElementById('chatTitle').value;
+        console.log(title);
 
+        const li = document.createElement('li');
+        li.innerHTML = title + "<br>";
+
+        const chat = document.getElementById('chat');
+        chat.appendChild(li);
+    }
+
+function openChat() {
+    var ischatopen = document.getElementById('chatcontents').style.visibility;
+    console.log(ischatopen);
+
+    if (ischatopen === "visible") {
+        document.getElementById('chatcontents').style.visibility = "hidden";
+        document.getElementById('chatcontents').style.display = "none";
+    } else {
+        document.getElementById('chatcontents').style.visibility = "visible";
+        document.getElementById('chatcontents').style.display = "block";
+    }
+}
+
+/*function findText() {
+const input = document.getElementById('search').value;
+console.log(input);
+alert("String " + input + " found? " + window.find(input));
+}*/
+
+function searchApartment() {
+let input, uppercase, ul, li, h3, i, text;
+
+//Get search input field
+input = document.getElementById('search');
+
+//Input value to uppercase
+uppercase = input.value.toUpperCase();
+
+//List of apartments
+ul = document.getElementById('apartments');
+li = ul.getElementsByTagName('li');
+for (i = 0; i < li.length; i++) {
+h3 = li[i].getElementsByTagName('h3')[0];
+text = h3.innerText;
+if (text.toUpperCase().indexOf(uppercase) > -1) {
+li[i].style.display = '';
+} else {
+li[i].style.display = 'none';
+}
+}
+}
+
+window.onload = function(){
+//VIEW REVIEWS
+//Get the modal
+    var modal = document.getElementById("modal");
+
+//Get the button that opens the modal
+    var btn = document.getElementById("ratings");
+
+//Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+//Open the modal, when the user clicks the image
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+//Close the modal, when the user clicks on <span> (x)
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+//Close modal, when the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+//ADD REVIEW
+    var modal2 = document.getElementById("modal2");
+    console.log("after get modal");
+
+    var ratebuttom = document.getElementById("kimpitie");
+    console.log("after get arvostele button");
+
+    var span2 = document.getElementsByClassName("close2")[0];
+    console.log("after get close");
+
+    ratebuttom.onclick = function() {
+        console.log("open modal when user clicks arvostelebutton");
+        modal2.style.display = "block";
+    }
+
+    span2.onclick = function() {
+        modal2.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    }
+};
+
+
+  // Main page "log in pop-up" functions
+  function visibleLogin() {
+    const isloginopen = document.getElementById('login_wrap').style.visibility;
+    console.log(isloginopen);
+    if (isloginopen === 'visible') {
+      document.getElementById('login_wrap').style.visibility = 'hidden';
+      document.getElementById('login_wrap').style.display = 'none';
+    } else {
+      document.getElementById('login_wrap').style.visibility = 'visible';
+      document.getElementById('login_wrap').style.display = 'block';
+    }
+  }
+
+  function hideLogin() {
+    document.getElementById('login_wrap').style.visibility = 'hidden';
+  }
+</script>
 </body>
 </html>
