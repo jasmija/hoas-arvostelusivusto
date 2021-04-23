@@ -155,10 +155,10 @@ const path = require('path');
 
 // Add database connection details to variable "connection"
 const connection = mysql.createConnection({
-  host: 'mysql.metropolia.fi',
-  user: 'timoholo',
-  password: 'A3sC8Qgp9MWiKOb7GPRV',
-  database: 'timoholo',
+  host: "mysql.metropolia.fi",
+  user: "jasmija",
+  password: "jassumetropoliasql",
+  database: "jasmija"
 });
 
 const app = express();
