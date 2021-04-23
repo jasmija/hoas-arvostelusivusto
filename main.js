@@ -99,11 +99,6 @@ window.onclick = function(event) {
     }
 };
 
-
-function rateApartment(){
-
-}
-
 function visibleLogin() {
     var isloginopen = document.getElementById('login_wrap').style.visibility;
     console.log(isloginopen);
