@@ -1,54 +1,3 @@
-//SERVER JS
-  let json; //json is global...
-
-  function makeQuery() {
-    const id = document.getElementById('searchid').value;
-    if (id.length === 0) { // fix this and support empty field
-    } else {
-      const xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-          json = JSON.parse(xmlhttp.responseText);
-          console.log(json);
-          //myFunction(resultArr);
-          //document.getElementById("info").innerHTML = xmlhttp.responseText;
-          if (json.length > 0) { // something found
-            //console.log(json.length + ", " + json.rows[0].Name);
-            showList(json);
-          } else {
-            document.getElementById(
-                'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
-          }
-        }
-      };
-      const searchedid = id;
-      console.log('Haettu id: ' + searchedid);
-      console.log('http://localhost:8084/api/results?id=' + searchedid);
-      xmlhttp.open('GET', 'http://localhost:8084/api/results?id=' + searchedid,
-          true);
-      xmlhttp.send();
-    }
-  }
-
-  function showList(json) {
-    console.log('showList');
-
-    const divElement = document.getElementById('rating');
-
-    let i;
-    let string;
-
-    //var inputvalue = document.getElementsByTagName("input").value;
-    //console.log("inputavalue " + inputvalue);
-    for (i in json) {
-      string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
-          ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
-          json[i].vapaasana;
-      divElement.innerHTML = string;
-      console.log(string);
-    }
-  }
-
 
 //*** BELOW ONLY CONNECTION TO DATABASE AND REST RELATED STUFF ***//
 
@@ -66,6 +15,10 @@ const connection = mysql.createConnection({
   password: "jassumetropoliasql",
   database: "jasmija"
 });
+
+var util = require('util');
+const res = require("express");
+const query = util.promisify(connection.query).bind(connection);
 
 const app = express();
 
@@ -133,4 +86,31 @@ app.get('/home', function(request, response) {
   } else {
     response.send('Kirjaudu sisään nähdäksesi tämän sivun.');
   }
+});
+
+var url = require('url');
+app.get("/api/results", function (req, res) {
+  console.log("Get values from database");
+  var q = url.parse(req.url, true).query;
+  var id = q.id;
+  var string;
+
+  var sql = "SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana"
+      + " FROM Arvostelut"
+      + " WHERE id= ?";
+
+  (async () => { // IIFE (Immediately Invoked Function Expression)
+    try {
+      const rows = await query(sql,[id]);
+      string = JSON.stringify(rows);
+      console.log(string);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
 });

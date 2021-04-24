@@ -225,18 +225,18 @@
         chat.appendChild(li);
     }
 
-function openChat() {
-    var ischatopen = document.getElementById('chatcontents').style.visibility;
-    console.log(ischatopen);
+    function openChat() {
+        var ischatopen = document.getElementById('chatcontents').style.visibility;
+        console.log(ischatopen);
 
-    if (ischatopen === "visible") {
-        document.getElementById('chatcontents').style.visibility = "hidden";
-        document.getElementById('chatcontents').style.display = "none";
-    } else {
-        document.getElementById('chatcontents').style.visibility = "visible";
-        document.getElementById('chatcontents').style.display = "block";
+        if (ischatopen === "visible") {
+            document.getElementById('chatcontents').style.visibility = "hidden";
+            document.getElementById('chatcontents').style.display = "none";
+        } else {
+            document.getElementById('chatcontents').style.visibility = "visible";
+            document.getElementById('chatcontents').style.display = "block";
+        }
     }
-}
 
 /*function findText() {
 const input = document.getElementById('search').value;
@@ -244,100 +244,151 @@ console.log(input);
 alert("String " + input + " found? " + window.find(input));
 }*/
 
-function searchApartment() {
-let input, uppercase, ul, li, h3, i, text;
+    function searchApartment() {
+        let input, uppercase, ul, li, h3, i, text;
 
-//Get search input field
-input = document.getElementById('search');
+        //Get search input field
+        input = document.getElementById('search');
 
-//Input value to uppercase
-uppercase = input.value.toUpperCase();
+        //Input value to uppercase
+        uppercase = input.value.toUpperCase();
 
-//List of apartments
-ul = document.getElementById('apartments');
-li = ul.getElementsByTagName('li');
-for (i = 0; i < li.length; i++) {
-h3 = li[i].getElementsByTagName('h3')[0];
-text = h3.innerText;
-if (text.toUpperCase().indexOf(uppercase) > -1) {
-li[i].style.display = '';
-} else {
-li[i].style.display = 'none';
-}
-}
-}
+        //List of apartments
+        ul = document.getElementById('apartments');
+        li = ul.getElementsByTagName('li');
+            for (i = 0; i < li.length; i++) {
+                h3 = li[i].getElementsByTagName('h3')[0];
+                text = h3.innerText;
+                if (text.toUpperCase().indexOf(uppercase) > -1) {
+                    li[i].style.display = '';
+                } else {
+                    li[i].style.display = 'none';
+                }
+            }
+        }
 
-window.onload = function(){
-//VIEW REVIEWS
-//Get the modal
-    var modal = document.getElementById("modal");
+    window.onload = function(){//VIEW REVIEWS
+        //Get the modal
+        var modal = document.getElementById("modal");
 
-//Get the button that opens the modal
-    var btn = document.getElementById("ratings");
+        //Get the button that opens the modal
+        var btn = document.getElementById("ratings");
 
-//Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+        //Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-//Open the modal, when the user clicks the image
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
+        //Open the modal, when the user clicks the image
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
 
-//Close the modal, when the user clicks on <span> (x)
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-//Close modal, when the user clicks anywhere outside of the modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
+        //Close the modal, when the user clicks on <span> (x)
+        span.onclick = function() {
             modal.style.display = "none";
         }
-    }
 
-//ADD REVIEW
-    var modal2 = document.getElementById("modal2");
-    console.log("after get modal");
+        //Close modal, when the user clicks anywhere outside of the modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
 
-    var ratebuttom = document.getElementById("kimpitie");
-    console.log("after get arvostele button");
+        //ADD REVIEW
+        var modal2 = document.getElementById("modal2");
+        console.log("after get modal");
 
-    var span2 = document.getElementsByClassName("close2")[0];
-    console.log("after get close");
+        var ratebuttom = document.getElementById("kimpitie");
+        console.log("after get arvostele button");
 
-    ratebuttom.onclick = function() {
-        console.log("open modal when user clicks arvostelebutton");
-        modal2.style.display = "block";
-    }
+        var span2 = document.getElementsByClassName("close2")[0];
+        console.log("after get close");
 
-    span2.onclick = function() {
-        modal2.style.display = "none";
-    }
+        ratebuttom.onclick = function() {
+            console.log("open modal when user clicks arvostelebutton");
+            modal2.style.display = "block";
+        }
 
-    window.onclick = function(event) {
-        if (event.target == modal2) {
+        span2.onclick = function() {
             modal2.style.display = "none";
         }
+
+        window.onclick = function(event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
+        }
+    };
+
+
+    // Main page "log in pop-up" functions
+    function visibleLogin() {
+        const isloginopen = document.getElementById('login_wrap').style.visibility;
+        console.log(isloginopen);
+        if (isloginopen === 'visible') {
+            document.getElementById('login_wrap').style.visibility = 'hidden';
+            document.getElementById('login_wrap').style.display = 'none';
+        } else {
+        document.getElementById('login_wrap').style.visibility = 'visible';
+        document.getElementById('login_wrap').style.display = 'block';
+        }
     }
-};
 
-
-  // Main page "log in pop-up" functions
-  function visibleLogin() {
-    const isloginopen = document.getElementById('login_wrap').style.visibility;
-    console.log(isloginopen);
-    if (isloginopen === 'visible') {
-      document.getElementById('login_wrap').style.visibility = 'hidden';
-      document.getElementById('login_wrap').style.display = 'none';
-    } else {
-      document.getElementById('login_wrap').style.visibility = 'visible';
-      document.getElementById('login_wrap').style.display = 'block';
+    function hideLogin() {
+        document.getElementById('login_wrap').style.visibility = 'hidden';
     }
-  }
 
-  function hideLogin() {
-    document.getElementById('login_wrap').style.visibility = 'hidden';
-  }
+    //SERVER JS
+    let json; //json is global...
+
+    function makeQuery() {
+        const id = document.getElementById('searchid').value;
+        if (id.length === 0) { // fix this and support empty field
+        } else {
+            const xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                    json = JSON.parse(xmlhttp.responseText);
+                    console.log(json);
+                    //myFunction(resultArr);
+                    //document.getElementById("info").innerHTML = xmlhttp.responseText;
+                    if (json.length > 0) { // something found
+                        //console.log(json.length + ", " + json.rows[0].Name);
+                        showList(json);
+                    } else {
+                        document.getElementById(
+                            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+                    }
+                }
+            };
+            const searchedid = id;
+            console.log('Haettu id: ' + searchedid);
+            console.log('http://localhost:3000/api/results?id=' + searchedid);
+            xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
+                true);
+            xmlhttp.send();
+        }
+    }
+
+    function showList(json) {
+        console.log('showList');
+
+        const divElement = document.getElementById('rating');
+
+        let i;
+        let string;
+
+        //var inputvalue = document.getElementsByTagName("input").value;
+        //console.log("inputavalue " + inputvalue);
+        for (i in json) {
+            string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
+                ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
+                json[i].vapaasana;
+            divElement.innerHTML = string;
+            console.log(string);
+        }
+    }
+
 </script>
 </body>
 </html>
