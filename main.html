@@ -21,7 +21,7 @@
     <form>
         Käyttäjätunnus: <input id="username" type="text" name="username">
         Salasana: <input id="password" type="password">
-        <button onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
+        <button class="openapartment" onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
     </form>
 </div>
 
@@ -30,7 +30,7 @@
         <!--When li element clicked modal opens-->
         <li>
             <figure>
-                <a onclick="rateApartment()" id="ratings"><img src="img/kimpitie.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="1" class="review"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
@@ -39,7 +39,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/berliininkatu.jpg"><img src="img/berliininkatu.jpg"></a>
+                <a  onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
                 <figcaption>
                     <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
                 </figcaption>
@@ -48,7 +48,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/hakaniemenranta.jpg"><img src="img/hakaniemenranta.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="3" class="review"><img src="img/hakaniemenranta.jpg"></a>
                 <figcaption>
                     <h3>Hakaniemenranta 12, Helsinki</h3>
                 </figcaption>
@@ -268,22 +268,36 @@ alert("String " + input + " found? " + window.find(input));
             }
         }
 
+        function getApartmentId(clicked_id){
+            return clicked_id;
+        }
+
     window.onload = function(){//VIEW REVIEWS
+
         //Get the modal
         var modal = document.getElementById("modal");
 
-        //Get the button that opens the modal
-        var btn = document.getElementById("ratings");
+        var apartments = document.getElementsByClassName('review');
+        //console.log("apartments list " + apartments);
 
-        //Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        for(var i = 0; i < apartments.length; i++) {
+                console.log("apartments lenght " + apartments.length);
+                var apartment = i;
+                console.log(apartments[i]);
+                console.log("monesko alkio klikattu " + apartment);
 
-        //Open the modal, when the user clicks the image
-        btn.onclick = function() {
-            modal.style.display = "block";
+                apartments[i].getApartmentId = function (i) {
+                    console.log("klikattu asunto " + i);
+                    //apartment = getApartmentId();
+                    //console.log("getapartmentid " + apartment);
+                    makeQuery(i);
+                    modal.style.display = "block";
+                }
+
         }
 
         //Close the modal, when the user clicks on <span> (x)
+        var span = document.getElementsByClassName("close")[0];
         span.onclick = function() {
             modal.style.display = "none";
         }
@@ -321,7 +335,6 @@ alert("String " + input + " found? " + window.find(input));
         }
     };
 
-
     // Main page "log in pop-up" functions
     function visibleLogin() {
         const isloginopen = document.getElementById('login_wrap').style.visibility;
@@ -342,10 +355,20 @@ alert("String " + input + " found? " + window.find(input));
     //SERVER JS
     let json; //json is global...
 
-    function makeQuery() {
-        const id = document.getElementById('searchid').value;
-        if (id.length === 0) { // fix this and support empty field
-        } else {
+    function makeQuery(apartment) {
+
+        /*document.getElementById('1').onclick = reply_click;
+        document.getElementById('2').onclick = reply_click;
+
+        function reply_click()
+        {
+            alert("Button clicked, id "+this.id+", text"+this.innerHTML);
+            return this.id;
+        }*/
+
+        const id = apartment;
+        console.log(id);
+
             const xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
@@ -368,7 +391,6 @@ alert("String " + input + " found? " + window.find(input));
             xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
                 true);
             xmlhttp.send();
-        }
     }
 
     function showList(json) {
