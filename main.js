@@ -39,6 +39,7 @@ app.use(bodyParser.json());
 
 // Define routes
 app.use('/', require('./routes/pages'));
+app.use('/auth', require('./routes/auth'));
 
 // Work in progress
 app.post('/auth', function(request, response) {
