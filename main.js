@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
   database: "jasmija"
 });
 
-var util = require('util');
+const util = require('util');
 const res = require("express");
 const query = util.promisify(connection.query).bind(connection);
 
@@ -29,11 +29,6 @@ app.listen(3000, () => console.log('Listening at port 3000'));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/img', express.static(path.join(__dirname, 'img')));
 
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true,
-}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -41,6 +36,8 @@ app.use(bodyParser.json());
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
+// ÄLÄ POISTA! Tutkin vielä tarviiks tätä. 26.4. 15:54
+/*
 // Work in progress
 app.post('/auth', function(request, response) {
   const username = request.body.username;
@@ -76,18 +73,19 @@ app.get('/home', function(request, response) {
     response.send('Kirjaudu sisään nähdäksesi tämän sivun.');
   }
 });
+*/
 
-var url = require('url');
+const url = require('url');
 //GET REVIEWS FROM DATABASE
 app.get("/api/results", function (req, res) {
   console.log("Get values from database");
-  var q = url.parse(req.url, true).query;
-  var id = q.id;
-  var string;
+  const q = url.parse(req.url, true).query;
+  const id = q.id;
+  let string;
 
-  var sql = "SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana"
-      + " FROM Arvostelut"
-      + " WHERE id= ?";
+  const sql = 'SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana'
+      + ' FROM Arvostelut'
+      + ' WHERE id= ?';
 
   (async () => { // IIFE (Immediately Invoked Function Expression)
     try {
@@ -99,14 +97,11 @@ app.get("/api/results", function (req, res) {
     catch (err) {
       console.log("Database error!"+ err);
     }
-    finally {
-      //conn.end();
-    }
   })()
 });
 
 // Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // for reading JSON
 
@@ -127,9 +122,9 @@ app.post("/api/insert", urlencodedParser, function (req, res) {
   let responseString = JSON.stringify(jsonObj)
   res.send("POST succesful: " + responseString);
 
-    var sql = "INSERT INTO Arvostelut (osoite, kunto, viihtyvyys, kokonaisarvosana, vapaasana) VALUES ( ?, ?, ?, ?, ?)";
+  const sql = 'INSERT INTO Arvostelut (osoite, kunto, viihtyvyys, kokonaisarvosana, vapaasana) VALUES ( ?, ?, ?, ?, ?)';
 
-    (async () => {
+  (async () => {
       try {
         const result = await query(sql, [jsonObj.osoite, jsonObj.kunto, jsonObj.viihtyvyys, jsonObj.kokonaisarvosana, jsonObj.vapaasana]);
 
