@@ -37,20 +37,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// Send static file "main.html" to client when browsing at "http://localhost:3000/"
-app.get('/', function(request, response) {
-  response.sendFile(path.join(__dirname + '/main.html'));
-});
-
-// Send static file "signup.html" to client when browsing at "http://localhost:3000/register"
-app.get('/register', (request, response) => {
-  response.sendFile(__dirname + '/signup.html');
-});
-
-// Send static file "login.html" to client when browsing at "http://localhost:3000/login"
-app.get('/login', (request, response) => {
-  response.sendFile(__dirname + '/login.html');
-});
+// Define routes
+app.use('/', require('./routes/pages'));
 
 // Work in progress
 app.post('/auth', function(request, response) {
