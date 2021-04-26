@@ -30,7 +30,7 @@
         <!--When li element clicked modal opens-->
         <li>
             <figure>
-                <a id="ratings"><img src="img/kimpitie.jpg"></a>
+                <a onclick="rateApartment()" id="ratings"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
@@ -204,7 +204,8 @@
             <br>
             <fieldset>
                 <legend>Vapaa sana</legend>
-                <input type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">
+                <textarea style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
+                <!--<input id="forminput" maxlength="1000" type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">-->
             </fieldset>
             <button>Lähetä</button>
         </form>

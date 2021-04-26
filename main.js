@@ -77,6 +77,7 @@ app.get('/home', function(request, response) {
 });
 
 var url = require('url');
+//GET REVIEWS FROM DATABASE
 app.get("/api/results", function (req, res) {
   console.log("Get values from database");
   var q = url.parse(req.url, true).query;
@@ -101,4 +102,43 @@ app.get("/api/results", function (req, res) {
       //conn.end();
     }
   })()
+});
+
+// Create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // for reading JSON
+
+//INSERT REVIEWS TO DATABASE
+app.post("/api/insert", urlencodedParser, function (req, res) {
+
+  //console.log("Request body: " + req.body);
+  //console.log("Request body length: " + req.body.getLength);
+
+  console.log("Inside post");
+  console.log("body: %j", req.body);
+
+  // get JSON-object from the http-body
+  let jsonObj = req.body;
+  console.log("Arvo: " + jsonObj.Name);
+
+  // make updates to the database
+  let responseString = JSON.stringify(jsonObj)
+  res.send("POST succesful: " + responseString);
+
+    var sql = "INSERT INTO Arvostelut (osoite, kunto, viihtyvyys, kokonaisarvosana, vapaasana) VALUES ( ?, ?, ?, ?, ?)";
+
+    (async () => {
+      try {
+        const result = await query(sql, [jsonObj.osoite, jsonObj.kunto, jsonObj.viihtyvyys, jsonObj.kokonaisarvosana, jsonObj.vapaasana]);
+
+        let insertedId = result.insertId;
+        console.log(result);
+        console.log("insertedid " + insertedId);
+
+      } catch (err) {
+        console.log("Insertion into tables was unsuccessful!" + err);
+        res.send("POST was not succesful " + err);
+      }
+    })()
 });
