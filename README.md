@@ -1,5 +1,7 @@
 ### 28.4.2021
 
+-npm install hbs
+
 -When opening file ".env", it might tell you "Plugins supporting .env files found" and propose to install said plugins.
 No need to install them, everything should work fine as is.
 
@@ -9,7 +11,7 @@ Always delete cookie after testing (could affect other testing later?)
 
 ### 27.4.2021
 
--npm install dotenv hbs
+-npm install dotenv
 
 ### 26.4.2021
 
