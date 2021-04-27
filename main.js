@@ -105,6 +105,31 @@ app.get("/api/results", function (req, res) {
   })()
 });
 
+//GET CHATS FROM DATABASE
+app.get("/chat", function (req, res) {
+  console.log("Get values from database");
+  var q = url.parse(req.url, true).query;
+  var string;
+
+  var sql = "SELECT chat.username, chat.header"
+      + " FROM chat";
+
+  (async () => { // IIFE (Immediately Invoked Function Expression)
+    try {
+      const rows = await query(sql);
+      string = JSON.stringify(rows);
+      console.log(string);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
+});
+
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(bodyParser.urlencoded({ extended: false }));

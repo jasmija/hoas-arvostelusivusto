@@ -5,6 +5,7 @@
     <link href="css/main.css" type="text/css" rel="stylesheet"/>
     <!--<script src="main.js"></script>-->
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -34,7 +35,7 @@
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
-                <button class="rate" id="kimpitie">Arvostele</button>
+                <button onclick="getApartmentId('1')" class="rate" >Arvostele</button>
             </figure>
         </li>
         <li>
@@ -43,7 +44,7 @@
                 <figcaption>
                     <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                <button onclick="getApartmentId('2')"class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -57,7 +58,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/siltakuja.jpg"><img src="img/siltakuja.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="4" class="review"><img src="img/siltakuja.jpg"></a>
                 <figcaption>
                     <h3>Siltakuja 2, Espoon keskus</h3>
                 </figcaption>
@@ -66,7 +67,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/vaskivuorentie.jpg"><img src="img/vaskivuorentie.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="5" class="review"><img src="img/vaskivuorentie.jpg"></a>
                 <figcaption>
                     <h3>Vaskivuorentie 22, Myyrmaki Vantaa</h3>
                 </figcaption>
@@ -75,7 +76,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/juusintie.jpg"><img src="img/juusintie.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="6" class="review"><img src="img/juusintie.jpg"></a>
                 <figcaption>
                     <h3>Juusintie 5, Kauniainen</h3>
                 </figcaption>
@@ -84,7 +85,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/kilonkallio.jpg"><img src="img/kilonkallio.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="7" class="review"><img src="img/kilonkallio.jpg"></a>
                 <figcaption>
                     <h3>Kilonkallio 10, Kilo Espoo</h3>
                 </figcaption>
@@ -93,7 +94,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/haukilahdenkuja.jpg"><img src="img/haukilahdenkuja.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="8" class="review"><img src="img/haukilahdenkuja.jpg"></a>
                 <figcaption>
                     <h3>Haukilahdenkuja 15, Hermanni-Sörnäinen Helsinki</h3>
                 </figcaption>
@@ -102,7 +103,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/leppäsuonkatu.jpg"><img src="img/leppäsuonkatu.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="9" class="review"><img src="img/leppäsuonkatu.jpg"></a>
                 <figcaption>
                     <h3>Leppäsuonkatu 7, Kamppi Helsinki</h3>
                 </figcaption>
@@ -111,7 +112,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/majurinkulma.jpg"><img src="img/majurinkulma.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="10" class="review"><img src="img/majurinkulma.jpg"></a>
                 <figcaption>
                     <h3>Majurinkulma 2, Leppävaara-Lintuvaara Espoo</h3>
                 </figcaption>
@@ -120,7 +121,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/servinkuja.jpg"><img src="img/servinkuja.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="11" class="review"><img src="img/servinkuja.jpg"></a>
                 <figcaption>
                     <h3>Servinkuja 6, Otaniemi teekkarikylä Espoo</h3>
                 </figcaption>
@@ -129,7 +130,7 @@
         </li>
         <li>
             <figure>
-                <a href="img/akanapolku.jpg"><img src="img/akanapolku.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="12" class="review"><img src="img/akanapolku.jpg"></a>
                 <figcaption>
                     <h3>Akanapolku 2, Jokiniemi-Tikkurila Vantaa</h3>
                 </figcaption>
@@ -162,15 +163,36 @@
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close">x</span>
-        <h2>Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
-        <p id="rating">Ja tähän kaikki muut tiedot ja arvostelut jne..</p>
+        <h2 id="address">Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
+        <p id="rating"></p>
+        <div id="review">
+            <h3>Kunto:</h3><p id="shape"></p>
+            <h3>Viihtyvyys:</h3>
+            <p id="comfort"></p>
+            <!--<span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>-->
+            <h3>Kokonaisarvosana:</h3><p id="grade"></p>
+            <h3>Vapaa sana:</h3><p id="free_word"></p>
+        </div>
+
+        <h2>Arvostelujen keskiarvot:</h2>
+        <div class="starcontainer">
+            <p>Kunto</p>
+            <p class="center" id="">3</p>
+            <img id="star" src="img/star.jpg">
+        </div>
     </div>
 </div>
 
 <div id="modal2" class="modal2">
     <div class="modal-content2">
         <span class="close2">x</span>
-        <h2>Arvostelu kohteeseen: "asunnon osoite"</h2>
+        <h2 style="display: inline-block">Arvostelu kohteeseen: </h2>
+        <h2 style="display: inline-block" id="apartmentaddress"></h2>
+        <h3 ></h3>
         <form>
             <fieldset>
                 <legend>Kunto</legend>
@@ -205,15 +227,12 @@
             <fieldset>
                 <legend>Vapaa sana</legend>
                 <textarea style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
-                <!--<input id="forminput" maxlength="1000" type="text" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta">-->
             </fieldset>
             <button>Lähetä</button>
         </form>
     </div>
 </div>
 
-<input id="searchid">
-<button onclick="makeQuery()">Hae id:tä</button>
 <script>
     function addNewChat() {
         const title = document.getElementById('chatTitle').value;
@@ -239,12 +258,6 @@
         }
     }
 
-/*function findText() {
-const input = document.getElementById('search').value;
-console.log(input);
-alert("String " + input + " found? " + window.find(input));
-}*/
-
     function searchApartment() {
         let input, uppercase, ul, li, h3, i, text;
 
@@ -269,16 +282,19 @@ alert("String " + input + " found? " + window.find(input));
         }
 
         function getApartmentId(clicked_id){
+            console.log("clicked id " + clicked_id);
             return clicked_id;
         }
 
-    window.onload = function(){//VIEW REVIEWS
+    window.onload = function(){
+
+        makeQueryForChat();
+
+        //VIEW REVIEWS
 
         //Get the modal
         var modal = document.getElementById("modal");
-
         var apartments = document.getElementsByClassName('review');
-        //console.log("apartments list " + apartments);
 
         for(var i = 0; i < apartments.length; i++) {
                 console.log("apartments lenght " + apartments.length);
@@ -290,7 +306,7 @@ alert("String " + input + " found? " + window.find(input));
                     console.log("klikattu asunto " + i);
                     //apartment = getApartmentId();
                     //console.log("getapartmentid " + apartment);
-                    makeQuery(i);
+                    makeQueryForShowReviews(i);
                     modal.style.display = "block";
                 }
 
@@ -313,13 +329,30 @@ alert("String " + input + " found? " + window.find(input));
         var modal2 = document.getElementById("modal2");
         console.log("after get modal");
 
-        var ratebuttom = document.getElementById("kimpitie");
+        var ratebuttons = document.getElementsByClassName("rate");
         console.log("after get arvostele button");
+
+        for(var a = 0; a < ratebuttons.length; a++) {
+            console.log("apartments lenght " + ratebuttons.length);
+            var ratebutton = a;
+            console.log(ratebuttons[a]);
+            console.log("monesko alkio klikattu " + ratebutton);
+
+            ratebuttons[a].getApartmentId = function (a) {
+                console.log("klikattu asunto " + a);
+                //apartment = getApartmentId();
+                //console.log("getapartmentid " + apartment);
+                makeQueryForAddNewReview(a);
+                modal2.style.display = "block";
+            }
+
+        }
 
         var span2 = document.getElementsByClassName("close2")[0];
         console.log("after get close");
 
-        ratebuttom.onclick = function() {
+        ratebuttons.onclick = function() {
+            getApartmentId();
             console.log("open modal when user clicks arvostelebutton");
             modal2.style.display = "block";
         }
@@ -355,16 +388,7 @@ alert("String " + input + " found? " + window.find(input));
     //SERVER JS
     let json; //json is global...
 
-    function makeQuery(apartment) {
-
-        /*document.getElementById('1').onclick = reply_click;
-        document.getElementById('2').onclick = reply_click;
-
-        function reply_click()
-        {
-            alert("Button clicked, id "+this.id+", text"+this.innerHTML);
-            return this.id;
-        }*/
+    function makeQueryForShowReviews(apartment) {
 
         const id = apartment;
         console.log(id);
@@ -398,20 +422,141 @@ alert("String " + input + " found? " + window.find(input));
 
         const divElement = document.getElementById('rating');
 
+        const address = document.getElementById("address");
+        let stringaddress;
+
+        const shape = document.getElementById("shape");
+        let stringshape;
+
+        const comfort = document.getElementById("comfort");
+        let stringcomfort;
+
+        const grade = document.getElementById("grade");
+        let stringrade;
+
+        const free_word = document.getElementById("free_word");
+        let string_free_word;
+
         let i;
         let string;
 
-        //var inputvalue = document.getElementsByTagName("input").value;
-        //console.log("inputavalue " + inputvalue);
         for (i in json) {
             string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
                 ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
                 json[i].vapaasana;
+
             divElement.innerHTML = string;
+
+            stringaddress = json[i].osoite;
+            address.innerHTML = stringaddress;
+
+            stringshape = json[i].kunto;
+            shape.innerHTML = stringshape;
+
+            stringcomfort = json[i].viihtyvyys;
+            comfort.innerHTML = stringcomfort;
+
+            stringrade = json[i].kokonaisarvosana;
+            grade.innerHTML = stringrade;
+
+            string_free_word = json[i].vapaasana;
+            free_word.innerHTML = string_free_word;
+
             console.log(string);
         }
     }
 
+    function makeQueryForChat() {
+
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                json = JSON.parse(xmlhttp.responseText);
+                console.log(json);
+                if (json.length > 0) { // something found
+                    //console.log(json.length + ", " + json.rows[0].Name);
+                    showList2(json);
+                } else {
+
+                }
+            }
+        };
+        console.log('http://localhost:3000/chat');
+        xmlhttp.open('GET', 'http://localhost:3000/chat', true);
+        xmlhttp.send();
+    }
+
+    function showList2(json) {
+        console.log('showList2');
+
+        let stringheader;
+
+        let i;
+        let string;
+
+        for (i in json) {
+            string = json[i].username + ', ' + json[i].header;
+
+            const chat = document.getElementById('newchat');
+            const newheader = document.createElement('li');
+            chat.appendChild(newheader);
+
+            stringheader = string;
+            newheader.innerHTML = stringheader;
+
+            console.log(string);
+        }
+    }
+
+    function makeQueryForAddNewReview(apartment) {
+
+        const id = apartment;
+        console.log(id);
+
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                json = JSON.parse(xmlhttp.responseText);
+                console.log(json);
+                //myFunction(resultArr);
+                //document.getElementById("info").innerHTML = xmlhttp.responseText;
+                if (json.length > 0) { // something found
+                    //console.log(json.length + ", " + json.rows[0].Name);
+                    showList3(json);
+                } else {
+                    document.getElementById(
+                        'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+                }
+            }
+        };
+        const searchedid = id;
+        console.log('Haettu id: ' + searchedid);
+        console.log('http://localhost:3000/api/results?id=' + searchedid);
+        xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
+            true);
+        xmlhttp.send();
+    }
+
+    function showList3(json) {
+        console.log('showList');
+
+        const addrress = document.getElementById('apartmentaddress');
+        let stringaddress;
+
+        let i;
+        let string;
+
+        for (i in json) {
+            string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
+                ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
+                json[i].vapaasana;
+
+            stringaddress = json[i].osoite;
+            addrress.innerHTML = stringaddress;
+
+            console.log(string);
+        }
+    }
 </script>
 </body>
 </html>

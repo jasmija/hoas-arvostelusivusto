@@ -196,6 +196,33 @@ button{
     cursor: pointer;
 }
 
+#review{
+    border-style: solid;
+    padding: 20px;
+}
+
+
+.starcontainer #star{
+    max-width: 5%;
+}
+
+.starcontainer{
+    position: relative;
+    text-align: left;
+    color: black;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 2.5%;
+    transform: translate(-50%, -50%);
+}
+
+/*.checked {
+    color: orange;
+}*/
+
 /*MODAL2*/
 /* The Modal (background) */
 .modal2 {
