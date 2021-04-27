@@ -1,22 +1,4 @@
 /*
-.container {
-    text-align: center;
-}
-
-label {
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-input {
-    margin-bottom: 20px;
-}
-
-#username:valid {
-    border: 1px solid green;
-}
-*/
-
 #username:valid {
     border: 1px solid green;
 }
@@ -62,3 +44,4 @@ input {
     color: #ffffff;
     margin-top: 10px;
 }
+*/
