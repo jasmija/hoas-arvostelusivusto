@@ -7,6 +7,9 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config({path: './'})
 
 // Add database connection details to variable "connection"
 const connection = mysql.createConnection({
@@ -28,6 +31,7 @@ app.listen(3000, () => console.log('Listening at port 3000'));
 // Needed for css and images to work
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/img', express.static(path.join(__dirname, 'img')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
