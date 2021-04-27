@@ -355,11 +355,11 @@ function showList3(json) {
   let string;
 
   for (i in json) {
-    string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
-        ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
-        json[i].vapaasana;
+    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
+        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
+        json[i].free_word;
 
-    stringaddress = json[i].osoite;
+    stringaddress = json[i].address;
     addrress.innerHTML = stringaddress;
 
     console.log(string);
