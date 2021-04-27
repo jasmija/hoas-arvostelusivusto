@@ -8,8 +8,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
-dotenv.config({path: './'})
+dotenv.config({path: './.env'})
 
 // Add database connection details to variable "connection"
 const connection = mysql.createConnection({
@@ -25,6 +26,13 @@ const query = util.promisify(connection.query).bind(connection);
 
 const app = express();
 
+/*
+app.set('view engine', 'html');
+app.engine('html', require('hbs').__express);
+*/
+
+app.set('view engine', 'hbs');
+
 // Listen to port 3000
 app.listen(3000, () => console.log('Listening at port 3000'));
 
@@ -35,6 +43,7 @@ app.use('/js', express.static(path.join(__dirname, 'js')));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Define routes
 app.use('/', require('./routes/pages'));

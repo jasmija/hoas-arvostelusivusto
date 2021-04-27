@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    <link href="css/signup&login.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Luo tunnus | HOAS-arvostelut</title>
 </head>
@@ -66,6 +66,11 @@
         <input type="password" name="password" id="password" placeholder="Salasana" onkeyup="check()" required>
         <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Salasana uudestaan"
                onkeyup="check()" required>
+
+        {{#if message}}
+        <h4 class="alert alert-danger mt-4">{{message}}</h4>
+        {{/if}}
+
         <input type="submit" value="Luo tunnus">
     </form>
 
@@ -90,24 +95,8 @@
       document.getElementById('passwordConfirm').removeAttribute('style');
     }
   };
-/* // Tällä otetaan vastaan serveriltä tuleva info ja käsitellään se?
-  function makeQuery() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        // Typical action to be performed when the document is ready:
-        document.getElementById("alert").innerHTML = xhttp.responseText;
-      }
-    };
-    xhttp.open("GET", "http://localhost:3000/auth/register", true);
-    xhttp.send();
-  }
-
-  function alert() {
-    alert('Jotain meni pieleen')
-  }
-*/
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>
