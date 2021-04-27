@@ -83,9 +83,24 @@ app.get("/api/results", function (req, res) {
   const id = q.id;
   let string;
 
-  const sql = 'SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana'
+  //UUSI
+  const sql = "SELECT apartments.address, reviews.id, reviews.shape, reviews.comfort, reviews.grade, reviews.free_word"
+      + " FROM apartments, reviews"
+      + " WHERE reviews.id = apartments.id"
+      + " and reviews.id= ?";
+
+  /*
+  var sql = "SELECT event_date.Date, event.Name, event.Type, Location.Location_name"
+      + " FROM event_date, event, location"
+      + " WHERE event_date.Event_id = event.Event_id and event.Location_Location_id = Location.Location_id"
+      + " and event_date.Date >= ? and event_date.Date <= ?"
+      + " GROUP BY Name"
+      + " ORDER BY event_date.Date";*/
+
+  //TOIMIVA
+  /*const sql = 'SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana'
       + ' FROM Arvostelut'
-      + ' WHERE id= ?';
+      + ' WHERE id= ?';*/
 
   (async () => { // IIFE (Immediately Invoked Function Expression)
     try {
@@ -95,7 +110,7 @@ app.get("/api/results", function (req, res) {
       res.send(string);
     }
     catch (err) {
-      console.log("Database error!"+ err);
+      console.log("Database error! In first get!!! "+ err);
     }
   })()
 });
