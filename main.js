@@ -102,7 +102,7 @@ app.get("/api/results", function (req, res) {
     try {
       const rows = await query(sql,[id]);
       string = JSON.stringify(rows);
-      console.log(string);
+      //console.log(string);
       res.send(string);
     }
     catch (err) {
@@ -124,7 +124,7 @@ app.get("/chat", function (req, res) {
     try {
       const rows = await query(sql);
       string = JSON.stringify(rows);
-      console.log(string);
+      //console.log(string);
       res.send(string);
     }
     catch (err) {

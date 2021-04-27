@@ -184,6 +184,50 @@ function makeQueryForShowReviews(apartment) {
 function showList(json) {
   console.log('showList');
 
+  /*const divElement = document.getElementById('rating');
+
+  const address = document.getElementById("address");
+  let stringaddress;
+
+  const shape = document.getElementById("shape");
+  let stringshape;
+
+  const comfort = document.getElementById("comfort");
+  let stringcomfort;
+
+  const grade = document.getElementById("grade");
+  let stringrade;
+
+  const free_word = document.getElementById("free_word");
+  let string_free_word;
+
+  let i;
+  let string;
+
+  for (i in json) {
+      string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
+          ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
+          json[i].vapaasana;
+
+      divElement.innerHTML = string;
+
+      stringaddress = json[i].osoite;
+      address.innerHTML = stringaddress;
+
+      stringshape = json[i].kunto;
+      shape.innerHTML = stringshape;
+
+      stringcomfort = json[i].viihtyvyys;
+      comfort.innerHTML = stringcomfort;
+
+      stringrade = json[i].kokonaisarvosana;
+      grade.innerHTML = stringrade;
+
+      string_free_word = json[i].vapaasana;
+      free_word.innerHTML = string_free_word;
+
+      console.log(string);
+  }*/
   const divElement = document.getElementById('rating');
 
   const address = document.getElementById("address");
@@ -205,25 +249,25 @@ function showList(json) {
   let string;
 
   for (i in json) {
-    string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
-        ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
-        json[i].vapaasana;
+    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
+        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
+        json[i].free_word;
 
     divElement.innerHTML = string;
 
-    stringaddress = json[i].osoite;
+    stringaddress = json[i].address;
     address.innerHTML = stringaddress;
 
-    stringshape = json[i].kunto;
+    stringshape = json[i].shape;
     shape.innerHTML = stringshape;
 
-    stringcomfort = json[i].viihtyvyys;
+    stringcomfort = json[i].comfort;
     comfort.innerHTML = stringcomfort;
 
-    stringrade = json[i].kokonaisarvosana;
+    stringrade = json[i].grade;
     grade.innerHTML = stringrade;
 
-    string_free_word = json[i].vapaasana;
+    string_free_word = json[i].free_word;
     free_word.innerHTML = string_free_word;
 
     console.log(string);
