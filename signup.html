@@ -90,6 +90,23 @@
       document.getElementById('passwordConfirm').removeAttribute('style');
     }
   };
+/* // Tällä otetaan vastaan serveriltä tuleva info ja käsitellään se?
+  function makeQuery() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        // Typical action to be performed when the document is ready:
+        document.getElementById("alert").innerHTML = xhttp.responseText;
+      }
+    };
+    xhttp.open("GET", "http://localhost:3000/auth/register", true);
+    xhttp.send();
+  }
+
+  function alert() {
+    alert('Jotain meni pieleen')
+  }
+*/
 </script>
 
 </body>

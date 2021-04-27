@@ -9,6 +9,39 @@ const connection = mysql.createConnection({
   database: 'jasmija',
 });
 
+exports.login = async (request, response) => {
+  try {
+    const {username, password} = request.body;
+
+    if (!username || !password) {
+      console.log('Username and/or password missing!');
+      return response.sendFile('login.html', {root: './'});
+    }
+    connection.query('SELECT * FROM accounts WHERE username = ?', [username],
+        async (error, results) => {
+          console.log(results);
+          if (!results ||
+              !(await bcrypt.compare(password, results[0].password)))
+            console.log('Username or password wrong!');
+          return response.sendFile('login.html', {root: './'});
+        })
+
+  }
+      /*
+      //KESKEN 27.4.2021
+    else
+      {
+        const id = results[0].id;
+        const token = jwt.sign({id}, process.env.JWT_SECRET)
+      }
+
+         */
+
+ catch (error) {
+    console.log(error);
+  }
+};
+
 exports.register = (request, response) => {
   console.log(request.body);
 
