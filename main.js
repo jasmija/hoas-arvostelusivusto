@@ -93,14 +93,6 @@ app.get("/api/results", function (req, res) {
       + " WHERE reviews.id = apartments.id"
       + " and reviews.id= ?";
 
-  /*
-  var sql = "SELECT event_date.Date, event.Name, event.Type, Location.Location_name"
-      + " FROM event_date, event, location"
-      + " WHERE event_date.Event_id = event.Event_id and event.Location_Location_id = Location.Location_id"
-      + " and event_date.Date >= ? and event_date.Date <= ?"
-      + " GROUP BY Name"
-      + " ORDER BY event_date.Date";*/
-
   //TOIMIVA
   /*const sql = 'SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana'
       + ' FROM Arvostelut'
