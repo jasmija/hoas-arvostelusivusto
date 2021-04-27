@@ -91,7 +91,7 @@ app.get('/home', function(request, response) {
 const url = require('url');
 //GET REVIEWS FROM DATABASE
 app.get("/api/results", function (req, res) {
-  console.log("Get values from database");
+  //console.log("Get values from database");
   const q = url.parse(req.url, true).query;
   const id = q.id;
   let string;
@@ -122,7 +122,7 @@ app.get("/api/results", function (req, res) {
 
 //GET CHATS FROM DATABASE
 app.get("/chat", function (req, res) {
-  console.log("Get values from database");
+  //console.log("Get values from database");
   var q = url.parse(req.url, true).query;
   var string;
 
