@@ -1,4 +1,7 @@
 ### 28.4.2021
+- npm install jquery
+
+### 28.4.2021
 
 -npm install hbs
 

@@ -61,10 +61,10 @@ window.onload = function(){
   var apartments = document.getElementsByClassName('review');
 
   for(var i = 0; i < apartments.length; i++) {
-    console.log("apartments lenght " + apartments.length);
-    var apartment = i;
-    console.log(apartments[i]);
-    console.log("monesko alkio klikattu " + apartment);
+    //console.log("apartments lenght " + apartments.length);
+    //var apartment = i;
+    //console.log(apartments[i]);
+    //console.log("monesko alkio klikattu " + apartment);
 
     apartments[i].getApartmentId = function (i) {
       console.log("klikattu asunto " + i);
@@ -73,16 +73,17 @@ window.onload = function(){
       makeQueryForShowReviews(i);
       modal.style.display = "block";
     }
-
   }
 
   //Close the modal, when the user clicks on <span> (x)
   var span = document.getElementsByClassName("close")[0];
   span.onclick = function() {
+    $('.del').remove();
     modal.style.display = "none";
   }
 
   //Close modal, when the user clicks anywhere outside of the modal
+  //Ei toimi mut en tiiä miks ???
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
@@ -91,33 +92,19 @@ window.onload = function(){
 
   //ADD REVIEW
   var modal2 = document.getElementById("modal2");
-  console.log("after get modal");
-
   var ratebuttons = document.getElementsByClassName("rate");
-  console.log("after get arvostele button");
 
   for(var a = 0; a < ratebuttons.length; a++) {
-    console.log("apartments lenght " + ratebuttons.length);
-    var ratebutton = a;
-    console.log(ratebuttons[a]);
-    console.log("monesko alkio klikattu " + ratebutton);
-
     ratebuttons[a].getApartmentId = function (a) {
       console.log("klikattu asunto " + a);
-      //apartment = getApartmentId();
-      //console.log("getapartmentid " + apartment);
       makeQueryForAddNewReview(a);
       modal2.style.display = "block";
     }
-
   }
 
   var span2 = document.getElementsByClassName("close2")[0];
-  console.log("after get close");
-
   ratebuttons.onclick = function() {
     getApartmentId();
-    console.log("open modal when user clicks arvostelebutton");
     modal2.style.display = "block";
   }
 
@@ -125,6 +112,7 @@ window.onload = function(){
     modal2.style.display = "none";
   }
 
+  //Tää toimii mut toinen samanlainen ei toimi??
   window.onclick = function(event) {
     if (event.target == modal2) {
       modal2.style.display = "none";
@@ -150,10 +138,9 @@ function hideLogin() {
 }
 
 //SERVER JS
-let json; //json is global...
+let json;
 
 function makeQueryForShowReviews(apartment) {
-
   const id = apartment;
   console.log(id);
 
@@ -162,11 +149,8 @@ function makeQueryForShowReviews(apartment) {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
-      //myFunction(resultArr);
-      //document.getElementById("info").innerHTML = xmlhttp.responseText;
       if (json.length > 0) { // something found
-        //console.log(json.length + ", " + json.rows[0].Name);
-        showList(json);
+        showReviewList(json);
       } else {
         document.getElementById(
             'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
@@ -181,96 +165,29 @@ function makeQueryForShowReviews(apartment) {
   xmlhttp.send();
 }
 
-function showList(json) {
-  console.log('showList');
+function showReviewList(json) {
+  console.log('showReviewList');
 
-  /*const divElement = document.getElementById('rating');
-
-  const address = document.getElementById("address");
-  let stringaddress;
-
-  const shape = document.getElementById("shape");
-  let stringshape;
-
-  const comfort = document.getElementById("comfort");
-  let stringcomfort;
-
-  const grade = document.getElementById("grade");
-  let stringrade;
-
-  const free_word = document.getElementById("free_word");
-  let string_free_word;
-
-  let i;
-  let string;
+  var i;
+  var reviewlist;
+  var listElement;
+  var string;
 
   for (i in json) {
-      string = json[i].id + ', ' + json[i].osoite + ', ' + json[i].kunto +
-          ', ' + json[i].viihtyvyys + ', ' + json[i].kokonaisarvosana + ', ' +
-          json[i].vapaasana;
+    const searchresult = document.getElementById('rating');
+    const divElement = document.getElementById('review');
 
-      divElement.innerHTML = string;
+    reviewlist = document.createElement("ul");
+    reviewlist.setAttribute("class", "del");
+    divElement.appendChild(reviewlist);
 
-      stringaddress = json[i].osoite;
-      address.innerHTML = stringaddress;
+    listElement = document.createElement("li");
+    listElement.setAttribute("class", "del");
 
-      stringshape = json[i].kunto;
-      shape.innerHTML = stringshape;
-
-      stringcomfort = json[i].viihtyvyys;
-      comfort.innerHTML = stringcomfort;
-
-      stringrade = json[i].kokonaisarvosana;
-      grade.innerHTML = stringrade;
-
-      string_free_word = json[i].vapaasana;
-      free_word.innerHTML = string_free_word;
-
-      console.log(string);
-  }*/
-  const divElement = document.getElementById('rating');
-
-  const address = document.getElementById("address");
-  let stringaddress;
-
-  const shape = document.getElementById("shape");
-  let stringshape;
-
-  const comfort = document.getElementById("comfort");
-  let stringcomfort;
-
-  const grade = document.getElementById("grade");
-  let stringrade;
-
-  const free_word = document.getElementById("free_word");
-  let string_free_word;
-
-  let i;
-  let string;
-
-  for (i in json) {
-    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
-        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
-        json[i].free_word;
-
-    divElement.innerHTML = string;
-
-    stringaddress = json[i].address;
-    address.innerHTML = stringaddress;
-
-    stringshape = json[i].shape;
-    shape.innerHTML = stringshape;
-
-    stringcomfort = json[i].comfort;
-    comfort.innerHTML = stringcomfort;
-
-    stringrade = json[i].grade;
-    grade.innerHTML = stringrade;
-
-    string_free_word = json[i].free_word;
-    free_word.innerHTML = string_free_word;
-
-    console.log(string);
+    string = json[i].address + ', ' + json[i].shape + ', ' + json[i].comfort + ', ' + json[i].grade + ', ' + json[i].free_word;
+    listElement.innerHTML = string;
+    searchresult.innerHTML = string;
+    reviewlist.appendChild(listElement);
   }
 }
 
@@ -282,10 +199,8 @@ function makeQueryForChat() {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
       if (json.length > 0) { // something found
-        //console.log(json.length + ", " + json.rows[0].Name);
-        showList2(json);
+        showChat(json);
       } else {
-
       }
     }
   };
@@ -294,25 +209,23 @@ function makeQueryForChat() {
   xmlhttp.send();
 }
 
-function showList2(json) {
-  console.log('showList2');
+function showChat(json) {
+  console.log('showChat');
 
   let stringheader;
-
   let i;
   let string;
 
   for (i in json) {
     string = json[i].username + ', ' + json[i].header;
+    console.log(string);
 
-    const chat = document.getElementById('newchat');
+    const chat = document.getElementById('chat');
     const newheader = document.createElement('li');
     chat.appendChild(newheader);
 
-    stringheader = string;
+    stringheader = json[i].header;
     newheader.innerHTML = stringheader;
-
-    console.log(string);
   }
 }
 
@@ -326,11 +239,8 @@ function makeQueryForAddNewReview(apartment) {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
-      //myFunction(resultArr);
-      //document.getElementById("info").innerHTML = xmlhttp.responseText;
       if (json.length > 0) { // something found
-        //console.log(json.length + ", " + json.rows[0].Name);
-        showList3(json);
+        showAddReview(json);
       } else {
         document.getElementById(
             'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
@@ -345,8 +255,8 @@ function makeQueryForAddNewReview(apartment) {
   xmlhttp.send();
 }
 
-function showList3(json) {
-  console.log('showList');
+function showAddReview(json) {
+  console.log('showAddReview');
 
   const addrress = document.getElementById('apartmentaddress');
   let stringaddress;
