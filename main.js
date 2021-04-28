@@ -146,41 +146,39 @@ app.get("/chat", function (req, res) {
 });
 
 // Create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({extended: false});
+const urlencodedParser = bodyParser.urlencoded({extended: true});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // for reading JSON
 
 //INSERT REVIEWS TO DATABASE
-app.post("/api/insert", urlencodedParser, function (req, res) {
+app.post("/action", urlencodedParser, function (req, res) {
 
-  //console.log("Request body: " + req.body);
-  //console.log("Request body length: " + req.body.getLength);
+  console.log("INSIDE APP.POST!!!!!");
 
-  console.log("Inside post");
-  console.log("body: %j", req.body);
-
-  // get JSON-object from the http-body
   let jsonObj = req.body;
-  console.log("Arvo: " + jsonObj.Name);
+  console.log("Request body: " + req.body);
+  console.log("Id: " + jsonObj.id);
+  console.log("Shape: " + jsonObj.shape);
 
-  // make updates to the database
-  let responseString = JSON.stringify(jsonObj)
+  let responseString = JSON.stringify(jsonObj);
+  console.log("jsonObj " + responseString);
   res.send("POST succesful: " + responseString);
 
-  const sql = 'INSERT INTO Arvostelut (osoite, kunto, viihtyvyys, kokonaisarvosana, vapaasana) VALUES ( ?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO reviews (id, shape, comfort, grade, free_word) VALUES ( ?, ?, ?, ?, ?)';
 
   (async () => {
       try {
-        const result = await query(sql, [jsonObj.osoite, jsonObj.kunto, jsonObj.viihtyvyys, jsonObj.kokonaisarvosana, jsonObj.vapaasana]);
-
+        console.log("inside async");
+        const result = await query(sql, [jsonObj.id, jsonObj.shape, jsonObj.comfort, jsonObj.grade, jsonObj.free_word]);
+        console.log("result id " + result[jsonObj].id);
         let insertedId = result.insertId;
-        console.log(result);
+        console.log("result is " + result);
         console.log("insertedid " + insertedId);
+        res.send("POST succesful: " + req.body);
 
       } catch (err) {
         console.log("Insertion into tables was unsuccessful!" + err);
-        res.send("POST was not succesful " + err);
+        //res.send("POST was not succesful " + err);
       }
     })()
 });
-

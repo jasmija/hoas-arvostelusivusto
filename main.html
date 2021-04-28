@@ -196,44 +196,46 @@
         <span class="close2">x</span>
         <h2 style="display: inline-block">Arvostelu kohteeseen: </h2>
         <h2 style="display: inline-block" id="apartmentaddress"></h2>
-        <h3 ></h3>
+        <h3></h3>
         <form>
             <fieldset>
                 <legend>Kunto</legend>
-                <select>
-                    <option value="item1">Kiitettävä</option>
-                    <option value="item2">Hyvä</option>
-                    <option value="item3">Tyydyttävä</option>
-                    <option value="item4">Välttävä</option>
+                <select id="shape">
+                    <option value="Kiitettävä">Kiitettävä</option>
+                    <option value="Hyvä">Hyvä</option>
+                    <option value="Tyydyttävä">Tyydyttävä</option>
+                    <option value="Välttävä">Välttävä</option>
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Viihtyvyys</legend>
-                <select>
-                    <option value="item1">5</option>
-                    <option value="item2">4</option>
-                    <option value="item3">3</option>
-                    <option value="item4">2</option>
-                    <option value="item4">1</option>
+                <select id="comfort">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Kokonaisarvosana</legend>
-                <select>
-                    <option value="item1">5</option>
-                    <option value="item2">4</option>
-                    <option value="item3">3</option>
-                    <option value="item4">2</option>
-                    <option value="item4">1</option>
+                <select id="grade">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value=3>3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
                 </select>
             </fieldset>
             <br>
             <fieldset>
-                <legend>Vapaa sana</legend>
-                <textarea style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
+                <legend >Vapaa sana</legend>
+                <textarea id="free_word" style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
             </fieldset>
-            <button>Lähetä</button>
+            <input type="button" onclick="makeQueryForSendForm(1)" value="Lähetä">
         </form>
+        <div id="test"></div>
+        <div id="test2"></div>
     </div>
 </div>
 

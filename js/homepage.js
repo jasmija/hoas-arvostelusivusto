@@ -176,6 +176,7 @@ function showReviewList(json) {
   for (i in json) {
     const searchresult = document.getElementById('rating');
     const divElement = document.getElementById('review');
+    const header = document.getElementById('address');
 
     reviewlist = document.createElement("ul");
     reviewlist.setAttribute("class", "del");
@@ -187,6 +188,7 @@ function showReviewList(json) {
     string = json[i].address + ', ' + json[i].shape + ', ' + json[i].comfort + ', ' + json[i].grade + ', ' + json[i].free_word;
     listElement.innerHTML = string;
     searchresult.innerHTML = string;
+    header.innerHTML = json[i].address;
     reviewlist.appendChild(listElement);
   }
 }
@@ -235,7 +237,7 @@ function makeQueryForAddNewReview(apartment) {
   console.log(id);
 
   const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
@@ -253,25 +255,69 @@ function makeQueryForAddNewReview(apartment) {
   xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
       true);
   xmlhttp.send();
-}
 
-function showAddReview(json) {
-  console.log('showAddReview');
 
-  const addrress = document.getElementById('apartmentaddress');
-  let stringaddress;
+  function showAddReview(json) {
+    console.log('showAddReview');
 
-  let i;
-  let string;
+    const addrress = document.getElementById('apartmentaddress');
+    let stringaddress;
 
-  for (i in json) {
-    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
-        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
-        json[i].free_word;
+    let i;
+    let string;
 
-    stringaddress = json[i].address;
-    addrress.innerHTML = stringaddress;
+    for (i in json) {
+      string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
+          ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
+          json[i].free_word;
 
-    console.log(string);
+      stringaddress = json[i].address;
+      addrress.innerHTML = stringaddress;
+
+      console.log(string);
+    }
   }
 }
+
+  function makeQueryForSendForm(apartment) {
+
+  console.log(apartment);
+    const id = apartment;
+    console.log(id);
+
+    // make a JSON string and send it to a server
+    var shape = document.getElementById("shape").value;
+    console.log(shape);
+    var comfort = document.getElementById("comfort").value;
+    console.log(comfort);
+    var grade = document.getElementById("grade").value;
+    console.log(grade);
+    var free_word = document.getElementById("free_word").value;
+    console.log(free_word);
+
+    var newReview = '{"id": "'+id+'", "shape": "'+shape+'", "comfort": "'+comfort+'", "grade": "'+grade +'", "free_word": "'+
+        free_word+'"}'
+
+    document.getElementById("test2").innerHTML = newReview;
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+        document.getElementById("test").innerHTML = xmlhttp.responseText;
+      }
+      /*if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        json = JSON.parse(xmlhttp.responseText);
+        console.log("Json " + json);
+        if (json.length > 0) { // something found
+          document.getElementById("test").innerHTML = json;
+        } else {
+        }
+      }*/
+    };
+    console.log('http://localhost:3000/action');
+    xmlhttp.open('POST', 'http://localhost:3000/action', true);
+    xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.send(newReview);
+}
+
