@@ -214,7 +214,67 @@ function showReviewList(json) {
     p3.innerHTML = json[i].grade;
     p4.innerHTML = json[i].free_word;
   }
+
+  countAverage(json);
 }
+
+function countAverage(json) {
+
+  var sumcomfort = 0;
+  var sumgrade = 0;
+  var sumshape = 0;
+
+  for( var i = 0; i < json.length; i++ ) {
+    //console.log("Viihtyvyys " + json[i].comfort);
+    sumcomfort = sumcomfort + json[i].comfort;
+    sumgrade = sumgrade + json[i].grade;
+
+    if (json[i].shape === "välttävä") {
+      json[i].shape = 1;
+      console.log(json[i].shape);
+    }else if (json[i].shape === "Tyydyttävä"){
+      json[i].shape  = 2;
+      console.log(json[i].shape);
+    }else if (json[i].shape === "Hyvä"){
+      json[i].shape = 3;
+      console.log(json[i].shape);
+    }else if (json[i].shape === "Kiitettävä"){
+      json[i].shape = 4;
+      console.log(json[i].shape);
+    }
+
+    sumshape = sumshape +  json[i].shape;
+    console.log("Summa kunnosta " + sumshape);
+    //console.log("Summa " + sumcomfort);
+  }
+
+  //console.log(sumcomfort);
+  //console.log(json.length);
+  const averageshape = sumshape / json.length;
+  console.log("Keskiarvo kunto " + averageshape);
+
+  const averagecomfort = sumcomfort / json.length;
+  console.log("Keskiarvo viihtyvyys " + averagecomfort);
+
+  const averagegrade = sumgrade / json.length;
+  console.log("Keskiarvo kokonaisarvosana " + averagegrade);
+
+  document.getElementById("averageshape").innerHTML = averageshape.toString();
+  document.getElementById("averagecomfort").innerHTML = averagecomfort.toString();
+  document.getElementById("averagegrade").innerHTML = averagegrade.toString();
+
+  /*for (i in json) {
+    const shape = json[i].comfort;
+    console.log("Viihtyvyys " + json[i].comfort);
+    sum += shape;
+    console.log("Summa " + sum);
+  }*/
+
+  /*const averagecomfort = sum / i;
+  console.log("Keskiarvo viihtyvyys " + averagecomfort);*/
+}
+
+
 
 function makeQueryForChat() {
 

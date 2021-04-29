@@ -170,15 +170,20 @@ button{
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
 }
 
 /* Modal Content */
 .modal-content {
+    height: 80%;
+    overflow-y: auto;
     background-color: #fefefe;
-    margin: auto;
+    /*margin: auto;*/
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    display: inline-block;
+    margin-left: 10%;
 }
 
 /* The Close Button */
@@ -203,11 +208,15 @@ button{
 }
 
 
-.starcontainer #star{
-    max-width: 5%;
+.starcontainer .star{
+    max-width: 25%;
 }
 
 .starcontainer{
+    float: left;
+    width: 30%;
+   margin: 0;
+    padding: 0;
     position: relative;
     text-align: left;
     color: black;
@@ -215,8 +224,8 @@ button{
 
 .center {
     position: absolute;
-    top: 50%;
-    left: 2.5%;
+    top: 57%;
+    left: 12%;
     transform: translate(-50%, -50%);
 }
 
