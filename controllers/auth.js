@@ -115,7 +115,7 @@ exports.register = (request, response) => {
               } else {
                 console.log('User "' + username + '" created!');
                 return response.render('../signup', {
-                  message: 'Käyttäjä luotiin onnistuneesti!'
+                  message2: 'Käyttäjä luotiin onnistuneesti!'
                 })
                 // Old code. If we decide to use handlebars for the rest of the project, this can be deleted.
                 //return response.sendFile('signup.hbs', {root: './'});
