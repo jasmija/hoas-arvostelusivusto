@@ -169,27 +169,50 @@ function showReviewList(json) {
   console.log('showReviewList');
 
   var i;
-  var reviewlist;
-  var listElement;
   var string;
 
   for (i in json) {
     const searchresult = document.getElementById('rating');
-    const divElement = document.getElementById('review');
     const header = document.getElementById('address');
 
-    reviewlist = document.createElement("ul");
-    reviewlist.setAttribute("class", "del");
-    divElement.appendChild(reviewlist);
+    const container = document.getElementById("container");
+    const div = document.createElement("div");
+    div.setAttribute("id","review");
+    div.setAttribute("class", "del");
+    container.appendChild(div);
 
-    listElement = document.createElement("li");
-    listElement.setAttribute("class", "del");
+    const h = document.createElement("h3");
+    h.innerHTML = "Kunto";
+    div.appendChild(h);
+    const p = document.createElement("p");
+    div.appendChild(p);
+
+    const h2 = document.createElement("h3");
+    h2.innerHTML = "Viihtyvyys";
+    div.appendChild(h2);
+    const p2 = document.createElement("p");
+    div.appendChild(p2);
+
+    const h3 = document.createElement("h3");
+    h3.innerHTML = "Kokonaisarvosana";
+    div.appendChild(h3);
+    const p3 = document.createElement("p");
+    div.appendChild(p3);
+
+    const h4 = document.createElement("h3");
+    h4.innerHTML = "Vapaa sana";
+    div.appendChild(h4);
+    const p4 = document.createElement("p");
+    div.appendChild(p4);
 
     string = json[i].address + ', ' + json[i].shape + ', ' + json[i].comfort + ', ' + json[i].grade + ', ' + json[i].free_word;
-    listElement.innerHTML = string;
+
     searchresult.innerHTML = string;
     header.innerHTML = json[i].address;
-    reviewlist.appendChild(listElement);
+    p.innerHTML = json[i].shape;
+    p2.innerHTML = json[i].comfort;
+    p3.innerHTML = json[i].grade;
+    p4.innerHTML = json[i].free_word;
   }
 }
 
