@@ -12,8 +12,13 @@
 
 <ul id="menu">
     <!--onclick="visibleLogin()"-->
-    <li><a onclick="visibleLogin()" class="active" href="/login">Kirjaudu</a></li>
-    <li><a href="/register">Rekisteröidy</a></li>
+    {{#if user}}
+        <li><a href="/auth/logout">Kirjaudu ulos</a></li>
+        <li><p>Kirjautunut käyttäjällä: {{ user.username }}</p></li>
+    {{else}}
+        <li><a onclick="visibleLogin()" class="active" href="/login">Kirjaudu</a></li>
+        <li><a href="/register">Rekisteröidy</a></li>
+    {{/if}}
     <h1>HOAS-arvostelut</h1>
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
@@ -36,16 +41,16 @@
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
-                <button onclick="getApartmentId('1')" class="rate" >Arvostele</button>
+                <button onclick="getApartmentId('1')" class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
             <figure>
-                <a  onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
                 <figcaption>
                     <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
                 </figcaption>
-                <button onclick="getApartmentId('2')"class="rate">Arvostele</button>
+                <button onclick="getApartmentId('2')" class="rate">Arvostele</button>
             </figure>
         </li>
         <li>
@@ -143,7 +148,7 @@
 
 <div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input  id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+    <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
     <button onclick="addNewChat()">Lähetä</button>
     <ul onclick="openChat()" id="chat"></ul>
 </div>
@@ -231,8 +236,9 @@
             </fieldset>
             <br>
             <fieldset>
-                <legend >Vapaa sana</legend>
-                <textarea id="free_word" style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
+                <legend>Vapaa sana</legend>
+                <textarea id="free_word" style="width: 60%"
+                          placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10"></textarea>
             </fieldset>
             <input type="button" onclick="makeQueryForSendForm(1)" value="Lähetä">
         </form>

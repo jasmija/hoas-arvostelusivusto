@@ -26,11 +26,6 @@ const query = util.promisify(connection.query).bind(connection);
 
 const app = express();
 
-/*
-app.set('view engine', 'html');
-app.engine('html', require('hbs').__express);
-*/
-
 app.set('view engine', 'hbs');
 
 // Listen to port 3000
@@ -81,7 +76,7 @@ app.post('/auth', function(request, response) {
 
 app.get('/home', function(request, response) {
   if (request.session.loggedin) {
-    response.sendFile(__dirname + '/main.html');
+    response.sendFile(__dirname + '/main.hbs');
   } else {
     response.send('Kirjaudu sisään nähdäksesi tämän sivun.');
   }

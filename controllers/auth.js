@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { promisify } = require('util');
 
 const connection = mysql.createConnection({
   host: 'mysql.metropolia.fi',
@@ -67,6 +68,8 @@ exports.login = async (request, response) => {
   }
 };
 
+
+
 // Code for signup.hbs
 exports.register = (request, response) => {
   console.log(request.body);
@@ -121,3 +124,39 @@ exports.register = (request, response) => {
       });
 };
 
+exports.isLoggedIn = async (request, response, next) => {
+  console.log(request.cookies);
+  if (request.cookies.jwt) {
+    try {
+      // Verify token
+      const decoded = await promisify(jwt.verify)(request.cookies.jwt,
+          process.env.JWT_SECRET);
+
+      console.log(decoded);
+
+      // Check if user still exists
+      connection.query('SELECT * FROM accounts WHERE id = ?', [decoded.id], (error, result) => {
+        console.log(result);
+
+        if(!result) {
+          return next();
+        }
+        request.user = result[0];
+        return next();
+      })
+    } catch (error) {
+      console.log(error);
+      return next();
+    }
+  } else {
+    next();
+  }
+}
+
+exports.logout = async (request, response) => {
+  response.cookie('jwt', 'logout', {
+    expires: new Date(Date.now() + 2 * 1000),
+    httpOnly: true
+  });
+  response.status(200).redirect('/');
+}
