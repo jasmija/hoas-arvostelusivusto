@@ -172,8 +172,10 @@
 
 <div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-    <button onclick="addNewChat()">Lähetä</button>
+    {{#if user}}
+        <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+        <button onclick="addNewChat()">Lähetä</button>
+    {{/if}}
     <ul onclick="openChat()" id="chat"></ul>
 </div>
 
