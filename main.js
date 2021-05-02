@@ -14,10 +14,10 @@ dotenv.config({path: './.env'})
 
 // Add database connection details to variable "connection"
 const connection = mysql.createConnection({
-  host: "mysql.metropolia.fi",
-  user: "jasmija",
-  password: "jassumetropoliasql",
-  database: "jasmija"
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE
 });
 
 const util = require('util');

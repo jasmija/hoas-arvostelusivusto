@@ -22,15 +22,6 @@
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
 
-
-<div id="login_wrap">
-    <form>
-        Käyttäjätunnus: <input id="username" type="text" name="username">
-        Salasana: <input id="password" type="password">
-        <button class="openapartment" onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
-    </form>
-</div>
-
 <main>
     <ul id="apartments">
         <!--When li element clicked modal opens-->
@@ -49,7 +40,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
                 <figcaption>
-                    <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
+                    <h3>Berliininkatu 5, Helsinki</h3>
                 </figcaption>
                 {{#if user}}
                     <button onclick="getApartmentId('2')" class="rate">Arvostele</button>
@@ -71,7 +62,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="4" class="review"><img src="img/siltakuja.jpg"></a>
                 <figcaption>
-                    <h3>Siltakuja 2, Espoon keskus</h3>
+                    <h3>Siltakuja 2, Espoo</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -82,7 +73,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="5" class="review"><img src="img/vaskivuorentie.jpg"></a>
                 <figcaption>
-                    <h3>Vaskivuorentie 22, Myyrmaki Vantaa</h3>
+                    <h3>Vaskivuorentie 22, Vantaa</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -104,7 +95,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="7" class="review"><img src="img/kilonkallio.jpg"></a>
                 <figcaption>
-                    <h3>Kilonkallio 10, Kilo Espoo</h3>
+                    <h3>Kilonkallio 10, Espoo</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -115,7 +106,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="8" class="review"><img src="img/haukilahdenkuja.jpg"></a>
                 <figcaption>
-                    <h3>Haukilahdenkuja 15, Hermanni-Sörnäinen Helsinki</h3>
+                    <h3>Haukilahdenkuja 15, Helsinki</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -126,7 +117,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="9" class="review"><img src="img/leppäsuonkatu.jpg"></a>
                 <figcaption>
-                    <h3>Leppäsuonkatu 7, Kamppi Helsinki</h3>
+                    <h3>Leppäsuonkatu 7, Helsinki</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -137,7 +128,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="10" class="review"><img src="img/majurinkulma.jpg"></a>
                 <figcaption>
-                    <h3>Majurinkulma 2, Leppävaara-Lintuvaara Espoo</h3>
+                    <h3>Majurinkulma 2, Espoo</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -148,7 +139,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="11" class="review"><img src="img/servinkuja.jpg"></a>
                 <figcaption>
-                    <h3>Servinkuja 6, Otaniemi teekkarikylä Espoo</h3>
+                    <h3>Servinkuja 6, Espoo</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
@@ -159,7 +150,7 @@
             <figure>
                 <a onclick="getApartmentId(this.id)" id="12" class="review"><img src="img/akanapolku.jpg"></a>
                 <figcaption>
-                    <h3>Akanapolku 2, Jokiniemi-Tikkurila Vantaa</h3>
+                    <h3>Akanapolku 2, Vantaa</h3>
                 </figcaption>
                 {{#if user}}
                     <button class="rate">Arvostele</button>
