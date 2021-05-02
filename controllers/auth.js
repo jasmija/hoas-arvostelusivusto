@@ -27,7 +27,6 @@ exports.login = async (request, response) => {
     }
     connection.query('SELECT * FROM accounts WHERE username = ?', [username],
         async (error, results) => {
-          console.log(JSON.stringify(results));
           if(results.length < 1) {
             return response.status(401).render('../login', {
               message: 'Käyttäjänimi tai salasana väärin!',
@@ -43,9 +42,6 @@ exports.login = async (request, response) => {
             const token = jwt.sign({id}, process.env.JWT_SECRET, {
               expiresIn: process.env.JWT_EXPIRES_IN
             })
-
-            console.log('The token is: ' + token)
-
             const cookieOptions = {
               expires: new Date(
                   Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
@@ -72,8 +68,6 @@ exports.login = async (request, response) => {
 
 // Code for signup.hbs
 exports.register = (request, response) => {
-  console.log(request.body);
-
   let {username, password, passwordConfirm} = request.body;
 
   // Check if database already has username or check if password confirmation doesn't match.
@@ -104,7 +98,6 @@ exports.register = (request, response) => {
 
         // Hash user password with 8 cycles.
         let hashedPassword = await bcrypt.hash(password, 8);
-        console.log('Hashed password: ' + hashedPassword);
 
         // If checks are ok, add user to database.
         connection.query('INSERT INTO accounts SET ?',
@@ -125,19 +118,13 @@ exports.register = (request, response) => {
 };
 
 exports.isLoggedIn = async (request, response, next) => {
-  console.log(request.cookies);
   if (request.cookies.jwt) {
     try {
       // Verify token
       const decoded = await promisify(jwt.verify)(request.cookies.jwt,
           process.env.JWT_SECRET);
-
-      console.log(decoded);
-
       // Check if user still exists
       connection.query('SELECT * FROM accounts WHERE id = ?', [decoded.id], (error, result) => {
-        console.log(result);
-
         if(!result) {
           return next();
         }
@@ -154,7 +141,7 @@ exports.isLoggedIn = async (request, response, next) => {
 }
 
 exports.logout = async (request, response) => {
-  response.cookie('jwt', 'logout', {
+  response.cookie('jwt', '', {
     expires: new Date(Date.now() + 2 * 1000),
     httpOnly: true
   });

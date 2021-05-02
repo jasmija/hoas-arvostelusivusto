@@ -44,45 +44,6 @@ app.use(cookieParser());
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
-// ÄLÄ POISTA! Tutkin vielä tarviiks tätä. 26.4. 15:54
-/*
-// Work in progress
-app.post('/auth', function(request, response) {
-  const username = request.body.username;
-  const password = request.body.password;
-  // If both fields contain something, do if statement where database is checked for the values.
-  if (username && password) {
-    connection.query(
-        'SELECT * FROM accounts WHERE username = ? AND password = ?',
-        [username, password], function(error, results, fields) {
-          if (results.length > 0) {
-            request.session.loggedin = true;
-            request.session.username = username;
-            response.redirect('/home');
-          } else {
-            response.send('Salasana tai käyttäjätunnus väärin!');
-          }
-          response.end();
-        });
-    // If one field is empty, or both, send the following message.
-  } else {
-    response.send(
-        'Käyttäjätunnus tai salasana puuttuu kirjautumiskentästä. Ehkä molemmat? Tarkasta. <br>' +
-        ' (Normaalioloissa tavallisen käyttäjän ei kuuluisi nähdä tätä sivua. Kirjautumiskenttien pitäisi tarkastaa että molemmissa on' +
-        ' edes jotain kirjoitettuna).');
-    response.end();
-  }
-});
-
-app.get('/home', function(request, response) {
-  if (request.session.loggedin) {
-    response.sendFile(__dirname + '/main.hbs');
-  } else {
-    response.send('Kirjaudu sisään nähdäksesi tämän sivun.');
-  }
-});
-*/
-
 const url = require('url');
 //GET REVIEWS FROM DATABASE
 app.get("/api/results", function (req, res) {

@@ -11,12 +11,11 @@
 <body>
 
 <ul id="menu">
-    <!--onclick="visibleLogin()"-->
     {{#if user}}
         <li><a href="/auth/logout">Kirjaudu ulos</a></li>
         <li><p>Kirjautunut käyttäjänä: {{ user.username }}</p></li>
     {{else}}
-        <li><a onclick="visibleLogin()" class="active" href="/login">Kirjaudu</a></li>
+        <li><a class="active" href="/login">Kirjaudu</a></li>
         <li><a href="/register">Rekisteröidy</a></li>
     {{/if}}
     <h1>HOAS-arvostelut</h1>
@@ -187,8 +186,8 @@
 </div>
 
 <div class="footer">
-    <p>Kaikki kuvat otettu HOAS:in sivuilta:</p>
-    <a href="https://www.hoas.fi/">https://www.hoas.fi/</a>
+    <p>Kuvat asunnoista kuuluvat Helsingin seudun opiskelija-asuntosäätiölle.</p>
+    <a href="https://www.hoas.fi/">www.hoas.fi</a>
 </div>
 
 <!-- Modal -->
