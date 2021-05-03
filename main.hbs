@@ -175,8 +175,10 @@
     <div id="chatcontents">
         <h2>Tähän klikatun keskustelun otsikko tietokannasta</h2>
         <p>Tähän listana vastauksia kysymyksiin</p>
-        <input type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
-        <button>Lähetä vastaus</button>
+        <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
+        <button onclick="makeQueryForSendAnswer()" >Lähetä vastaus</button>
+        <input id="chatid">
+        <div id="testanswer"></div>
     </div>
 </aside>
 
@@ -190,7 +192,7 @@
 
 <!-- Modal -->
 <div id="modal" class="modal">
-    <div class="modal-content">
+    <div id="modal-content">
         <span class="close">x</span>
         <h2 id="address">Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
         <p id="rating"></p>

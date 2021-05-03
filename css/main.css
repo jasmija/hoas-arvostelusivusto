@@ -155,7 +155,7 @@ button{
 }
 
 /* Modal Content */
-.modal-content {
+#modal-content {
     height: 80%;
     overflow-y: auto;
     background-color: #fefefe;
