@@ -10,7 +10,7 @@ function addNewChat() {
 }
 
 function openChat() {
-  var ischatopen = document.getElementById('chatcontents').style.visibility;
+  const ischatopen = document.getElementById('chatcontents').style.visibility;
   console.log(ischatopen);
 
   if (ischatopen === "visible") {
@@ -57,10 +57,10 @@ window.onload = function(){
   //VIEW REVIEWS
 
   //Get the modal
-  var modal = document.getElementById("modal");
-  var apartments = document.getElementsByClassName('review');
+  const modal = document.getElementById('modal');
+  const apartments = document.getElementsByClassName('review');
 
-  for(var i = 0; i < apartments.length; i++) {
+  for(let i = 0; i < apartments.length; i++) {
     //console.log("apartments lenght " + apartments.length);
     //var apartment = i;
     //console.log(apartments[i]);
@@ -76,7 +76,7 @@ window.onload = function(){
   }
 
   //Close the modal, when the user clicks on <span> (x)
-  var span = document.getElementsByClassName("close")[0];
+  const span = document.getElementsByClassName('close')[0];
   span.onclick = function() {
     $('.del').remove();
     modal.style.display = "none";
@@ -85,16 +85,16 @@ window.onload = function(){
   //Close modal, when the user clicks anywhere outside of the modal
   //Ei toimi mut en tiiä miks ???
   window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = "none";
     }
   }
 
   //ADD REVIEW
-  var modal2 = document.getElementById("modal2");
-  var ratebuttons = document.getElementsByClassName("rate");
+  const modal2 = document.getElementById('modal2');
+  const ratebuttons = document.getElementsByClassName('rate');
 
-  for(var a = 0; a < ratebuttons.length; a++) {
+  for(let a = 0; a < ratebuttons.length; a++) {
     ratebuttons[a].getApartmentId = function (a) {
       console.log("klikattu asunto " + a);
       makeQueryForAddNewReview(a);
@@ -102,7 +102,7 @@ window.onload = function(){
     }
   }
 
-  var span2 = document.getElementsByClassName("close2")[0];
+  const span2 = document.getElementsByClassName('close2')[0];
   ratebuttons.onclick = function() {
     getApartmentId();
     modal2.style.display = "block";
@@ -114,28 +114,11 @@ window.onload = function(){
 
   //Tää toimii mut toinen samanlainen ei toimi??
   window.onclick = function(event) {
-    if (event.target == modal2) {
+    if (event.target === modal2) {
       modal2.style.display = "none";
     }
   }
 };
-
-// Main page "log in pop-up" functions
-function visibleLogin() {
-  const isloginopen = document.getElementById('login_wrap').style.visibility;
-  console.log(isloginopen);
-  if (isloginopen === 'visible') {
-    document.getElementById('login_wrap').style.visibility = 'hidden';
-    document.getElementById('login_wrap').style.display = 'none';
-  } else {
-    document.getElementById('login_wrap').style.visibility = 'visible';
-    document.getElementById('login_wrap').style.display = 'block';
-  }
-}
-
-function hideLogin() {
-  document.getElementById('login_wrap').style.visibility = 'hidden';
-}
 
 //SERVER JS
 let json;
@@ -168,8 +151,8 @@ function makeQueryForShowReviews(apartment) {
 function showReviewList(json) {
   console.log('showReviewList');
 
-  var i;
-  var string;
+  let i;
+  let string;
 
   for (i in json) {
     const searchresult = document.getElementById('rating');
@@ -220,11 +203,11 @@ function showReviewList(json) {
 
 function countAverage(json) {
 
-  var sumcomfort = 0;
-  var sumgrade = 0;
-  var sumshape = 0;
+  let sumcomfort = 0;
+  let sumgrade = 0;
+  let sumshape = 0;
 
-  for( var i = 0; i < json.length; i++ ) {
+  for(let i = 0; i < json.length; i++ ) {
     //console.log("Viihtyvyys " + json[i].comfort);
     sumcomfort = sumcomfort + json[i].comfort;
     sumgrade = sumgrade + json[i].grade;
@@ -365,27 +348,29 @@ function makeQueryForAddNewReview(apartment) {
   function makeQueryForSendForm(apartment) {
 
     console.log(apartment);
-    var id = apartment;
+    const id = apartment;
     console.log(id);
 
     // make a JSON string and send it to a server
-    var shape = document.getElementById("shape").value;
+    const shape = document.getElementById('shape').value;
     console.log(shape);
-    var comfort = document.getElementById("comfort").value;
+    const comfort = document.getElementById('comfort').value;
     console.log(comfort);
-    var grade = document.getElementById("grade").value;
+    const grade = document.getElementById('grade').value;
     console.log(grade);
-    var free_word = document.getElementById("free_word").value;
+    const free_word = document.getElementById('free_word').value;
     console.log(free_word);
 
-    var newReview = '{"id": "'+id+'", "shape": "'+shape+'", "comfort": "'+comfort+'", "grade": "'+grade +'", "free_word": "'+
-        free_word+'"}'
+    const newReview = '{"id": "' + id + '", "shape": "' + shape +
+        '", "comfort": "' + comfort + '", "grade": "' + grade +
+        '", "free_word": "' +
+        free_word + '"}';
 
     document.getElementById("test2").innerHTML = newReview;
 
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 
         document.getElementById("test").innerHTML = xmlhttp.responseText;
       }
@@ -404,4 +389,3 @@ function makeQueryForAddNewReview(apartment) {
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xmlhttp.send(newReview);
 }
-
