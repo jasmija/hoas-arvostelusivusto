@@ -54,6 +54,8 @@ function getApartmentId(clicked_id){
 
 window.onload = function(){
 
+  document.getElementById('search').value = '';
+
   makeQueryForChat();
 
   //VIEW REVIEWS
