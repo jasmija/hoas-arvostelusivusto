@@ -165,7 +165,7 @@
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-        <button onclick="makeQueryForSendChat()">Lähetä</button>
+        <button onclick="makeQueryForSendChat(); addNewChat()">Lähetä</button>
     {{/if}}
     <ul id="chat"></ul>
     <div id="chatcontents">
