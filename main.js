@@ -106,6 +106,42 @@ const urlencodedParser = bodyParser.urlencoded({extended: true});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // for reading JSON
 
+
+//INSERT CHATS TO DATABASE
+app.post("/addchat", urlencodedParser, function (req, res) {
+
+  console.log("INSIDE APP.POST CHÄTTI");
+  let json = req.body;
+  console.log("Stringinä chätti" + JSON.stringify(json));
+  console.log("Request body chätti: " + req.body);
+  console.log("Id chätti: " + json.id);
+
+  let chatti = JSON.stringify(json);
+  console.log("jsonObj " + chatti);
+  res.send("POST succesful: " + chatti);
+
+  const sql = 'INSERT INTO chat (username, header) VALUES ( ?, ?)';
+
+  (async () => {
+    try {
+      console.log("inside async chat");
+      await query(sql, [json.username, json.header]);
+      console.log("result header " + [json].header);
+      //let insertedId = result.insertId;
+      //console.log("result is " + result);
+      //console.log("insertedid " + insertedId);
+      console.log("ennen post successful");
+      res.send("POST succesful: " + req.body);
+      console.log("async lopussa");
+
+
+    } catch (err) {
+      console.log("Insertion into tables was unsuccessful!" + err);
+      res.send("POST was not succesful " + err);
+    }
+  })()
+});
+
 //INSERT REVIEWS TO DATABASE
 app.post("/action", urlencodedParser, function (req, res) {
 

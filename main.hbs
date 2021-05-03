@@ -13,7 +13,8 @@
 <ul id="menu">
     {{#if user}}
         <li><a href="/auth/logout">Kirjaudu ulos</a></li>
-        <li><p>Kirjautunut käyttäjänä: {{ user.username }}</p></li>
+        <li><p>Kirjautunut käyttäjänä:</p><p id="user">{{ user.username }}</p></li>
+    <!--<p id="user">{{ user.username }}</p>-->
     {{else}}
         <li><a class="active" href="/login">Kirjaudu</a></li>
         <li><a href="/register">Rekisteröidy</a></li>
@@ -164,7 +165,7 @@
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-        <button onclick="addNewChat()">Lähetä</button>
+        <button onclick="makeQueryForSendChat()">Lähetä</button>
     {{/if}}
     <ul onclick="openChat()" id="chat"></ul>
 </div>
@@ -175,6 +176,8 @@
     <input type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
     <button>Lähetä vastaus</button>
 </div>
+
+<div id="testchat"></div>
 
 <div class="footer">
     <p>Kuvat asunnoista kuuluvat Helsingin seudun opiskelija-asuntosäätiölle.</p>

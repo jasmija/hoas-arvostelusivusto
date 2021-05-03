@@ -271,6 +271,28 @@ function makeQueryForChat() {
   xmlhttp.send();
 }
 
+function makeQueryForSendChat(){
+  const header = document.getElementById('chatTitle').value;
+  const user = document.getElementById('user').innerText;
+  console.log("CHÄTIN OTSIKKO: " + header);
+  console.log("CHÄTIN KÄYTTÄJÄTUNNUS: " + user);
+  const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
+  console.log("Console loggina " + newChat);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+
+      document.getElementById("testchat").innerHTML = xmlhttp.responseText;
+    }
+  };
+  console.log('http://localhost:3000/addchat');
+  xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xmlhttp.send(newChat);
+}
+
 function showChat(json) {
   console.log('showChat');
 
