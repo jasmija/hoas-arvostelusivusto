@@ -130,16 +130,14 @@ function makeQueryForShowReviews(apartment) {
       if (json.length > 0) { // something found
         showReviewList(json);
       } else {
-        document.getElementById(
-            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+        document.getElementById('rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
       }
     }
   };
   const searchedid = id;
   console.log('Haettu id: ' + searchedid);
   console.log('http://localhost:3000/api/results?id=' + searchedid);
-  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
-      true);
+  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid, true);
   xmlhttp.send();
 }
 
@@ -152,6 +150,7 @@ function showReviewList(json) {
   for (i in json) {
     const searchresult = document.getElementById('rating');
     const header = document.getElementById('address');
+
 
     const container = document.getElementById("container");
     const div = document.createElement("div");
@@ -313,6 +312,53 @@ function showChat(json) {
     stringheader = json[i].header;
     newheader.innerHTML = stringheader;
   }
+}
+
+function makeQueryForSendAnswer(){
+  const id = document.getElementById('chatid').value;
+  const answer = document.getElementById('answer').value;
+
+  console.log("CHÄTIN id: " + id);
+  console.log("CHÄTIN VASTAUS: " + answer);
+  const newAnswer = '{"id": "' + id + '", "answer": "' + answer + '"}';
+  console.log("Console loggina uusi vastaus chättiin " + newAnswer);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      showChatAnswer();
+      document.getElementById("testanswer").innerHTML = xmlhttp.responseText;
+    }
+  };
+  console.log('http://localhost:3000/addchatanswer');
+  xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xmlhttp.send(newAnswer);
+}
+
+function showChatAnswer(json) {
+  console.log('showChatAnswer');
+
+  let i;
+  let string;
+  let stringanswer;
+
+  for (i in json) {
+    string = json[i].id + ', ' + json[i].answer;
+    console.log("Stringinä: " + string);
+    console.log("json answer " + json[i].answer);
+
+    const chatcontents = document.getElementById('chat');
+    const newanswer = document.createElement('li');
+    chatcontents.appendChild(newanswer);
+
+
+    stringanswer = json[i].answer;
+    console.log("stringanswer " + json[i].answer);
+    newanswer.innerHTML = stringanswer;
+  }
+
 }
 
 function makeQueryForAddNewReview(apartment) {

@@ -125,11 +125,11 @@ app.post("/addchat", urlencodedParser, function (req, res) {
   (async () => {
     try {
       console.log("inside async chat");
-      await query(sql, [json.username, json.header]);
+      var result = await query(sql, [json.username, json.header]);
       console.log("result header " + [json].header);
-      //let insertedId = result.insertId;
+      let insertedId = result.insertId;
       //console.log("result is " + result);
-      //console.log("insertedid " + insertedId);
+      console.log("insertedid " + insertedId);
       console.log("ennen post successful");
       res.send("POST succesful: " + req.body);
       console.log("async lopussa");
@@ -140,6 +140,40 @@ app.post("/addchat", urlencodedParser, function (req, res) {
     }
   })()
 });
+
+//INSERT CHAT ANSWERS TO DATABASE
+app.post("/addchatanswer", urlencodedParser, function (req, res) {
+
+  console.log("INSIDE APP.POST CHÄTTI ANSWER");
+  let json = req.body;
+  console.log("Stringinä chätti answer" + JSON.stringify(json));
+  //console.log("Request body chätti answer: " + req.body);
+  console.log("Id chätti answer: " + json.id);
+
+  let chattianswer = JSON.stringify(json);
+  console.log("json " + chattianswer);
+  res.send("POST succesful chat: " + chattianswer);
+
+  const sql = 'INSERT INTO chat_answers (id, answer) VALUES ( ?, ?)';
+
+  (async () => {
+    try {
+      console.log("inside async chatanswer");
+      var result = await query(sql, [json.id, json.answer]);
+      console.log("result answer " + [json].answer);
+      let insertedId = result.insertId;
+      //console.log("result is " + result);
+      console.log("insertedid " + insertedId);
+      console.log("ennen post successful");
+      res.send("POST succesful: " + req.body);
+      console.log("async lopussa");
+
+    } catch (err) {
+      console.log("Insertion into tables was unsuccessful!" + err);
+    }
+  })()
+});
+
 
 //INSERT REVIEWS TO DATABASE
 app.post("/action", urlencodedParser, function (req, res) {
