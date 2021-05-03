@@ -20,6 +20,7 @@ function openChat() {
   } else {
     document.getElementById('chatcontents').style.visibility = "visible";
     document.getElementById('chatcontents').style.display = "block";
+
   }
 }
 
