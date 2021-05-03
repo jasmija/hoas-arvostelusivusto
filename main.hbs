@@ -11,21 +11,16 @@
 <body>
 
 <ul id="menu">
-    <!--onclick="visibleLogin()"-->
-    <li><a onclick="visibleLogin()" class="active" href="/login">Kirjaudu</a></li>
-    <li><a href="/register">Rekisteröidy</a></li>
+    {{#if user}}
+        <li><a href="/auth/logout">Kirjaudu ulos</a></li>
+        <li><p>Kirjautunut käyttäjänä: {{ user.username }}</p></li>
+    {{else}}
+        <li><a class="active" href="/login">Kirjaudu</a></li>
+        <li><a href="/register">Rekisteröidy</a></li>
+    {{/if}}
     <h1>HOAS-arvostelut</h1>
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
 </ul>
-
-
-<div id="login_wrap">
-    <form>
-        Käyttäjätunnus: <input id="username" type="text" name="username">
-        Salasana: <input id="password" type="password">
-        <button class="openapartment" onclick="hideLogin()" id="submit" type="submit">Kirjaudu</button>
-    </form>
-</div>
 
 <main>
     <ul id="apartments">
@@ -36,16 +31,20 @@
                 <figcaption>
                     <h3>Kimpitie 10, Helsinki</h3>
                 </figcaption>
-                <button onclick="getApartmentId('1')" class="rate" >Arvostele</button>
+                {{#if user}}
+                    <button onclick="getApartmentId('1')" class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a  onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
+                <a onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
                 <figcaption>
-                    <h3>Berliininkatu 5, Arabia-Toukola Helsinki</h3>
+                    <h3>Berliininkatu 5, Helsinki</h3>
                 </figcaption>
-                <button onclick="getApartmentId('2')"class="rate">Arvostele</button>
+                {{#if user}}
+                    <button onclick="getApartmentId('2')" class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
@@ -54,25 +53,31 @@
                 <figcaption>
                     <h3>Hakaniemenranta 12, Helsinki</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="4" class="review"><img src="img/siltakuja.jpg"></a>
                 <figcaption>
-                    <h3>Siltakuja 2, Espoon keskus</h3>
+                    <h3>Siltakuja 2, Espoo</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="5" class="review"><img src="img/vaskivuorentie.jpg"></a>
                 <figcaption>
-                    <h3>Vaskivuorentie 22, Myyrmaki Vantaa</h3>
+                    <h3>Vaskivuorentie 22, Vantaa</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
@@ -81,61 +86,75 @@
                 <figcaption>
                     <h3>Juusintie 5, Kauniainen</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="7" class="review"><img src="img/kilonkallio.jpg"></a>
                 <figcaption>
-                    <h3>Kilonkallio 10, Kilo Espoo</h3>
+                    <h3>Kilonkallio 10, Espoo</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="8" class="review"><img src="img/haukilahdenkuja.jpg"></a>
                 <figcaption>
-                    <h3>Haukilahdenkuja 15, Hermanni-Sörnäinen Helsinki</h3>
+                    <h3>Haukilahdenkuja 15, Helsinki</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="9" class="review"><img src="img/leppäsuonkatu.jpg"></a>
                 <figcaption>
-                    <h3>Leppäsuonkatu 7, Kamppi Helsinki</h3>
+                    <h3>Leppäsuonkatu 7, Helsinki</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="10" class="review"><img src="img/majurinkulma.jpg"></a>
                 <figcaption>
-                    <h3>Majurinkulma 2, Leppävaara-Lintuvaara Espoo</h3>
+                    <h3>Majurinkulma 2, Espoo</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="11" class="review"><img src="img/servinkuja.jpg"></a>
                 <figcaption>
-                    <h3>Servinkuja 6, Otaniemi teekkarikylä Espoo</h3>
+                    <h3>Servinkuja 6, Espoo</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="12" class="review"><img src="img/akanapolku.jpg"></a>
                 <figcaption>
-                    <h3>Akanapolku 2, Jokiniemi-Tikkurila Vantaa</h3>
+                    <h3>Akanapolku 2, Vantaa</h3>
                 </figcaption>
-                <button class="rate">Arvostele</button>
+                {{#if user}}
+                    <button class="rate">Arvostele</button>
+                {{/if}}
             </figure>
         </li>
     </ul>
@@ -143,8 +162,10 @@
 
 <div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
-    <input  id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-    <button onclick="addNewChat()">Lähetä</button>
+    {{#if user}}
+        <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+        <button onclick="addNewChat()">Lähetä</button>
+    {{/if}}
     <ul onclick="openChat()" id="chat"></ul>
 </div>
 
@@ -156,8 +177,8 @@
 </div>
 
 <div class="footer">
-    <p>Kaikki kuvat otettu HOAS:in sivuilta:</p>
-    <a href="https://www.hoas.fi/">https://www.hoas.fi/</a>
+    <p>Kuvat asunnoista kuuluvat Helsingin seudun opiskelija-asuntosäätiölle.</p>
+    <a href="https://www.hoas.fi/">www.hoas.fi</a>
 </div>
 
 <!-- Modal -->
@@ -231,8 +252,9 @@
             </fieldset>
             <br>
             <fieldset>
-                <legend >Vapaa sana</legend>
-                <textarea id="free_word" style="width: 60%" placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10" ></textarea>
+                <legend>Vapaa sana</legend>
+                <textarea id="free_word" style="width: 60%"
+                          placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10"></textarea>
             </fieldset>
             <input type="button" onclick="makeQueryForSendForm(1)" value="Lähetä">
         </form>

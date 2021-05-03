@@ -1,15 +1,22 @@
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const {promisify} = require('util');
 
 const connection = mysql.createConnection({
-  host: 'mysql.metropolia.fi',
-  user: 'jasmija',
-  password: 'jassumetropoliasql',
-  database: 'jasmija',
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE
 });
 
-// Code for login.hbs
+/** Code for login.
+ * 1) Check if username or password field is empty.
+ * 2) If true, send error message. If false, send SQL query to database.
+ * 3) If username can't be found in database, send error message.
+ * 4) If username or password don't exist in database, send error message.
+ * 5) If username and password are both ok, set a cookie to client browser and redirect to home page.
+ * */
 exports.login = async (request, response) => {
   try {
     const {username, password} = request.body;
@@ -18,16 +25,10 @@ exports.login = async (request, response) => {
       return response.status(400).render('../login', {
         message: 'Käyttäjänimi ja/tai salasana puuttuu!',
       });
-      // Old code. If we decide to use handlebars for the rest of the project, these can be deleted.
-      /*
-      console.log('Username and/or password missing!');
-      return response.sendFile('login.hbs', {root: './'});
-      */
     }
     connection.query('SELECT * FROM accounts WHERE username = ?', [username],
         async (error, results) => {
-          console.log(JSON.stringify(results));
-          if(results.length < 1) {
+          if (results.length < 1) {
             return response.status(401).render('../login', {
               message: 'Käyttäjänimi tai salasana väärin!',
             });
@@ -37,43 +38,37 @@ exports.login = async (request, response) => {
             return response.status(401).render('../login', {
               message: 'Käyttäjänimi tai salasana väärin!',
             });
-        } else {
+          } else {
             const id = results[0].id;
             const token = jwt.sign({id}, process.env.JWT_SECRET, {
-              expiresIn: process.env.JWT_EXPIRES_IN
-            })
-
-            console.log('The token is: ' + token)
-
+              expiresIn: process.env.JWT_EXPIRES_IN,
+            });
             const cookieOptions = {
               expires: new Date(
-                  Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                  Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 *
+                  1000,
               ),
-              httpOnly: true
-            }
+              httpOnly: true,
+            };
 
-            response.cookie('jwt', token, cookieOptions)
-            response.status(200).redirect('/')
+            response.cookie('jwt', token, cookieOptions);
+            response.status(200).redirect('/');
 
           }
-          // Old code. If we decide to use handlebars for the rest of the project, these can be deleted.
-          /*
-          console.log('Username or password wrong!');
-          return response.sendFile('login.hbs', {root: './'});
-          */
         });
   } catch (error) {
     console.log(error);
   }
 };
 
-// Code for signup.hbs
+/** Code for signup.hbs
+ * 1) Send SQL query to database to search if entered username already exists.
+ * 2) If true, send error message. If false, check that passwords match.
+ * 3) If false, send error message. If true, hash password, insert username and hashed password in to database and send success message to client.
+ */
 exports.register = (request, response) => {
-  console.log(request.body);
-
   let {username, password, passwordConfirm} = request.body;
 
-  // Check if database already has username or check if password confirmation doesn't match.
   connection.query('SELECT username FROM accounts WHERE username = ?',
       [username], async (error, results) => {
         if (error) {
@@ -83,27 +78,16 @@ exports.register = (request, response) => {
           return response.render('../signup', {
             message: 'Käyttäjänimi on jo olemassa!',
           });
-          // Old code. If we decide to use handlebars for the rest of the project, these can be deleted.
-          /*
-          console.log('Username taken!');
-          return response.sendFile('signup.hbs', {root: './'});
-          */
         } else if (password !== passwordConfirm) {
           return response.render('../signup', {
             message: 'Salasanat eivät täsmää!',
           });
-          // Old code. If we decide to use handlebars for the rest of the project, these can be deleted.
-          /*
-          console.log('Passwords do not match!');
-          return response.sendFile('signup.hbs', {root: './'});
-          */
         }
 
         // Hash user password with 8 cycles.
         let hashedPassword = await bcrypt.hash(password, 8);
-        console.log('Hashed password: ' + hashedPassword);
 
-        // If checks are ok, add user to database.
+
         connection.query('INSERT INTO accounts SET ?',
             {username: username, password: hashedPassword},
             (error, results) => {
@@ -112,12 +96,49 @@ exports.register = (request, response) => {
               } else {
                 console.log('User "' + username + '" created!');
                 return response.render('../signup', {
-                  message: 'Käyttäjä luotiin onnistuneesti!'
-                })
-                // Old code. If we decide to use handlebars for the rest of the project, this can be deleted.
-                //return response.sendFile('signup.hbs', {root: './'});
+                  message2: 'Käyttäjä luotiin onnistuneesti!',
+                });
               }
             });
       });
 };
 
+/**
+ * 1) Check for cookie called "jwt" and verify it.
+ * 2) Check if user still exists.
+ * 3) If result from query is false, render main page.
+ * 4) Create variable user and set the result from query as the value.
+ * 5) Return next() to render main.hbs.
+ */
+exports.isLoggedIn = async (request, response, next) => {
+  if (request.cookies.jwt) {
+    try {
+      const decoded = await promisify(jwt.verify)(request.cookies.jwt,
+          process.env.JWT_SECRET);
+      connection.query('SELECT * FROM accounts WHERE id = ?', [decoded.id],
+          (error, result) => {
+            if (!result) {
+              return next();
+            }
+            request.user = result[0];
+            return next();
+          });
+    } catch (error) {
+      console.log(error);
+      return next();
+    }
+  } else {
+    next();
+  }
+};
+
+/**
+ * When user logs out, replace logged in cookie with no value and make it expire after 2 seconds.
+ */
+exports.logout = async (request, response) => {
+  response.cookie('jwt', '', {
+    expires: new Date(Date.now() + 2 * 1000),
+    httpOnly: true,
+  });
+  response.status(200).redirect('/');
+};

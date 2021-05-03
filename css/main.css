@@ -3,6 +3,7 @@ body{
 }
 
 /*Menu content*/
+
 h1{
     max-width: 20%;
     color: white;
@@ -29,6 +30,8 @@ input{
 ul#menu li {
     margin-top: 20px;
     float: right;
+    color: white;
+    margin-right: 10px;
 }
 
 ul#menu li a:hover {

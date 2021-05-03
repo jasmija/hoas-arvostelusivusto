@@ -14,10 +14,10 @@ dotenv.config({path: './.env'})
 
 // Add database connection details to variable "connection"
 const connection = mysql.createConnection({
-  host: "mysql.metropolia.fi",
-  user: "jasmija",
-  password: "jassumetropoliasql",
-  database: "jasmija"
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE
 });
 
 const util = require('util');
@@ -25,11 +25,6 @@ const res = require("express");
 const query = util.promisify(connection.query).bind(connection);
 
 const app = express();
-
-/*
-app.set('view engine', 'html');
-app.engine('html', require('hbs').__express);
-*/
 
 app.set('view engine', 'hbs');
 
@@ -48,45 +43,6 @@ app.use(cookieParser());
 // Define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
-
-// ÄLÄ POISTA! Tutkin vielä tarviiks tätä. 26.4. 15:54
-/*
-// Work in progress
-app.post('/auth', function(request, response) {
-  const username = request.body.username;
-  const password = request.body.password;
-  // If both fields contain something, do if statement where database is checked for the values.
-  if (username && password) {
-    connection.query(
-        'SELECT * FROM accounts WHERE username = ? AND password = ?',
-        [username, password], function(error, results, fields) {
-          if (results.length > 0) {
-            request.session.loggedin = true;
-            request.session.username = username;
-            response.redirect('/home');
-          } else {
-            response.send('Salasana tai käyttäjätunnus väärin!');
-          }
-          response.end();
-        });
-    // If one field is empty, or both, send the following message.
-  } else {
-    response.send(
-        'Käyttäjätunnus tai salasana puuttuu kirjautumiskentästä. Ehkä molemmat? Tarkasta. <br>' +
-        ' (Normaalioloissa tavallisen käyttäjän ei kuuluisi nähdä tätä sivua. Kirjautumiskenttien pitäisi tarkastaa että molemmissa on' +
-        ' edes jotain kirjoitettuna).');
-    response.end();
-  }
-});
-
-app.get('/home', function(request, response) {
-  if (request.session.loggedin) {
-    response.sendFile(__dirname + '/main.html');
-  } else {
-    response.send('Kirjaudu sisään nähdäksesi tämän sivun.');
-  }
-});
-*/
 
 const url = require('url');
 //GET REVIEWS FROM DATABASE
