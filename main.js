@@ -137,7 +137,6 @@ app.post("/addchat", urlencodedParser, function (req, res) {
 
     } catch (err) {
       console.log("Insertion into tables was unsuccessful!" + err);
-      res.send("POST was not succesful " + err);
     }
   })()
 });
