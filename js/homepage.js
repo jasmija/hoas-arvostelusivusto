@@ -307,6 +307,7 @@ function showChat(json) {
 
     const chat = document.getElementById('chat');
     const newheader = document.createElement('li');
+    newheader.addEventListener("click", openChat, false);
     chat.appendChild(newheader);
 
     stringheader = json[i].header;
