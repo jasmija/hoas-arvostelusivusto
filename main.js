@@ -156,6 +156,7 @@ app.post("/action", urlencodedParser, function (req, res) {
   console.log("INSIDE APP.POST!!!!!");
 
   let jsonObj = req.body;
+  console.log("String" + JSON.stringify(jsonObj));
   console.log("Request body: " + req.body);
   console.log("Id: " + jsonObj.id);
   console.log("Shape: " + jsonObj.shape);

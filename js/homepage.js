@@ -317,7 +317,7 @@ function showChat(json) {
 function makeQueryForAddNewReview(apartment) {
 
   const id = apartment;
-  console.log(id);
+  console.log("Id !!!!!" + id);
 
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -364,8 +364,8 @@ function makeQueryForAddNewReview(apartment) {
 
   function makeQueryForSendForm(apartment) {
 
-  console.log(apartment);
-    const id = apartment;
+    console.log(apartment);
+    var id = apartment;
     console.log(id);
 
     // make a JSON string and send it to a server
@@ -400,6 +400,7 @@ function makeQueryForAddNewReview(apartment) {
     };
     console.log('http://localhost:3000/action');
     xmlhttp.open('POST', 'http://localhost:3000/action', true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xmlhttp.send(newReview);
 }
