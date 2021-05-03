@@ -82,14 +82,6 @@ window.onload = function(){
     modal.style.display = "none";
   }
 
-  //Close modal, when the user clicks anywhere outside of the modal
-  //Ei toimi mut en tiiä miks ???
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-
   //ADD REVIEW
   const modal2 = document.getElementById('modal2');
   const ratebuttons = document.getElementsByClassName('rate');
@@ -112,10 +104,12 @@ window.onload = function(){
     modal2.style.display = "none";
   }
 
-  //Tää toimii mut toinen samanlainen ei toimi??
+  // Close modal when user clicks outside the "pop up window".
   window.onclick = function(event) {
     if (event.target === modal2) {
       modal2.style.display = "none";
+    } if (event.target === modal) {
+      modal.style.display = "none";
     }
   }
 };
