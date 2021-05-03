@@ -3,6 +3,7 @@ function addNewChat() {
   console.log(title);
 
   const li = document.createElement('li');
+  li.addEventListener("click", openChat, false);
   li.innerHTML = title + "<br>";
 
   const chat = document.getElementById('chat');

@@ -167,14 +167,13 @@
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
         <button onclick="makeQueryForSendChat()">Lähetä</button>
     {{/if}}
-    <ul onclick="openChat()" id="chat"></ul>
-</div>
-
-<div id="chatcontents">
-    <h2>Tähän klikatun keskustelun otsikko tietokannasta</h2>
-    <p>Tähän listana vastauksia kysymyksiin</p>
-    <input type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
-    <button>Lähetä vastaus</button>
+    <ul id="chat"></ul>
+    <div id="chatcontents">
+        <h2>Tähän klikatun keskustelun otsikko tietokannasta</h2>
+        <p>Tähän listana vastauksia kysymyksiin</p>
+        <input type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
+        <button>Lähetä vastaus</button>
+    </div>
 </div>
 
 <div id="testchat"></div>
