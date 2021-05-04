@@ -169,7 +169,7 @@
 <form id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
-        <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
+        <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat" required>
         <button onclick="makeQueryForSendChat();refresh();">Lähetä</button>
     {{/if}}
     <ul id="chat"></ul></form>
@@ -179,7 +179,7 @@
         <div id="answers"></div>
 
         {{#if user}}
-            <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
+            <input id="answer" type="text" placeholder="Kirjoita vastaus (max 1000 merkkiä)" required>
             <button id="sendbutton">Lähetä vastaus</button>
         {{/if}}
         <div id="testanswer"></div>
