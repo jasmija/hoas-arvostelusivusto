@@ -41,7 +41,7 @@ app.use(cookieParser());
 
 // Define routes
 app.use('/', require('./routes/pages'));
-app.use('/auth', require('./routes/auth'));
+app.use('/', require('./routes/auth'));
 
 const url = require('url');
 //GET REVIEWS FROM DATABASE

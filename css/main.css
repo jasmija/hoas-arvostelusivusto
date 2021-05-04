@@ -1,76 +1,55 @@
 body{
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
 /*Menu content*/
-
 h1{
-    max-width: 20%;
     color: white;
-    float: left;
+    left: 0;
 }
 
-#search{
-    float: left;
-    margin-top: 20px;
-    margin-left: 40px;
+#search {
+    height: 50px;
 }
 
 input{
     width: 30%;
     padding: 8px;
-    box-sizing: border-box;
-}
-
-#searchbutton{
-    float: left;
-    margin-top: 20px;
 }
 
 ul#menu li {
-    margin-top: 20px;
-    float: right;
     color: white;
-    margin-right: 10px;
-}
-
-ul#menu li a:hover {
-    background-color: #111;
 }
 
 ul#menu{
     list-style-type: none;
-    overflow: hidden;
     background-color: #333;
-    border-radius: 3px;
-    padding: 10px;
-    width: auto;
-
+    display: flex;
+    padding: 20px;
 }
 
-/*Login*/
-#login_wrap {
-    visibility: hidden;
-    padding:10px;
-    margin:0;
-    float: right;
-    background-color: lightgray;
-    border-radius: 3px;
-    display: none;
+#menu > * {
+    margin: auto;
+}
+
+#menu p {
+    display: inline;
+}
+
+#menu a {
+    padding: 15px;
 }
 
 /*Apartments*/
 main{
-    flex-wrap: wrap;
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 a {
-    display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
 }
 
@@ -78,28 +57,24 @@ legend{
     font-weight: bold;
 }
 
+#apartments li {
+    position: relative;
+    margin: auto;
+}
+
 figcaption h3{
     position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 0;
-    padding: 8px;
-    margin: 0;
+    padding: 5px;
+    top: 0;
+    left: 0;
     background: rgba(255,255,255,0.5);
+    min-width: 100%;
 }
 
 .rate{
     position: absolute;
-    top: 15px;
-    left: 425px;
-}
-
-figure {
-    position: relative;
-}
-
-img{
-    vertical-align: middle;
+    top: 0;
+    right: 0;
 }
 
 ul#apartments{
@@ -115,33 +90,36 @@ ul#apartments li a:hover{
 }
 
 /*Chat*/
+
 #chatcontents{
     display: none;
     visibility: hidden;
-    padding: 20px;
     border-style: solid;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-left: 50px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-#newchat{
-    margin-left: 50px;
-    margin-bottom: 30px;
+#newchat {
+    padding: 15px;
+    text-align: center;
 }
 
 ul#chat{
-    margin: 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 ul#chat li{
+    margin: 3px;
+    padding: 5px;
     list-style-type: none;
-    border-radius: 3px;
     background-color: lightgray;
-    padding: 10px;
-    margin-top: 3px;
-    width: auto;
+    text-align: center;
 }
 
 button{
@@ -275,5 +253,3 @@ button{
     text-decoration: none;
     cursor: pointer;
 }
-
-
