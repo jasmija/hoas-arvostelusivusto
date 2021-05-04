@@ -88,6 +88,7 @@ ul#apartments{
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    cursor: pointer;
 }
 
 ul#apartments li a:hover{
@@ -117,6 +118,7 @@ ul#chat{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    cursor: pointer;
 }
 
 ul#chat li{
@@ -267,4 +269,6 @@ button{
     margin-right: auto;
     margin-left: auto;
     list-style: none;
+
 }
+

@@ -630,6 +630,7 @@ function addNewChat() {
 
   const chat = document.getElementById('chat');
   chat.appendChild(li);
+
 }
 
 
