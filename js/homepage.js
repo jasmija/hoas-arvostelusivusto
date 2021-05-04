@@ -209,15 +209,17 @@ function countAverage(json) {
     console.log("Summa kunnosta " + sumshape);
   }
 
-  const averageshape = sumshape / json.length;
+  const averageshape = (sumshape / json.length).toFixed(0);
   console.log("Keskiarvo kunto " + averageshape);
 
-  const averagecomfort = sumcomfort / json.length;
+  const averagecomfort = (sumcomfort / json.length).toFixed(0);
   console.log("Keskiarvo viihtyvyys " + averagecomfort);
 
-  const averagegrade = sumgrade / json.length;
+  const averagegrade = (sumgrade / json.length).toFixed(0);
   console.log("Keskiarvo kokonaisarvosana " + averagegrade);
 
+  //const shape = document.getElementById("averageshape");
+  //shape.setAttribute("class", "del");
   document.getElementById("averageshape").innerHTML = averageshape.toString();
   document.getElementById("averagecomfort").innerHTML = averagecomfort.toString();
   document.getElementById("averagegrade").innerHTML = averagegrade.toString();
@@ -243,20 +245,26 @@ function makeQueryForAddNewReview(apartment) {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
+      /*document.getElementById(
+          'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';*/
+        showAddReview(json);
       if (json.length > 0) { // something found
         showAddReview(json);
       } else {
-        document.getElementById(
-            'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+        document.getElementById('apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+        //makeQueryForAddress();
       }
     }
   };
   const searchedid = id;
   console.log('Haettu id: ' + searchedid);
-  console.log('http://localhost:3000/api/results?id=' + searchedid);
-  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
+  console.log('http://localhost:3000/api/address?id=' + searchedid);
+  xmlhttp.open('GET', 'http://localhost:3000/api/address?id=' + searchedid,
       true);
   xmlhttp.send();
+}
+
+
 
 
   //GET APARTMENT ADDRESS TO REVIEW FORM HEADER
@@ -264,6 +272,7 @@ function makeQueryForAddNewReview(apartment) {
     console.log('showAddReview');
 
     const addrress = document.getElementById('apartmentaddress');
+
     const id = document.getElementById('idvalue');
     let stringaddress;
     let idstring;
@@ -272,19 +281,20 @@ function makeQueryForAddNewReview(apartment) {
     let string;
 
     for (i in json) {
+      console.log('inside for loop showaddreview');
       string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
           ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
           json[i].free_word;
 
       stringaddress = json[i].address;
       addrress.innerHTML = stringaddress;
+      console.log("Osote pitäs olla tässä!!!! " + stringaddress);
 
       idstring = json[i].id;
       id.innerHTML = idstring;
 
       console.log(string);
     }
-  }
 }
 
 //SEND REVIEW

@@ -54,7 +54,30 @@ app.get("/api/results", function (req, res) {
   const sql = "SELECT apartments.address, reviews.id, reviews.shape, reviews.comfort, reviews.grade, reviews.free_word"
       + " FROM apartments, reviews"
       + " WHERE reviews.id = apartments.id"
-      + " and reviews.id= ?";
+      + " and apartments.id= ?";
+
+  (async () => { //Immediately Invoked Function Expression
+    try {
+      const rows = await query(sql,[id]);
+      string = JSON.stringify(rows);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!" + err);
+    }
+  })()
+});
+
+//TESTIÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+app.get("/api/address", function (req, res) {
+  const q = url.parse(req.url, true).query;
+  const id = q.id;
+  let string;
+
+  //Sql query for get reviews from database
+  const sql = "SELECT apartments.address, apartments.id"
+      + " FROM apartments"
+      + " WHERE apartments.id= ?";
 
   (async () => { //Immediately Invoked Function Expression
     try {
