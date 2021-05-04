@@ -16,7 +16,8 @@
     <a href="/"><img src="img/logo.png" style="max-height: 80px"></a>
     <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
     {{#if user}}
-        <li><p>Kirjautunut käyttäjänä: </p><p id="user">{{ user.username }}</p></li>
+        <li><p>Kirjautunut käyttäjänä: </p>
+            <p id="user">{{ user.username }}</p></li>
         <li><a class="btn btn-secondary" href="/logout">Kirjaudu ulos</a></li>
     {{else}}
         <li><a class="btn btn-secondary" href="/register">Rekisteröidy</a></li>
@@ -155,7 +156,7 @@
                     <h3>Akanapolku 2, Vantaa</h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('12')"class="rate">Arvostele</button>
+                    <button onclick="getApartmentId('12')" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
@@ -169,7 +170,7 @@
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-        <button onclick="makeQueryForSendChat(); ">Lähetä</button>
+        <button onclick="makeQueryForSendChat();refresh();">Lähetä</button>
     {{/if}}
     <ul id="chat"></ul>
     <div id="chatcontents">
@@ -177,8 +178,8 @@
         <div id="answers"></div>
 
         {{#if user}}
-        <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
-        <button id="sendbutton" >Lähetä vastaus</button>
+            <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
+            <button id="sendbutton">Lähetä vastaus</button>
         {{/if}}
         <div id="testanswer"></div>
     </div>
@@ -269,7 +270,7 @@
                 <textarea id="free_word" style="width: 60%"
                           placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10"></textarea>
             </fieldset>
-            <input type="button" onclick="makeQueryForSendForm()"  value="Lähetä">
+            <input type="button" onclick="makeQueryForSendForm()" value="Lähetä">
         </form>
         <div id="test"></div>
         <div id="test2"></div>

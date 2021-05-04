@@ -1,3 +1,8 @@
+async function refresh() {
+  await new Promise(r => setTimeout(() => r(), 50));
+  window.location.reload();
+}
+
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
 
@@ -450,6 +455,8 @@ function makeQueryForSendChat() {
   xmlhttp.setRequestHeader('Content-Type', 'application/json');
   xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
   xmlhttp.send(newChat);
+
+  document.getElementById('chatTitle').value = '';
 }
 
 function makeQueryForSendAnswer(id) {
