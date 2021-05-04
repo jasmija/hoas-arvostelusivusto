@@ -370,6 +370,7 @@ function showChat(json) {
   console.log('showChat');
 
   let stringheader;
+  let stringusername;
   let i;
   let string;
 
@@ -391,7 +392,9 @@ function showChat(json) {
 
     chat.appendChild(newheader);
     stringheader = json[i].header;
-    newheader.innerHTML = stringheader;
+    //newheader.innerHTML = stringheader;
+    stringusername = json[i].username;
+    newheader.innerHTML = stringheader + " käyttäjä: " + stringusername;
     //addParemetersToOpenChat(id);
   }
 }
@@ -439,7 +442,7 @@ function makeQueryForSendChat() {
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       addNewChat();
-      document.getElementById('testchat').innerHTML = xmlhttp.responseText;
+      //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
     }
   };
   console.log('http://localhost:3000/addchat');
@@ -534,6 +537,8 @@ function showContent() {
 
     const chatcontents = document.getElementById('answers');
     const newanswer = document.createElement('li');
+    newanswer.className = "chatanswers";
+
     chatcontents.appendChild(newanswer);
 
     newanswer.innerHTML = answer;
