@@ -1,28 +1,3 @@
-function addNewChat() {
-  const title = document.getElementById('chatTitle').value;
-  console.log(title);
-
-  const li = document.createElement('li');
-  li.addEventListener("click", openChat, false);
-  li.innerHTML = title + "<br>";
-
-  const chat = document.getElementById('chat');
-  chat.appendChild(li);
-}
-
-function openChat() {
-  const ischatopen = document.getElementById('chatcontents').style.visibility;
-  console.log(ischatopen);
-
-  if (ischatopen === "visible") {
-    document.getElementById('chatcontents').style.visibility = "hidden";
-    document.getElementById('chatcontents').style.display = "none";
-  } else {
-    document.getElementById('chatcontents').style.visibility = "visible";
-    document.getElementById('chatcontents').style.display = "block";
-
-  }
-}
 
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
@@ -150,8 +125,14 @@ function showReviewList(json) {
 
   for (i in json) {
     const searchresult = document.getElementById('rating');
-    const header = document.getElementById('address');
 
+    /*var modal = document.getElementById("modal-content");
+    var header = document.createElement("p");
+    header.setAttribute("class", "del");
+    modal.appendChild(header);*/
+
+    const header = document.getElementById('header');
+    //header.setAttribute("class", "del");
 
     const container = document.getElementById("container");
     const div = document.createElement("div");
@@ -187,6 +168,7 @@ function showReviewList(json) {
 
     searchresult.innerHTML = string;
     header.innerHTML = json[i].address;
+    console.log("header inner html = " + json[i].address);
     p.innerHTML = json[i].shape;
     p2.innerHTML = json[i].comfort;
     p3.innerHTML = json[i].grade;
@@ -196,6 +178,7 @@ function showReviewList(json) {
   countAverage(json);
 }
 
+//COUNT AVERAGE
 function countAverage(json) {
 
   let sumcomfort = 0;
@@ -203,7 +186,6 @@ function countAverage(json) {
   let sumshape = 0;
 
   for(let i = 0; i < json.length; i++ ) {
-    //console.log("Viihtyvyys " + json[i].comfort);
     sumcomfort = sumcomfort + json[i].comfort;
     sumgrade = sumgrade + json[i].grade;
 
@@ -223,11 +205,8 @@ function countAverage(json) {
 
     sumshape = sumshape +  json[i].shape;
     console.log("Summa kunnosta " + sumshape);
-    //console.log("Summa " + sumcomfort);
   }
 
-  //console.log(sumcomfort);
-  //console.log(json.length);
   const averageshape = sumshape / json.length;
   console.log("Keskiarvo kunto " + averageshape);
 
@@ -246,122 +225,12 @@ function countAverage(json) {
     console.log("Viihtyvyys " + json[i].comfort);
     sum += shape;
     console.log("Summa " + sum);
-  }*/
-
-  /*const averagecomfort = sum / i;
+  }
+  const averagecomfort = sum / i;
   console.log("Keskiarvo viihtyvyys " + averagecomfort);*/
 }
 
-
-
-function makeQueryForChat() {
-
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      json = JSON.parse(xmlhttp.responseText);
-      console.log(json);
-      if (json.length > 0) { // something found
-        showChat(json);
-      } else {
-      }
-    }
-  };
-  console.log('http://localhost:3000/chat');
-  xmlhttp.open('GET', 'http://localhost:3000/chat', true);
-  xmlhttp.send();
-}
-
-function makeQueryForSendChat(){
-  const header = document.getElementById('chatTitle').value;
-  const user = document.getElementById('user').innerText;
-  console.log("CHÄTIN OTSIKKO: " + header);
-  console.log("CHÄTIN KÄYTTÄJÄTUNNUS: " + user);
-  const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
-  console.log("Console loggina " + newChat);
-
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-
-      document.getElementById("testchat").innerHTML = xmlhttp.responseText;
-    }
-  };
-  console.log('http://localhost:3000/addchat');
-  xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
-  xmlhttp.setRequestHeader("Content-Type", "application/json");
-  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-  xmlhttp.send(newChat);
-}
-
-function showChat(json) {
-  console.log('showChat');
-
-  let stringheader;
-  let i;
-  let string;
-
-  for (i in json) {
-    string = json[i].username + ', ' + json[i].header;
-    console.log(string);
-
-    const chat = document.getElementById('chat');
-    const newheader = document.createElement('li');
-    newheader.addEventListener("click", openChat, false);
-    chat.appendChild(newheader);
-
-    stringheader = json[i].header;
-    newheader.innerHTML = stringheader;
-  }
-}
-
-function makeQueryForSendAnswer(){
-  const id = document.getElementById('chatid').value;
-  const answer = document.getElementById('answer').value;
-
-  console.log("CHÄTIN id: " + id);
-  console.log("CHÄTIN VASTAUS: " + answer);
-  const newAnswer = '{"id": "' + id + '", "answer": "' + answer + '"}';
-  console.log("Console loggina uusi vastaus chättiin " + newAnswer);
-
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      showChatAnswer();
-      document.getElementById("testanswer").innerHTML = xmlhttp.responseText;
-    }
-  };
-  console.log('http://localhost:3000/addchatanswer');
-  xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
-  xmlhttp.setRequestHeader("Content-Type", "application/json");
-  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-  xmlhttp.send(newAnswer);
-}
-
-function showChatAnswer(json) {
-  console.log('showChatAnswer');
-
-  let i;
-  let string;
-  let stringanswer;
-
-  for (i in json) {
-    string = json[i].id + ', ' + json[i].answer;
-    console.log("Stringinä: " + string);
-    console.log("json answer " + json[i].answer);
-
-    const chatcontents = document.getElementById('chat');
-    const newanswer = document.createElement('li');
-    chatcontents.appendChild(newanswer);
-
-
-    stringanswer = json[i].answer;
-    console.log("stringanswer " + json[i].answer);
-    newanswer.innerHTML = stringanswer;
-  }
-
-}
-
+//GET APARTMENT ADDRESS TO REVIEW FORM HEADER
 function makeQueryForAddNewReview(apartment) {
 
   const id = apartment;
@@ -388,11 +257,14 @@ function makeQueryForAddNewReview(apartment) {
   xmlhttp.send();
 
 
+  //GET APARTMENT ADDRESS TO REVIEW FORM HEADER
   function showAddReview(json) {
     console.log('showAddReview');
 
     const addrress = document.getElementById('apartmentaddress');
+    const id = document.getElementById('idvalue');
     let stringaddress;
+    let idstring;
 
     let i;
     let string;
@@ -405,17 +277,23 @@ function makeQueryForAddNewReview(apartment) {
       stringaddress = json[i].address;
       addrress.innerHTML = stringaddress;
 
+      idstring = json[i].id;
+      id.innerHTML = idstring;
+
       console.log(string);
     }
   }
 }
 
-  function makeQueryForSendForm(apartment) {
+//SEND REVIEW
+  function makeQueryForSendForm() {
 
-    console.log(apartment);
-    const id = apartment;
+    //console.log(apartment);
+    //const id = apartment;
+    //console.log(id);
+
+    const id = document.getElementById("idvalue").innerText;
     console.log(id);
-
     // make a JSON string and send it to a server
     const shape = document.getElementById('shape').value;
     console.log(shape);
@@ -454,3 +332,182 @@ function makeQueryForAddNewReview(apartment) {
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xmlhttp.send(newReview);
 }
+
+//CHÄTTI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+function makeQueryForChat() {
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      console.log(json);
+      if (json.length > 0) { // something found
+        showChat(json);
+      } else {
+      }
+    }
+  };
+  console.log('http://localhost:3000/chat');
+  xmlhttp.open('GET', 'http://localhost:3000/chat', true);
+  xmlhttp.send();
+}
+
+function showChat(json) {
+  console.log('showChat');
+
+  let stringheader;
+  let i;
+  let string;
+
+  for (i in json) {
+    string = json[i].username + ', ' + json[i].header;
+    console.log(string);
+
+    const chat = document.getElementById('chat');
+    const newheader = document.createElement('li');
+
+    var id = json[i].id;
+    newheader.setAttribute("id", id);
+    newheader.addEventListener("click", openChat.bind(id), false);
+    //addParemetersToOpenChat(id);
+
+    chat.appendChild(newheader);
+    stringheader = json[i].header;
+    newheader.innerHTML = stringheader;
+    //addParemetersToOpenChat(id);
+  }
+
+}
+
+function addParemetersToOpenChat(id){
+    console.log("addParemetersToOpenChat" + id);
+    openChat(id);
+    return;
+}
+
+function openChat(id) {
+
+  console.log("Open chät sisällä!!!");
+  console.log("id " + id.toString());
+  console.log(id);
+
+  //makeQueryForOneChat();
+
+  var clicked_id = id;
+  const ischatopen = document.getElementById("chatcontents").style.visibility;
+  console.log(ischatopen);
+
+  if (ischatopen === "visible") {
+    document.getElementById('chatcontents').style.visibility = "hidden";
+    document.getElementById('chatcontents').style.display = "none";
+  } else {
+    document.getElementById('chatcontents').style.visibility = "visible";
+    document.getElementById('chatcontents').style.display = "block";
+
+  }
+}
+
+//CHÄTIN OTSIKON LÄHETYS TOIMII
+function makeQueryForSendChat(){
+  const header = document.getElementById('chatTitle').value;
+  const user = document.getElementById('user').innerText;
+  console.log("CHÄTIN OTSIKKO: " + header);
+  console.log("CHÄTIN KÄYTTÄJÄTUNNUS: " + user);
+  const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
+  console.log("Console loggina " + newChat);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      addNewChat();
+      document.getElementById("testchat").innerHTML = xmlhttp.responseText;
+    }
+  };
+  console.log('http://localhost:3000/addchat');
+  xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xmlhttp.send(newChat);
+}
+
+function makeQueryForSendAnswer(){
+  const id_chat = document.getElementById('chatid').value;
+  const answer = document.getElementById('answer').value;
+
+  console.log("CHÄTIN id: " + id_chat);
+  console.log("CHÄTIN VASTAUS: " + answer);
+  const newAnswer = '{"id_chat": "' + id_chat + '", "answer": "' + answer + '"}';
+  console.log("Console loggina uusi vastaus chättiin " + newAnswer);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      //showChatAnswer();
+      document.getElementById("testanswer").innerHTML = xmlhttp.responseText;
+    }
+  };
+  console.log('http://localhost:3000/addchatanswer');
+  xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xmlhttp.send(newAnswer);
+}
+
+//PARTICULAR CHAT FROM DATABASE
+function makeQueryForOneChat(id) {
+
+  var clicked_id = id;
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      console.log(json);
+      if (json.length > 0) { // something found
+        showParticularChat();
+      } else {
+        console.log("Yhtään vastausta ei löytynyt!:(( ")
+      }
+    }
+  };
+  console.log('http://localhost:3000/particularchat?id_chat=' + clicked_id);
+  xmlhttp.open('GET', 'http://localhost:3000/particularchat?id_chat=' + clicked_id, true);
+  xmlhttp.send();
+}
+
+function showParticularChat(json){
+  console.log('showParticularChat');
+
+  let i;
+  let string;
+  let stringanswer;
+
+  for (i in json) {
+    string = json[i].id_chat + ', ' + json[i].answer;
+    console.log("Stringinä: " + string);
+    console.log("json answer " + json[i].answer);
+
+    const chatcontents = document.getElementById('chat');
+    const newanswer = document.createElement('li');
+    chatcontents.appendChild(newanswer);
+
+    stringanswer = json[i].answer;
+    console.log("stringanswer " + json[i].answer);
+    newanswer.innerHTML = stringanswer;
+}
+}
+
+function addNewChat() {
+  const title = document.getElementById('chatTitle').value;
+  console.log(title);
+
+  const li = document.createElement('li');
+  li.addEventListener("click", openChat, false);
+  li.innerHTML = title + "<br>";
+
+  const chat = document.getElementById('chat');
+  chat.appendChild(li);
+}
+
+

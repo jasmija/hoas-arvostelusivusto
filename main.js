@@ -23,7 +23,6 @@ const connection = mysql.createConnection({
 const util = require('util');
 const res = require("express");
 const query = util.promisify(connection.query).bind(connection);
-
 const app = express();
 
 app.set('view engine', 'hbs');
@@ -47,31 +46,24 @@ app.use('/auth', require('./routes/auth'));
 const url = require('url');
 //GET REVIEWS FROM DATABASE
 app.get("/api/results", function (req, res) {
-  //console.log("Get values from database");
   const q = url.parse(req.url, true).query;
   const id = q.id;
   let string;
 
-  //UUSI
+  //Sql query for get reviews from database
   const sql = "SELECT apartments.address, reviews.id, reviews.shape, reviews.comfort, reviews.grade, reviews.free_word"
       + " FROM apartments, reviews"
       + " WHERE reviews.id = apartments.id"
       + " and reviews.id= ?";
 
-  //TOIMIVA
-  /*const sql = 'SELECT Arvostelut.id, Arvostelut.osoite, Arvostelut.kunto, Arvostelut.viihtyvyys, Arvostelut.kokonaisarvosana, Arvostelut.vapaasana'
-      + ' FROM Arvostelut'
-      + ' WHERE id= ?';*/
-
-  (async () => { // IIFE (Immediately Invoked Function Expression)
+  (async () => { //Immediately Invoked Function Expression
     try {
       const rows = await query(sql,[id]);
       string = JSON.stringify(rows);
-      //console.log(string);
       res.send(string);
     }
     catch (err) {
-      console.log("Database error! In first get!!! "+ err);
+      console.log("Database error!" + err);
     }
   })()
 });
@@ -82,10 +74,10 @@ app.get("/chat", function (req, res) {
   var q = url.parse(req.url, true).query;
   var string;
 
-  var sql = "SELECT chat.username, chat.header"
+  var sql = "SELECT id, username, header"
       + " FROM chat";
 
-  (async () => { // IIFE (Immediately Invoked Function Expression)
+  (async () => {
     try {
       const rows = await query(sql);
       string = JSON.stringify(rows);
@@ -101,7 +93,33 @@ app.get("/chat", function (req, res) {
   })()
 });
 
-// Create application/x-www-form-urlencoded parser
+//GET PARTICULAR CHATS FROM DATABASE
+app.get("/particularchat", function (req, res) {
+  //console.log("Get values from database");
+  var q = url.parse(req.url, true).query;
+  var string;
+
+  var sql = "SELECT id, id_chat, answer"
+      + " FROM chat_answers";
+      //+ " WHERE id_chat=?";
+
+  (async () => {
+    try {
+      const rows = await query(sql);
+      string = JSON.stringify(rows);
+      //console.log(string);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
+});
+
+//Create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({extended: true});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // for reading JSON
@@ -134,7 +152,6 @@ app.post("/addchat", urlencodedParser, function (req, res) {
       res.send("POST succesful: " + req.body);
       console.log("async lopussa");
 
-
     } catch (err) {
       console.log("Insertion into tables was unsuccessful!" + err);
     }
@@ -155,6 +172,7 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
   res.send("POST succesful chat: " + chattianswer);
 
   const sql = 'INSERT INTO chat_answers (id, answer) VALUES ( ?, ?)';
+  //WHERE chat_answers= id;
 
   (async () => {
     try {

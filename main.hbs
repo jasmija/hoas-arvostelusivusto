@@ -164,7 +164,7 @@
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat">
-        <button onclick="makeQueryForSendChat(); addNewChat()">Lähetä</button>
+        <button onclick="makeQueryForSendChat(); ">Lähetä</button>
     {{/if}}
     <ul id="chat"></ul>
     <div id="chatcontents">
@@ -188,7 +188,7 @@
 <div id="modal" class="modal">
     <div id="modal-content">
         <span class="close">x</span>
-        <h2 id="address">Tähän haetaan tietokannasta klikatun asunnon osoite</h2>
+        <h2 id="header"></h2>
         <p id="rating"></p>
         <div id="container"></div>
 
@@ -222,8 +222,10 @@
         <span class="close2">x</span>
         <h2 style="display: inline-block">Arvostelu kohteeseen: </h2>
         <h2 style="display: inline-block" id="apartmentaddress"></h2>
+        <p id="idvalue"></p>
         <h3></h3>
         <form>
+            <p id="idvalue"></p>
             <fieldset>
                 <legend>Kunto</legend>
                 <select id="shape">
@@ -259,7 +261,7 @@
                 <textarea id="free_word" style="width: 60%"
                           placeholder="Kirjoita vapaasti kokemuksia ja mielipiteitä asunnosta" rows="10"></textarea>
             </fieldset>
-            <input type="button" onclick="makeQueryForSendForm(1)" value="Lähetä">
+            <input type="button" onclick="makeQueryForSendForm()"  value="Lähetä">
         </form>
         <div id="test"></div>
         <div id="test2"></div>
