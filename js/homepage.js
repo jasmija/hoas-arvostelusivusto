@@ -125,6 +125,8 @@ function showReviewList(json) {
   let i;
   let string;
 
+  const container = document.getElementById("container");
+  container.innerHTML = '';
   for (i in json) {
     const searchresult = document.getElementById('rating');
 
@@ -136,7 +138,7 @@ function showReviewList(json) {
     const header = document.getElementById('header');
     //header.setAttribute("class", "del");
 
-    const container = document.getElementById("container");
+    //const container = document.getElementById("container");
     const div = document.createElement("div");
     div.setAttribute("id","review");
     div.setAttribute("class", "del");
@@ -166,9 +168,9 @@ function showReviewList(json) {
     const p4 = document.createElement("p");
     div.appendChild(p4);
 
-    string = json[i].address + ', ' + json[i].shape + ', ' + json[i].comfort + ', ' + json[i].grade + ', ' + json[i].free_word;
+    //string = json[i].address + ', ' + json[i].shape + ', ' + json[i].comfort + ', ' + json[i].grade + ', ' + json[i].free_word;
 
-    searchresult.innerHTML = string;
+    //searchresult.innerHTML = string;
     header.innerHTML = json[i].address;
     console.log("header inner html = " + json[i].address);
     p.innerHTML = json[i].shape;
