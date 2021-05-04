@@ -1,6 +1,9 @@
 async function refresh() {
-  await new Promise(r => setTimeout(() => r(), 50));
-  window.location.reload();
+  if (document.getElementById('chatTitle').value === '') {
+  } else {
+    await new Promise(r => setTimeout(() => r(), 50));
+    window.location.reload();
+  }
 }
 
 function searchApartment() {
@@ -436,52 +439,59 @@ function openChat(id) {
 
 //CHÄTIN OTSIKON LÄHETYS TOIMII
 function makeQueryForSendChat() {
-  const header = document.getElementById('chatTitle').value;
-  const user = document.getElementById('user').innerText;
-  console.log('CHÄTIN OTSIKKO: ' + header);
-  console.log('CHÄTIN KÄYTTÄJÄTUNNUS: ' + user);
-  const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
-  console.log('Console loggina ' + newChat);
+  if (document.getElementById('chatTitle').value === '') {
+  } else {
+    const header = document.getElementById('chatTitle').value;
+    const user = document.getElementById('user').innerText;
+    console.log('CHÄTIN OTSIKKO: ' + header);
+    console.log('CHÄTIN KÄYTTÄJÄTUNNUS: ' + user);
+    const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
+    console.log('Console loggina ' + newChat);
 
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      addNewChat();
-      //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
-    }
-  };
-  console.log('http://localhost:3000/addchat');
-  xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
-  xmlhttp.setRequestHeader('Content-Type', 'application/json');
-  xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
-  xmlhttp.send(newChat);
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        addNewChat();
+        //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
+      }
+    };
+    console.log('http://localhost:3000/addchat');
+    xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
+    xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xmlhttp.send(newChat);
+  }
 }
 
 function makeQueryForSendAnswer(id) {
+  if (document.getElementById('answer').value === '') {
+  } else {
+    var clicked_id = id;
 
-  var clicked_id = id;
+    //const id_chat = document.getElementById('chatid').value;
+    const answer = document.getElementById('answer').value;
 
-  //const id_chat = document.getElementById('chatid').value;
-  const answer = document.getElementById('answer').value;
+    console.log('CHÄTIN id: ' + clicked_id);
 
-  console.log('CHÄTIN id: ' + clicked_id);
+    const newAnswer = '{"id_chat": "' + clicked_id + '", "answer": "' + answer +
+        '"}';
+    console.log('Console loggina uusi vastaus chättiin ' + newAnswer);
 
-  const newAnswer = '{"id_chat": "' + clicked_id + '", "answer": "' + answer +
-      '"}';
-  console.log('Console loggina uusi vastaus chättiin ' + newAnswer);
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        //showChatAnswer();
+        document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
+      }
+    };
+    console.log('http://localhost:3000/addchatanswer');
+    xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
+    xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xmlhttp.send(newAnswer);
 
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      //showChatAnswer();
-      document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
-    }
-  };
-  console.log('http://localhost:3000/addchatanswer');
-  xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
-  xmlhttp.setRequestHeader('Content-Type', 'application/json');
-  xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
-  xmlhttp.send(newAnswer);
+    document.getElementById('answer').value = '';
+  }
 }
 
 //PARTICULAR CHAT FROM DATABASE
