@@ -1,3 +1,8 @@
+async function refresh() {
+  await new Promise(r => setTimeout(() => r(), 50));
+  window.location.reload();
+}
+
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
 
@@ -438,18 +443,18 @@ function makeQueryForSendChat() {
   const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
   console.log('Console loggina ' + newChat);
 
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        addNewChat();
-        //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
-      }
-    };
-    console.log('http://localhost:3000/addchat');
-    xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
-    xmlhttp.setRequestHeader('Content-Type', 'application/json');
-    xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xmlhttp.send(newChat);
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      addNewChat();
+      //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
+    }
+  };
+  console.log('http://localhost:3000/addchat');
+  xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
+  xmlhttp.setRequestHeader('Content-Type', 'application/json');
+  xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+  xmlhttp.send(newChat);
 }
 
 function makeQueryForSendAnswer(id) {
