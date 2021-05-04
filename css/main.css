@@ -25,6 +25,7 @@ ul#menu{
     list-style-type: none;
     background-color: #333;
     display: flex;
+    flex-wrap: wrap;
     padding: 20px;
 }
 
@@ -57,9 +58,13 @@ legend{
     font-weight: bold;
 }
 
+#apartments {
+    justify-content: center;
+}
+
 #apartments li {
     position: relative;
-    margin: auto;
+    margin: 15px;
 }
 
 figcaption h3{
