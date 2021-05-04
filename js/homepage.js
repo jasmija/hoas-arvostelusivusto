@@ -382,7 +382,11 @@ function showChat(json) {
 
     var id = json[i].id;
     newheader.setAttribute("id", id);
-    newheader.addEventListener("click", openChat.bind(id), false);
+    newheader.setAttribute("onclick", "openChat(" + id + ")");
+
+    console.log(id);
+    //newheader.addEventListener("click", openChat(id), false);
+    console.log("eventlistener added!!");
     //addParemetersToOpenChat(id);
 
     chat.appendChild(newheader);
@@ -390,25 +394,27 @@ function showChat(json) {
     newheader.innerHTML = stringheader;
     //addParemetersToOpenChat(id);
   }
-
-}
-
-function addParemetersToOpenChat(id){
-    console.log("addParemetersToOpenChat" + id);
-    openChat(id);
-    return;
 }
 
 function openChat(id) {
+
+  const container = document.getElementById("answers");
+  container.innerHTML = '';
+  /*var chatcontents = document.getElementById("chatcontents");
+  chatcontents.setAttribute("class", "del");
+  $('.del').remove();*/
 
   console.log("Open chät sisällä!!!");
   console.log("id " + id.toString());
   console.log(id);
 
-  //makeQueryForOneChat();
+  makeQueryForChatHeader(id);
+  makeQueryForContent(id);
 
-  var clicked_id = id;
-  const ischatopen = document.getElementById("chatcontents").style.visibility;
+  const sendbutton = document.getElementById("sendbutton");
+  sendbutton.setAttribute("onclick", "makeQueryForSendAnswer(" + id + ")");
+
+  const ischatopen = document.getElementById(id).style.visibility;
   console.log(ischatopen);
 
   if (ischatopen === "visible") {
@@ -417,7 +423,6 @@ function openChat(id) {
   } else {
     document.getElementById('chatcontents').style.visibility = "visible";
     document.getElementById('chatcontents').style.display = "block";
-
   }
 }
 
@@ -444,13 +449,16 @@ function makeQueryForSendChat(){
   xmlhttp.send(newChat);
 }
 
-function makeQueryForSendAnswer(){
-  const id_chat = document.getElementById('chatid').value;
+function makeQueryForSendAnswer(id){
+
+  var clicked_id = id;
+
+  //const id_chat = document.getElementById('chatid').value;
   const answer = document.getElementById('answer').value;
 
-  console.log("CHÄTIN id: " + id_chat);
-  console.log("CHÄTIN VASTAUS: " + answer);
-  const newAnswer = '{"id_chat": "' + id_chat + '", "answer": "' + answer + '"}';
+  console.log("CHÄTIN id: " + clicked_id);
+
+  const newAnswer = '{"id_chat": "' +  clicked_id + '", "answer": "' + answer + '"}';
   console.log("Console loggina uusi vastaus chättiin " + newAnswer);
 
   const xmlhttp = new XMLHttpRequest();
@@ -468,24 +476,105 @@ function makeQueryForSendAnswer(){
 }
 
 //PARTICULAR CHAT FROM DATABASE
-function makeQueryForOneChat(id) {
-
+function makeQueryForChatHeader(id) {
+  console.log("inside makeQueryForChatHeader");
   var clicked_id = id;
+  console.log("klikattu id " + clicked_id);
+
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       console.log(json);
       if (json.length > 0) { // something found
-        showParticularChat();
+        showHeader();
+      } else {
+        console.log("Yhtään otsikkoa ei löytynyt!:(( ")
+      }
+    }
+  };
+  console.log('http://localhost:3000/chatheader?id=' + clicked_id);
+  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id, true);
+  xmlhttp.send();
+}
+
+function makeQueryForContent(id){
+  console.log("inside makeQueryForContent");
+  var click = id;
+  console.log("klikattu id on " + click);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      console.log(json);
+      if (json.length > 0) { // something found
+        showContent();
       } else {
         console.log("Yhtään vastausta ei löytynyt!:(( ")
       }
     }
   };
-  console.log('http://localhost:3000/particularchat?id_chat=' + clicked_id);
-  xmlhttp.open('GET', 'http://localhost:3000/particularchat?id_chat=' + clicked_id, true);
+  console.log('http://localhost:3000/chatcontent?id=' + click);
+  xmlhttp.open('GET', 'http://localhost:3000/chatcontent?id=' + click, true);
   xmlhttp.send();
+}
+
+function showContent(){
+  console.log('showContent');
+
+  let i;
+  let answer;
+
+  for (i in json) {
+    answer = json[i].answer;
+    console.log(answer);
+
+    const chatcontents = document.getElementById('answers');
+    const newanswer = document.createElement('li');
+    chatcontents.appendChild(newanswer);
+
+    newanswer.innerHTML = answer;
+  }
+
+}
+
+/*function makeQueryForShowReviews(apartment) {
+  const id = apartment;
+  console.log(id);
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      console.log(json);
+      if (json.length > 0) { // something found
+        showReviewList(json);
+      } else {
+        document.getElementById('rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+      }
+    }
+  };
+  const searchedid = id;
+  console.log('Haettu id: ' + searchedid);
+  console.log('http://localhost:3000/api/results?id=' + searchedid);
+  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid, true);
+  xmlhttp.send();
+}*/
+
+function showHeader(){
+  console.log('showHeader');
+
+  let i;
+  let stringheader;
+
+  for (i in json) {
+    var header = document.getElementById("chatheader");
+    stringheader = json[i].header;
+    header.innerHTML = stringheader;
+  }
+
+
 }
 
 function showParticularChat(json){

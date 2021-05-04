@@ -173,11 +173,10 @@
     {{/if}}
     <ul id="chat"></ul>
     <div id="chatcontents">
-        <h2>Tähän klikatun keskustelun otsikko tietokannasta</h2>
-        <p>Tähän listana vastauksia kysymyksiin</p>
+        <h2 id="chatheader">Tähän klikatun keskustelun otsikko tietokannasta</h2>
+        <div id="answers"></div>
         <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
-        <button onclick="makeQueryForSendAnswer()" >Lähetä vastaus</button>
-        <input id="chatid">
+        <button id="sendbutton" >Lähetä vastaus</button>
         <div id="testanswer"></div>
     </div>
 </aside>

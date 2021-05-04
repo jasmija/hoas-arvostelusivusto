@@ -117,18 +117,20 @@ app.get("/chat", function (req, res) {
 });
 
 //GET PARTICULAR CHATS FROM DATABASE
-app.get("/particularchat", function (req, res) {
-  //console.log("Get values from database");
-  var q = url.parse(req.url, true).query;
-  var string;
+app.get("/chatheader", function (req, res) {
+  const q = url.parse(req.url, true).query;
+  const id = q.id;
+  let string;
 
-  var sql = "SELECT id, id_chat, answer"
-      + " FROM chat_answers";
-      //+ " WHERE id_chat=?";
+  var sql = "SELECT header"
+      + " FROM chat"
+      + " WHERE id=?";
+
+  console.log(sql);
 
   (async () => {
     try {
-      const rows = await query(sql);
+      const rows = await query(sql,[id]);
       string = JSON.stringify(rows);
       //console.log(string);
       res.send(string);
@@ -141,6 +143,34 @@ app.get("/particularchat", function (req, res) {
     }
   })()
 });
+
+app.get("/chatcontent", function (req, res) {
+  const q = url.parse(req.url, true).query;
+  const id = q.id;
+  let string;
+
+  var sql = "SELECT answer"
+      + " FROM chat_answers"
+      + " WHERE id_chat=?";
+
+  console.log("Console logitetaan sql " + sql);
+
+  (async () => {
+    try {
+      const rows = await query(sql,[id]);
+      string = JSON.stringify(rows);
+      console.log(string);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
+});
+
 
 //Create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({extended: true});
@@ -187,20 +217,18 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
   console.log("INSIDE APP.POST CHÄTTI ANSWER");
   let json = req.body;
   console.log("Stringinä chätti answer" + JSON.stringify(json));
-  //console.log("Request body chätti answer: " + req.body);
-  console.log("Id chätti answer: " + json.id);
 
   let chattianswer = JSON.stringify(json);
   console.log("json " + chattianswer);
   res.send("POST succesful chat: " + chattianswer);
 
-  const sql = 'INSERT INTO chat_answers (id, answer) VALUES ( ?, ?)';
+  const sql = 'INSERT INTO chat_answers (id_chat, answer) VALUES ( ?, ?)';
   //WHERE chat_answers= id;
 
   (async () => {
     try {
       console.log("inside async chatanswer");
-      var result = await query(sql, [json.id, json.answer]);
+      var result = await query(sql, [json.id_chat, json.answer]);
       console.log("result answer " + [json].answer);
       let insertedId = result.insertId;
       //console.log("result is " + result);
