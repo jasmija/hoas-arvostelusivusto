@@ -175,8 +175,11 @@
     <div id="chatcontents">
         <h2 id="chatheader">Tähän klikatun keskustelun otsikko tietokannasta</h2>
         <div id="answers"></div>
+
+        {{#if user}}
         <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)">
         <button id="sendbutton" >Lähetä vastaus</button>
+        {{/if}}
         <div id="testanswer"></div>
     </div>
 </aside>
