@@ -96,7 +96,6 @@ ul#apartments li a:hover{
 }
 
 /*Chat*/
-
 #chatcontents{
     display: none;
     visibility: hidden;
@@ -133,6 +132,21 @@ button{
     padding: 8px;
 }
 
+.chatanswers{
+    border-style: solid;
+    padding: 20px;
+    margin-bottom: 10px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    list-style: none;
+}
+
+#answer{
+    margin-bottom: 10px;
+}
+
+
 /*Footer*/
 .footer {
     border-radius: 3px;
@@ -145,6 +159,7 @@ button{
 }
 
 /*MODAL*/
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -195,7 +210,7 @@ button{
     margin-top: 15px;
 }
 
-
+/*Stars for averages*/
 .starcontainer .star{
     max-width: 25%;
 }
@@ -219,11 +234,8 @@ button{
     font-size: 20px;
 }
 
-/*.checked {
-    color: orange;
-}*/
-
 /*MODAL2*/
+
 /* The Modal (background) */
 .modal2 {
     display: none; /* Hidden by default */
@@ -261,16 +273,5 @@ button{
     color: #000;
     text-decoration: none;
     cursor: pointer;
-}
-
-.chatanswers{
-    border-style: solid;
-    padding: 20px;
-    margin-bottom: 10px;
-    width: 80%;
-    margin-right: auto;
-    margin-left: auto;
-    list-style: none;
-
 }
 

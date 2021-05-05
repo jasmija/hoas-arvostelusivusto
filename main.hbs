@@ -27,7 +27,6 @@
 
 <main>
     <ul id="apartments">
-        <!--When li element clicked modal opens-->
         <li>
             <figure>
                 <a onclick="getApartmentId(this.id)" id="1" class="review"><img src="img/kimpitie.jpg"></a>
@@ -167,15 +166,12 @@
 
 <h2 style="text-align: center">Keskustelupalsta</h2>
 <div id="newchat">
-    <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat" required>
         <button onclick="makeQueryForSendChat();">Lähetä</button>
     {{/if}}
     <ul id="chat"></ul>
-   </div>
-
-
+</div>
 
 <div>
     <div id="chatcontents">
@@ -189,31 +185,12 @@
     </div>
 </div>
 
-
-
-<div class="footer">
-    <p>Kuvat asunnoista</p>
-    <a href="https://www.hoas.fi/" target="_blank"><u>www.hoas.fi</u></a>
-
-    <p>Logo</p>
-    <a href="https://ucraft.com/" target="_blank"><u>www.ucraft.com</u></a>
-</div>
-
-<!-- Modal -->
 <div id="modal" class="modal">
     <div id="modal-content">
         <span class="close">x</span>
         <h2 id="header"></h2>
-
         <p id="rating"></p>
         <div id="container"></div>
-
-        <!--<span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>-->
-
         <h2>Arvostelujen keskiarvot:</h2>
         <div class="starcontainer">
             <p>Kunto</p>
@@ -239,7 +216,7 @@
         <h2 style="display: inline-block">Arvostelu kohteeseen: </h2>
         <h2 style="display: inline-block" id="apartmentaddress"></h2>
         <hr>
-        <p  id="idvalue"></p>
+        <p style="opacity: 0;" id="idvalue"></p>
         <h3></h3>
         <form>
             <p id="idvalue"></p>
@@ -281,9 +258,14 @@
             </fieldset>
             <input type="button" onclick="makeQueryForSendForm()" value="Lähetä">
         </form>
-        <div id="test"></div>
-        <div id="test2"></div>
     </div>
+</div>
+
+<div class="footer">
+    <p>Kuvat asunnoista</p>
+    <a href="https://www.hoas.fi/" target="_blank"><u>www.hoas.fi</u></a>
+    <p>Logo</p>
+    <a href="https://ucraft.com/" target="_blank"><u>www.ucraft.com</u></a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

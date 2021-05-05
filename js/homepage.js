@@ -280,7 +280,7 @@ function makeQueryForSendForm() {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      document.getElementById('test').innerHTML = xmlhttp.responseText;
+      //document.getElementById('test').innerHTML = xmlhttp.responseText;
     }
   };
 
@@ -398,7 +398,7 @@ function makeQueryForSendAnswer(id) {
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         //showChatAnswer();
-        document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
+        //document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
       }
     };
     console.log('http://localhost:3000/addchatanswer');
