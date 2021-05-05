@@ -1,10 +1,10 @@
-async function refresh() {
+/*async function refresh() {
   if (document.getElementById('chatTitle').value === '') {
   } else {
-    await new Promise(r => setTimeout(() => r(), 50));
+    await new Promise(r => setTimeout(() => r(), 500));
     window.location.reload();
   }
-}
+}*/
 
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
@@ -439,7 +439,9 @@ function openChat(id) {
 
 //CHÄTIN OTSIKON LÄHETYS TOIMII
 function makeQueryForSendChat() {
+
   if (document.getElementById('chatTitle').value === '') {
+    alert("Täytä kenttä!!");
   } else {
     const header = document.getElementById('chatTitle').value;
     const user = document.getElementById('user').innerText;
@@ -449,9 +451,9 @@ function makeQueryForSendChat() {
     console.log('Console loggina ' + newChat);
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        addNewChat();
+        //addNewChat();
         //document.getElementById('testchat').innerHTML = xmlhttp.responseText;
       }
     };
@@ -460,11 +462,18 @@ function makeQueryForSendChat() {
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
     xmlhttp.send(newChat);
+
+
+    document.getElementById("chat").innerHTML = " ";
+    makeQueryForChat();
   }
 }
 
+
 function makeQueryForSendAnswer(id) {
-  if (document.getElementById('answer').value === '') {
+
+  if (document.getElementById('chatTitle').value === '') {
+    alert("Täytä kenttä!!");
   } else {
     var clicked_id = id;
 
@@ -478,7 +487,7 @@ function makeQueryForSendAnswer(id) {
     console.log('Console loggina uusi vastaus chättiin ' + newAnswer);
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         //showChatAnswer();
         document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
@@ -492,6 +501,7 @@ function makeQueryForSendAnswer(id) {
 
     document.getElementById('answer').value = '';
   }
+
 }
 
 //PARTICULAR CHAT FROM DATABASE
@@ -621,15 +631,15 @@ function showParticularChat(json) {
 }
 
 function addNewChat() {
-  const title = document.getElementById('chatTitle').value;
+  /*const title = document.getElementById('chatTitle').value;
   console.log(title);
 
   const li = document.createElement('li');
-  li.addEventListener('click', openChat, false);
+  //li.addEventListener('click', openChat, false);
   li.innerHTML = title + '<br>';
 
   const chat = document.getElementById('chat');
-  chat.appendChild(li);
+  chat.appendChild(li);*/
 
 }
 

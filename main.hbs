@@ -166,24 +166,29 @@
 <hr>
 
 <h2 style="text-align: center">Keskustelupalsta</h2>
-<form id="newchat">
+<div id="newchat">
     <!--<label for="title">Kirjoita kysymys aloittaaksesi keskustelun:</label>-->
     {{#if user}}
         <input id="chatTitle" type="text" placeholder="Kirjoita kysymys aloittaaksesi keskustelun" name="chat" required>
-        <button onclick="makeQueryForSendChat();refresh();">Lähetä</button>
+        <button onclick="makeQueryForSendChat();">Lähetä</button>
     {{/if}}
-    <ul id="chat"></ul></form>
+    <ul id="chat"></ul>
+   </div>
 
-    <form id="chatcontents">
+
+
+<div>
+    <div id="chatcontents">
         <h2 id="chatheader">Tähän klikatun keskustelun otsikko tietokannasta</h2>
-        <div id="answers"></div>
-
         {{#if user}}
             <input id="answer" type="text" placeholder="Kirjoita vastaus (max 500 merkkiä)" required>
             <button id="sendbutton">Lähetä vastaus</button>
         {{/if}}
+        <div id="answers"></div>
         <div id="testanswer"></div>
-    </form>
+    </div>
+</div>
+
 
 
 <div class="footer">
