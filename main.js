@@ -1,10 +1,6 @@
-
-//*** BELOW ONLY CONNECTION TO DATABASE AND REST RELATED STUFF ***//
-
 // Modules to use
 const mysql = require('mysql');
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -21,7 +17,6 @@ const connection = mysql.createConnection({
 });
 
 const util = require('util');
-const res = require("express");
 const query = util.promisify(connection.query).bind(connection);
 const app = express();
 
@@ -68,7 +63,6 @@ app.get("/api/results", function (req, res) {
   })()
 });
 
-//TESTIÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 app.get("/api/address", function (req, res) {
   const q = url.parse(req.url, true).query;
   const id = q.id;
@@ -93,7 +87,6 @@ app.get("/api/address", function (req, res) {
 
 //GET CHATS FROM DATABASE
 app.get("/chat", function (req, res) {
-  //console.log("Get values from database");
   var q = url.parse(req.url, true).query;
   var string;
 
@@ -104,7 +97,6 @@ app.get("/chat", function (req, res) {
     try {
       const rows = await query(sql);
       string = JSON.stringify(rows);
-      //console.log(string);
       res.send(string);
     }
     catch (err) {
@@ -126,13 +118,10 @@ app.get("/chatheader", function (req, res) {
       + " FROM chat"
       + " WHERE id=?";
 
-  console.log(sql);
-
   (async () => {
     try {
       const rows = await query(sql,[id]);
       string = JSON.stringify(rows);
-      //console.log(string);
       res.send(string);
     }
     catch (err) {
@@ -153,13 +142,10 @@ app.get("/chatcontent", function (req, res) {
       + " FROM chat_answers"
       + " WHERE id_chat=?";
 
-  console.log("Console logitetaan sql " + sql);
-
   (async () => {
     try {
       const rows = await query(sql,[id]);
       string = JSON.stringify(rows);
-      console.log(string);
       res.send(string);
     }
     catch (err) {
@@ -181,29 +167,18 @@ app.use(bodyParser.json()); // for reading JSON
 //INSERT CHATS TO DATABASE
 app.post("/addchat", urlencodedParser, function (req, res) {
 
-  console.log("INSIDE APP.POST CHÄTTI");
   let json = req.body;
-  console.log("Stringinä chätti" + JSON.stringify(json));
-  console.log("Request body chätti: " + req.body);
-  console.log("Id chätti: " + json.id);
 
   let chatti = JSON.stringify(json);
-  console.log("jsonObj " + chatti);
   res.send("POST succesful: " + chatti);
 
   const sql = 'INSERT INTO chat (username, header) VALUES ( ?, ?)';
 
   (async () => {
     try {
-      console.log("inside async chat");
       var result = await query(sql, [json.username, json.header]);
-      console.log("result header " + [json].header);
       let insertedId = result.insertId;
-      //console.log("result is " + result);
-      console.log("insertedid " + insertedId);
-      console.log("ennen post successful");
       res.send("POST succesful: " + req.body);
-      console.log("async lopussa");
 
     } catch (err) {
       console.log("Insertion into tables was unsuccessful!" + err);
@@ -214,12 +189,9 @@ app.post("/addchat", urlencodedParser, function (req, res) {
 //INSERT CHAT ANSWERS TO DATABASE
 app.post("/addchatanswer", urlencodedParser, function (req, res) {
 
-  console.log("INSIDE APP.POST CHÄTTI ANSWER");
   let json = req.body;
-  console.log("Stringinä chätti answer" + JSON.stringify(json));
 
   let chattianswer = JSON.stringify(json);
-  console.log("json " + chattianswer);
   res.send("POST succesful chat: " + chattianswer);
 
   const sql = 'INSERT INTO chat_answers (id_chat, answer) VALUES ( ?, ?)';
@@ -227,15 +199,9 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
 
   (async () => {
     try {
-      console.log("inside async chatanswer");
       var result = await query(sql, [json.id_chat, json.answer]);
-      console.log("result answer " + [json].answer);
       let insertedId = result.insertId;
-      //console.log("result is " + result);
-      console.log("insertedid " + insertedId);
-      console.log("ennen post successful");
       res.send("POST succesful: " + req.body);
-      console.log("async lopussa");
 
     } catch (err) {
       console.log("Insertion into tables was unsuccessful!" + err);
@@ -247,35 +213,21 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
 //INSERT REVIEWS TO DATABASE
 app.post("/action", urlencodedParser, function (req, res) {
 
-  console.log("INSIDE APP.POST!!!!!");
-
   let jsonObj = req.body;
-  console.log("String" + JSON.stringify(jsonObj));
-  console.log("Request body: " + req.body);
-  console.log("Id: " + jsonObj.id);
-  console.log("Shape: " + jsonObj.shape);
 
   let responseString = JSON.stringify(jsonObj);
-  console.log("jsonObj " + responseString);
   res.send("POST succesful: " + responseString);
 
   const sql = 'INSERT INTO reviews (id, shape, comfort, grade, free_word) VALUES ( ?, ?, ?, ?, ?)';
 
   (async () => {
       try {
-        console.log("inside async");
         const result = await query(sql, [jsonObj.id, jsonObj.shape, jsonObj.comfort, jsonObj.grade, jsonObj.free_word]);
-        console.log("result id " + result[jsonObj].id);
         let insertedId = result.insertId;
-        console.log("result is " + result);
-        console.log("insertedid " + insertedId);
         res.send("POST succesful: " + req.body);
 
       } catch (err) {
         console.log("Insertion into tables was unsuccessful!" + err);
-        //res.send("POST was not succesful " + err);
       }
     })()
-
-
 });

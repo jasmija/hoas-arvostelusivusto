@@ -1,11 +1,3 @@
-/*async function refresh() {
-  if (document.getElementById('chatTitle').value === '') {
-  } else {
-    await new Promise(r => setTimeout(() => r(), 500));
-    window.location.reload();
-  }
-}*/
-
 //Search apartment from page
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
@@ -116,7 +108,8 @@ function makeQueryForShowReviews(apartment) {
       if (json.length > 0) { // something found
         showReviewList(json);
       } else {
-        document.getElementById('rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+        document.getElementById(
+            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
       }
     }
   };
@@ -198,8 +191,8 @@ function countAverage(json) {
       json[i].shape = 3;
     } else if (json[i].shape === 'Kiitettävä') {
       json[i].shape = 4;
-    }  else if (json[i].shape === 'Erinomainen') {
-    json[i].shape = 5;
+    } else if (json[i].shape === 'Erinomainen') {
+      json[i].shape = 5;
     }
 
     sumshape = sumshape + json[i].shape;
@@ -210,7 +203,8 @@ function countAverage(json) {
   const averagegrade = (sumgrade / json.length).toFixed(0);
 
   document.getElementById('averageshape').innerHTML = averageshape.toString();
-  document.getElementById('averagecomfort').innerHTML = averagecomfort.toString();
+  document.getElementById(
+      'averagecomfort').innerHTML = averagecomfort.toString();
   document.getElementById('averagegrade').innerHTML = averagegrade.toString();
 }
 
@@ -227,7 +221,8 @@ function makeQueryForAddNewReview(apartment) {
       if (json.length > 0) { // something found
         showAddReview(json);
       } else {
-        document.getElementById('apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+        document.getElementById(
+            'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
       }
     }
   };
@@ -330,7 +325,7 @@ function showChat(json) {
     stringheader = json[i].header;
 
     stringusername = json[i].username;
-    newheader.innerHTML = stringheader + " käyttäjä: " + stringusername;
+    newheader.innerHTML = stringheader + ' käyttäjä: ' + stringusername;
   }
 }
 
@@ -360,14 +355,14 @@ function openChat(id) {
 function makeQueryForSendChat() {
 
   if (document.getElementById('chatTitle').value === '') {
-    alert("Täytä kenttä!!");
+    alert('Täytä kenttä!!');
   } else {
     const header = document.getElementById('chatTitle').value;
     const user = document.getElementById('user').innerText;
     const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         //addNewChat();
       }
@@ -378,7 +373,7 @@ function makeQueryForSendChat() {
     xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
     xmlhttp.send(newChat);
 
-    document.getElementById("chat").innerHTML = " ";
+    document.getElementById('chat').innerHTML = ' ';
     makeQueryForChat();
   }
 }
@@ -387,15 +382,16 @@ function makeQueryForSendChat() {
 function makeQueryForSendAnswer(id) {
 
   if (document.getElementById('chatTitle').value === '') {
-    alert("Täytä kenttä!!");
+    alert('Täytä kenttä!!');
   } else {
     var clicked_id = id;
 
     const answer = document.getElementById('answer').value;
-    const newAnswer = '{"id_chat": "' + clicked_id + '", "answer": "' + answer + '"}';
+    const newAnswer = '{"id_chat": "' + clicked_id + '", "answer": "' + answer +
+        '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         //showChatAnswer();
         //document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
@@ -428,7 +424,8 @@ function makeQueryForChatHeader(id) {
     }
   };
   console.log('http://localhost:3000/chatheader?id=' + clicked_id);
-  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id, true);
+  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id,
+      true);
   xmlhttp.send();
 }
 
@@ -461,7 +458,7 @@ function showContent() {
     answer = json[i].answer;
 
     const newanswer = document.createElement('li');
-    newanswer.className = "chatanswers";
+    newanswer.className = 'chatanswers';
 
     const chatcontents = document.getElementById('answers');
     chatcontents.appendChild(newanswer);
