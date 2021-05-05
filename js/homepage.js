@@ -6,6 +6,7 @@
   }
 }*/
 
+//Search apartment from page
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
 
@@ -29,33 +30,31 @@ function searchApartment() {
   }
 }
 
+//Get clicked apartment id
 function getApartmentId(clicked_id) {
-  console.log('clicked id ' + clicked_id);
   return clicked_id;
 }
 
+//Window onload execute immediately after the page loaded
 window.onload = function() {
 
+  //Get input field for search apartment
   document.getElementById('search').value = '';
 
+  //Load chats from database to page
   makeQueryForChat();
 
   //VIEW REVIEWS
-
   //Get the modal
   const modal = document.getElementById('modal');
   const apartments = document.getElementsByClassName('review');
 
+  //Loop through apartments list
   for (let i = 0; i < apartments.length; i++) {
-    //console.log("apartments lenght " + apartments.length);
-    //var apartment = i;
-    //console.log(apartments[i]);
-    //console.log("monesko alkio klikattu " + apartment);
-
     apartments[i].getApartmentId = function(i) {
       console.log('klikattu asunto ' + i);
-      //apartment = getApartmentId();
-      //console.log("getapartmentid " + apartment);
+
+      //Display clicked apartments reviews in the modal
       makeQueryForShowReviews(i);
       modal.style.display = 'block';
     };
@@ -72,17 +71,21 @@ window.onload = function() {
   const modal2 = document.getElementById('modal2');
   const ratebuttons = document.getElementsByClassName('rate');
 
+  //Loop through ratebuttons list
   for (let a = 0; a < ratebuttons.length; a++) {
     ratebuttons[a].getApartmentId = function(a) {
       console.log('klikattu asunto ' + a);
+
+      //Display review form in the modal
       makeQueryForAddNewReview(a);
       modal2.style.display = 'block';
     };
   }
 
+  //Close the modal, when the user clicks on x
   const span2 = document.getElementsByClassName('close2')[0];
   ratebuttons.onclick = function() {
-    getApartmentId();
+    //getApartmentId();
     modal2.style.display = 'block';
   };
 
@@ -101,28 +104,25 @@ window.onload = function() {
   };
 };
 
-//SERVER JS
+//QUERIES TO THE DATABASE
 let json;
 
 function makeQueryForShowReviews(apartment) {
+
   const id = apartment;
-  console.log(id);
 
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
-      console.log(json);
       if (json.length > 0) { // something found
         showReviewList(json);
       } else {
-        document.getElementById(
-            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+        document.getElementById('rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
       }
     }
   };
   const searchedid = id;
-  console.log('Haettu id: ' + searchedid);
   console.log('http://localhost:3000/api/results?id=' + searchedid);
   xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
       true);
@@ -130,25 +130,15 @@ function makeQueryForShowReviews(apartment) {
 }
 
 function showReviewList(json) {
-  console.log('showReviewList');
 
   let i;
-  let string;
-
   const container = document.getElementById('container');
   container.innerHTML = '';
-  for (i in json) {
-    const searchresult = document.getElementById('rating');
 
-    /*var modal = document.getElementById("modal-content");
-    var header = document.createElement("p");
-    header.setAttribute("class", "del");
-    modal.appendChild(header);*/
+  for (i in json) {
 
     const header = document.getElementById('header');
-    //header.setAttribute("class", "del");
 
-    //const container = document.getElementById("container");
     const div = document.createElement('div');
     div.setAttribute('id', 'review');
     div.setAttribute('class', 'del');
@@ -157,35 +147,37 @@ function showReviewList(json) {
     const h = document.createElement('h3');
     h.innerHTML = 'Kunto';
     div.appendChild(h);
+
     const p = document.createElement('p');
     div.appendChild(p);
 
     const h2 = document.createElement('h3');
     h2.innerHTML = 'Viihtyvyys';
     div.appendChild(h2);
+
     const p2 = document.createElement('p');
     div.appendChild(p2);
 
     const h3 = document.createElement('h3');
     h3.innerHTML = 'Kokonaisarvosana';
     div.appendChild(h3);
+
     const p3 = document.createElement('p');
     div.appendChild(p3);
 
     const h4 = document.createElement('h3');
     h4.innerHTML = 'Vapaa sana';
     div.appendChild(h4);
+
     const p4 = document.createElement('p');
     div.appendChild(p4);
 
     header.innerHTML = json[i].address;
-    console.log('header inner html = ' + json[i].address);
     p.innerHTML = json[i].shape;
     p2.innerHTML = json[i].comfort;
     p3.innerHTML = json[i].grade;
     p4.innerHTML = json[i].free_word;
   }
-
   countAverage(json);
 }
 
@@ -202,30 +194,23 @@ function countAverage(json) {
 
     if (json[i].shape === 'välttävä') {
       json[i].shape = 1;
-      console.log(json[i].shape);
     } else if (json[i].shape === 'Tyydyttävä') {
       json[i].shape = 2;
-      console.log(json[i].shape);
     } else if (json[i].shape === 'Hyvä') {
       json[i].shape = 3;
-      console.log(json[i].shape);
     } else if (json[i].shape === 'Kiitettävä') {
       json[i].shape = 4;
-      console.log(json[i].shape);
-    }
-
-    sumshape = sumshape + json[i].shape;
-    console.log('Summa kunnosta ' + sumshape);
+    }  else if (json[i].shape === 'Erinomainen') {
+    json[i].shape = 5;
   }
 
+    sumshape = sumshape + json[i].shape;
+  }
   const averageshape = (sumshape / json.length).toFixed(0);
-  console.log('Keskiarvo kunto ' + averageshape);
 
   const averagecomfort = (sumcomfort / json.length).toFixed(0);
-  console.log('Keskiarvo viihtyvyys ' + averagecomfort);
 
   const averagegrade = (sumgrade / json.length).toFixed(0);
-  console.log('Keskiarvo kokonaisarvosana ' + averagegrade);
 
   //const shape = document.getElementById("averageshape");
   //shape.setAttribute("class", "del");
