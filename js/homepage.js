@@ -359,8 +359,8 @@ function makeQueryForChat() {
       }
     }
   };
-  console.log('http://localhost:3000/chat');
-  xmlhttp.open('GET', 'http://localhost:3000/chat', true);
+  console.log('http://localhost:3000/api/chat');
+  xmlhttp.open('GET', 'http://localhost:3000/api/chat', true);
   xmlhttp.send();
 }
 
@@ -433,8 +433,8 @@ function makeQueryForSendChat() {
     const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    console.log('http://localhost:3000/addchat');
-    xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
+    console.log('http://localhost:3000/api/addchat');
+    xmlhttp.open('POST', 'http://localhost:3000/api/addchat', true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
     xmlhttp.send(newChat);
@@ -460,8 +460,8 @@ function makeQueryForSendAnswer(id) {
         '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    console.log('http://localhost:3000/addchatanswer');
-    xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
+    console.log('http://localhost:3000/api/addchatanswer');
+    xmlhttp.open('POST', 'http://localhost:3000/api/addchatanswer', true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
     xmlhttp.send(newAnswer);
@@ -489,8 +489,8 @@ function makeQueryForChatHeader(id) {
       }
     }
   };
-  console.log('http://localhost:3000/chatheader?id=' + clicked_id);
-  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id, true);
+  console.log('http://localhost:3000/api/chatheader?id=' + clicked_id);
+  xmlhttp.open('GET', 'http://localhost:3000/api/chatheader?id=' + clicked_id, true);
   xmlhttp.send();
 }
 
@@ -526,8 +526,8 @@ function makeQueryForContent(id) {
       }
     }
   };
-  console.log('http://localhost:3000/chatcontent?id=' + clicked_id);
-  xmlhttp.open('GET', 'http://localhost:3000/chatcontent?id=' + clicked_id, true);
+  console.log('http://localhost:3000/api/chatcontent?id=' + clicked_id);
+  xmlhttp.open('GET', 'http://localhost:3000/api/chatcontent?id=' + clicked_id, true);
   xmlhttp.send();
 }
 

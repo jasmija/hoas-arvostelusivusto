@@ -114,7 +114,7 @@ app.get('/api/apartments', function(req, res) {
 /**
  * Get chat topic id, username and header from database
  */
-app.get('/chat', function(req, res) {
+app.get('/api/chat', function(req, res) {
   const q = url.parse(req.url, true).query;
   let string;
 
@@ -135,7 +135,7 @@ app.get('/chat', function(req, res) {
 /**
  * Get a header with a specific id from database
  */
-app.get('/chatheader', function(req, res) {
+app.get('/api/chatheader', function(req, res) {
   const q = url.parse(req.url, true).query;
   const id = q.id;
   let string;
@@ -158,7 +158,7 @@ app.get('/chatheader', function(req, res) {
 /**
  * Get chat contents of a specific chat where id = desired chat id
  */
-app.get('/chatcontent', function(req, res) {
+app.get('/api/chatcontent', function(req, res) {
   const q = url.parse(req.url, true).query;
   const id = q.id;
   let string;
@@ -186,7 +186,7 @@ app.use(bodyParser.json());
 /**
  * Insert new chat to database
  */
-app.post('/addchat', urlencodedParser, function(req, res) {
+app.post('/api/addchat', urlencodedParser, function(req, res) {
 
   let json = req.body;
 
@@ -209,7 +209,7 @@ app.post('/addchat', urlencodedParser, function(req, res) {
 /**
  * Insert chat answer to database
  */
-app.post('/addchatanswer', urlencodedParser, function(req, res) {
+app.post('/api/addchatanswer', urlencodedParser, function(req, res) {
 
   let json = req.body;
 
@@ -231,12 +231,9 @@ app.post('/addchatanswer', urlencodedParser, function(req, res) {
 /**
  * Insert apartment reviews to database
  */
-app.post('/action', urlencodedParser, function(req, res) {
+app.post('/api/sendform', urlencodedParser, function(req, res) {
 
   let jsonObj = req.body;
-
-  let responseString = JSON.stringify(jsonObj);
-  res.send('POST succesful: ' + responseString);
 
   const sql = 'INSERT INTO reviews (id, shape, comfort, grade, free_word) VALUES ( ?, ?, ?, ?, ?)';
 
