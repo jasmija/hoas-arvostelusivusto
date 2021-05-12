@@ -74,12 +74,11 @@ app.get('/api/address', function(req, res) {
   const id = q.id;
   let string;
 
-  //Sql query for get reviews from database
   const sql = 'SELECT apartments.address, apartments.id'
       + ' FROM apartments'
       + ' WHERE apartments.id= ?';
 
-  (async () => { //Immediately Invoked Function Expression
+  (async () => {
     try {
       const rows = await query(sql, [id]);
       string = JSON.stringify(rows);

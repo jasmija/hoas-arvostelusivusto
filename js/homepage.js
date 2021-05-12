@@ -549,7 +549,3 @@ function showContent() {
     newanswer.innerHTML = answer;
   }
 }
-
-
-
-
