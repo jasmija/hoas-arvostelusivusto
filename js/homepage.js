@@ -1,115 +1,3 @@
-/** Search apartment from page by address */
-function searchApartment() {
-  let input, uppercase, ul, li, h3, i, text;
-
-  //Get search input field
-  input = document.getElementById('search');
-
-  //Input value to uppercase
-  uppercase = input.value.toUpperCase();
-
-  //List of apartments
-  ul = document.getElementById('apartments');
-  li = ul.getElementsByTagName('li');
-  for (i = 0; i < li.length; i++) {
-    h3 = li[i].getElementsByTagName('h3')[0];
-    text = h3.innerText;
-    if (text.toUpperCase().indexOf(uppercase) > -1) {
-      li[i].style.display = '';
-    } else {
-      li[i].style.display = 'none';
-    }
-  }
-}
-
-/** Get all apartments from database */
-function makeQueryForApartments(){
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      json = JSON.parse(xmlhttp.responseText);
-      if (json.length > 0) {
-        showApartments(json);
-        showApartments2(json);
-      } else {
-        console.log("Ei löytynyt yhtäkään asuntoa");
-      }
-    }
-  };
-  console.log('http://localhost:3000/api/apartments');
-  xmlhttp.open('GET', 'http://localhost:3000/api/apartments', true);
-  xmlhttp.send();
-}
-
-/**
- * Get the clicked apartment address from database to display the address in the header of the form
- * @param {int} id - id of clicked apartment
- */
-function makeQueryForAddNewReview(id) {
-  const apartment = id;
-
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      json = JSON.parse(xmlhttp.responseText);
-      showAddReview(json);
-      if (json.length > 0) {
-      } else {
-        document.getElementById('apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
-      }
-    }
-  };
-  console.log('http://localhost:3000/api/address?id=' + apartment);
-  xmlhttp.open('GET', 'http://localhost:3000/api/address?id=' + apartment, true);
-  xmlhttp.send();
-}
-
-/**
- * All the apartments retrieved from the database are displayed in a list on the page
- * @param {json} json - json of apartments retrieved from the database
- */
-function showApartments(json){
-  let i;
-  let address;
-  let id;
-
-  for (i in json) {
-    address = json[i].address;
-    id = json[i].id;
-
-    const apartmentlist = document.getElementsByClassName('review');
-    const figcaptions = document.getElementsByClassName('header');
-    const ratebuttons = document.getElementsByClassName('rate');
-
-    figcaptions[i].innerHTML = address;
-
-    apartmentlist[i].setAttribute('id', id);
-    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
-    //ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
-  }
-}
-
-function showApartments2(){
-  let i;
-  let address;
-  let id;
-
-  for (i in json) {
-    address = json[i].address;
-    id = json[i].id;
-
-    const apartmentlist = document.getElementsByClassName('review');
-    const figcaptions = document.getElementsByClassName('header');
-    const ratebuttons = document.getElementsByClassName('rate');
-
-    figcaptions[i].innerHTML = address;
-
-    apartmentlist[i].setAttribute('id', id);
-    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
-    ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
-  }
-}
-
 /** Window onload execute immediately after the page loaded */
 window.onload = function() {
 
@@ -166,6 +54,149 @@ window.onload = function() {
     }
   };
 };
+
+/** Search apartment from page by address */
+function searchApartment() {
+  let input, uppercase, ul, li, h3, i, text;
+
+  //Get search input field
+  input = document.getElementById('search');
+
+  //Input value to uppercase
+  uppercase = input.value.toUpperCase();
+
+  //List of apartments
+  ul = document.getElementById('apartments');
+  li = ul.getElementsByTagName('li');
+  for (i = 0; i < li.length; i++) {
+    h3 = li[i].getElementsByTagName('h3')[0];
+    text = h3.innerText;
+    if (text.toUpperCase().indexOf(uppercase) > -1) {
+      li[i].style.display = '';
+    } else {
+      li[i].style.display = 'none';
+    }
+  }
+}
+
+/** Get all apartments from database */
+function makeQueryForApartments(){
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      if (json.length > 0) {
+        showApartments(json);
+        showApartments2(json);
+      } else {
+        console.log("Ei löytynyt yhtäkään asuntoa");
+      }
+    }
+  };
+  console.log('http://localhost:3000/api/apartments');
+  xmlhttp.open('GET', 'http://localhost:3000/api/apartments', true);
+  xmlhttp.send();
+}
+
+/**
+ * All the apartments retrieved from the database are displayed in a list on the page
+ * @param {json} json - json of apartments retrieved from the database
+ */
+function showApartments(json){
+  let i;
+  let address;
+  let id;
+
+  for (i in json) {
+    address = json[i].address;
+    id = json[i].id;
+
+    const apartmentlist = document.getElementsByClassName('review');
+    const figcaptions = document.getElementsByClassName('header');
+    const ratebuttons = document.getElementsByClassName('rate');
+
+    figcaptions[i].innerHTML = address;
+
+    apartmentlist[i].setAttribute('id', id);
+    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
+    //ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
+  }
+}
+
+function showApartments2(){
+  let i;
+  let address;
+  let id;
+
+  for (i in json) {
+    address = json[i].address;
+    id = json[i].id;
+
+    const apartmentlist = document.getElementsByClassName('review');
+    const figcaptions = document.getElementsByClassName('header');
+    const ratebuttons = document.getElementsByClassName('rate');
+
+    figcaptions[i].innerHTML = address;
+
+    apartmentlist[i].setAttribute('id', id);
+    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
+    ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
+  }
+}
+
+/**
+ * Get the clicked apartment address from database to display the address in the header of the form
+ * @param {int} id - id of clicked apartment
+ */
+function makeQueryForAddNewReview(id) {
+  const apartment = id;
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      showAddReview(json);
+      if (json.length > 0) {
+      } else {
+        document.getElementById('apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+      }
+    }
+  };
+  console.log('http://localhost:3000/api/address?id=' + apartment);
+  xmlhttp.open('GET', 'http://localhost:3000/api/address?id=' + apartment, true);
+  xmlhttp.send();
+}
+
+/**
+ * Get apartment address and id to review form
+ *  @param {json} json - apartments address and id from database
+ */
+function showAddReview(json) {
+
+  const modal2 = document.getElementById('modal2');
+  modal2.style.display = 'block';
+
+  const addrress = document.getElementById('apartmentaddress');
+
+  const id = document.getElementById('idvalue');
+
+  let stringaddress;
+  let idstring;
+  let i;
+  let string;
+
+  for (i in json) {
+    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
+        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
+        json[i].free_word;
+
+    stringaddress = json[i].address;
+    addrress.innerHTML = stringaddress;
+
+    idstring = json[i].id;
+    id.innerHTML = idstring;
+  }
+}
 
 //QUERIES TO THE DATABASE
 let json;
@@ -287,37 +318,6 @@ function countAverage(json) {
   document.getElementById('averageshape').innerHTML = averageshape.toString();
   document.getElementById('averagecomfort').innerHTML = averagecomfort.toString();
   document.getElementById('averagegrade').innerHTML = averagegrade.toString();
-}
-
-/**
- * Get apartment address and id to review form
- *  @param {json} json - apartments address and id from database
- */
-function showAddReview(json) {
-
-  const modal2 = document.getElementById('modal2');
-  modal2.style.display = 'block';
-
-  const addrress = document.getElementById('apartmentaddress');
-
-  const id = document.getElementById('idvalue');
-
-  let stringaddress;
-  let idstring;
-  let i;
-  let string;
-
-  for (i in json) {
-    string = json[i].id + ', ' + json[i].address + ', ' + json[i].shape +
-        ', ' + json[i].comfort + ', ' + json[i].grade + ', ' +
-        json[i].free_word;
-
-    stringaddress = json[i].address;
-    addrress.innerHTML = stringaddress;
-
-    idstring = json[i].id;
-    id.innerHTML = idstring;
-  }
 }
 
 /** Send review form */
