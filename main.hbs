@@ -14,7 +14,7 @@
 
 <ul id="menu">
     <a href="/"><img src="img/logo.png" style="max-height: 80px"></a>
-    <input id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
+    <input autocomplete="off" id="search" type="text" placeholder="Hae kohdetta" name="search" onkeyup="searchApartment()">
     {{#if user}}
         <li><p>Kirjautunut käyttäjänä: </p>
             <p id="user">{{ user.username }}</p></li>
@@ -29,133 +29,133 @@
     <ul id="apartments">
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="1" class="review"><img src="img/kimpitie.jpg"></a>
+                <a onclick="makeQueryForAddNewReview()" class="review"><img src="img/kimpitie.jpg"></a>
                 <figcaption>
-                    <h3>Kimpitie 10, Helsinki</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('1')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="2" class="review"><img src="img/berliininkatu.jpg"></a>
+                <a  onclick="makeQueryForAddNewReview()" class="review"><img src="img/berliininkatu.jpg"></a>
                 <figcaption>
-                    <h3>Berliininkatu 5, Helsinki</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('2')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="3" class="review"><img src="img/hakaniemenranta.jpg"></a>
+                <a  class="review"><img src="img/hakaniemenranta.jpg"></a>
                 <figcaption>
-                    <h3>Hakaniemenranta 12, Helsinki</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('3')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="4" class="review"><img src="img/siltakuja.jpg"></a>
+                <a  class="review"><img src="img/siltakuja.jpg"></a>
                 <figcaption>
-                    <h3>Siltakuja 2, Espoo</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('4')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="5" class="review"><img src="img/vaskivuorentie.jpg"></a>
+                <a  class="review"><img src="img/vaskivuorentie.jpg"></a>
                 <figcaption>
-                    <h3>Vaskivuorentie 22, Vantaa</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('5')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="6" class="review"><img src="img/juusintie.jpg"></a>
+                <a  class="review"><img src="img/juusintie.jpg"></a>
                 <figcaption>
-                    <h3>Juusintie 5, Kauniainen</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('6')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="7" class="review"><img src="img/kilonkallio.jpg"></a>
+                <a  class="review"><img src="img/kilonkallio.jpg"></a>
                 <figcaption>
-                    <h3>Kilonkallio 10, Espoo</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('7')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="8" class="review"><img src="img/haukilahdenkuja.jpg"></a>
+                <a  class="review"><img src="img/haukilahdenkuja.jpg"></a>
                 <figcaption>
-                    <h3>Haukilahdenkuja 15, Helsinki</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('8')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="9" class="review"><img src="img/leppäsuonkatu.jpg"></a>
+                <a  class="review"><img src="img/leppäsuonkatu.jpg"></a>
                 <figcaption>
-                    <h3>Leppäsuonkatu 7, Helsinki</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('9')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="10" class="review"><img src="img/majurinkulma.jpg"></a>
+                <a  class="review"><img src="img/majurinkulma.jpg"></a>
                 <figcaption>
-                    <h3>Majurinkulma 2, Espoo</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('10')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="11" class="review"><img src="img/servinkuja.jpg"></a>
+                <a  class="review"><img src="img/servinkuja.jpg"></a>
                 <figcaption>
-                    <h3>Servinkuja 6, Espoo</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('11')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
         <li>
             <figure>
-                <a onclick="getApartmentId(this.id)" id="12" class="review"><img src="img/akanapolku.jpg"></a>
+                <a  class="review"><img src="img/akanapolku.jpg"></a>
                 <figcaption>
-                    <h3>Akanapolku 2, Vantaa</h3>
+                    <h3 class="header"></h3>
                 </figcaption>
                 {{#if user}}
-                    <button onclick="getApartmentId('12')" class="rate">Arvostele</button>
+                    <button onclick="makeQueryForAddNewReview()" class="rate">Arvostele</button>
                 {{/if}}
             </figure>
         </li>
@@ -181,7 +181,6 @@
             <button id="sendbutton">Lähetä vastaus</button>
         {{/if}}
         <div id="answers"></div>
-        <div id="testanswer"></div>
     </div>
 </div>
 

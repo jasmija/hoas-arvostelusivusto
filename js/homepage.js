@@ -22,105 +22,56 @@ function searchApartment() {
   }
 }
 
-//Get clicked apartment id
-function getApartmentId(clicked_id) {
-  return clicked_id;
-}
-
-//Window onload execute immediately after the page loaded
-window.onload = function() {
-
-  //Get input field for search apartment
-  document.getElementById('search').value = '';
-
-  //Load chats from database to page
-  makeQueryForChat();
-
-  //VIEW REVIEWS
-  //Get the modal
-  const modal = document.getElementById('modal');
-  const apartments = document.getElementsByClassName('review');
-
-  //Loop through apartments list
-  for (let i = 0; i < apartments.length; i++) {
-    apartments[i].getApartmentId = function(i) {
-
-      //Display clicked apartments reviews in the modal
-      makeQueryForShowReviews(i);
-      modal.style.display = 'block';
-    };
-  }
-
-  //Close the modal, when the user clicks on <span> (x)
-  const span = document.getElementsByClassName('close')[0];
-  span.onclick = function() {
-    $('.del').remove();
-    modal.style.display = 'none';
-  };
-
-  //ADD REVIEW
-  const modal2 = document.getElementById('modal2');
-  const ratebuttons = document.getElementsByClassName('rate');
-
-  //Loop through ratebuttons list
-  for (let a = 0; a < ratebuttons.length; a++) {
-    ratebuttons[a].getApartmentId = function(a) {
-
-      //Display review form in the modal
-      makeQueryForAddNewReview(a);
-      modal2.style.display = 'block';
-    };
-  }
-
-  //Close the modal, when the user clicks on x
-  const span2 = document.getElementsByClassName('close2')[0];
-  ratebuttons.onclick = function() {
-    //getApartmentId();
-    modal2.style.display = 'block';
-  };
-
-  span2.onclick = function() {
-    modal2.style.display = 'none';
-  };
-
-  // Close modal when user clicks outside the "pop up window".
-  window.onclick = function(event) {
-    if (event.target === modal2) {
-      modal2.style.display = 'none';
-    }
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  };
-};
-
-//QUERIES TO THE DATABASE
-let json;
-
-function makeQueryForShowReviews(apartment) {
-
-  const id = apartment;
-
+//Get apartments from database
+function makeQueryForApartments(){
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       if (json.length > 0) { // something found
-        showReviewList(json);
+        showApartments(json);
       } else {
-        document.getElementById(
-            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
       }
     }
   };
-  const searchedid = id;
-  console.log('http://localhost:3000/api/results?id=' + searchedid);
-  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
-      true);
+  console.log('http://localhost:3000/api/apartments');
+  xmlhttp.open('GET', 'http://localhost:3000/api/apartments', true);
   xmlhttp.send();
 }
 
-function showReviewList(json) {
+function showApartments(json){
+  let i;
+  let string;
+  let id;
+
+  for (i in json) {
+    string = json[i].address;
+    console.log("osoite " + string.toString());
+    id = json[i].id;
+
+    const apartmentlist = document.getElementsByClassName('review');
+    const figcaptions = document.getElementsByClassName('header');
+    const ratebuttons = document.getElementsByClassName('rate');
+
+    figcaptions[i].innerHTML = string;
+
+    apartmentlist[i].setAttribute('id', id);
+    console.log("id on " + id.toString());
+    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
+    ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
+    //console.log("setting id:s to apartments");
+  }
+}
+
+
+function openReviews(id){
+
+  console.log("before makequery...");
+  console.log("afteer makequery...");
+
+
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
 
   let i;
   const container = document.getElementById('container');
@@ -172,6 +123,143 @@ function showReviewList(json) {
   countAverage(json);
 }
 
+
+
+//Window onload execute immediately after the page loaded
+window.onload = function() {
+
+  makeQueryForApartments();
+  //Get input field for search apartment
+  document.getElementById('search').value = '';
+
+  //Load chats from database to page
+  makeQueryForChat();
+
+  //VIEW REVIEWS
+  //Get the modal
+  const modal = document.getElementById('modal');
+  const apartments = document.getElementsByClassName('review');
+
+  //Close the modal, when the user clicks on <span> (x)
+  const span = document.getElementsByClassName('close')[0];
+  span.onclick = function() {
+    // $('.del').remove();
+    modal.style.display = 'none';
+  };
+
+  apartments.onclick = function (){
+    modal.style.display = 'block';
+  }
+
+  //ADD REVIEW
+  const modal2 = document.getElementById('modal2');
+  const ratebuttons = document.getElementsByClassName('rate');
+
+  //Close the modal, when the user clicks on x
+  const span2 = document.getElementsByClassName('close2')[0];
+  span2.onclick = function() {
+    modal2.style.display = 'none';
+  };
+
+  ratebuttons.onclick = function() {
+    //getApartmentId();
+    modal2.style.display = 'block';
+  };
+
+
+
+  // Close modal when user clicks outside the "pop up window".
+  window.onclick = function(event) {
+    if (event.target === modal2) {
+      modal2.style.display = 'none';
+    }
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  };
+};
+
+//QUERIES TO THE DATABASE
+let json;
+
+function makeQueryForShowReviews(id) {
+
+  console.log("inside makequeryforshowreviews");
+  const apartment = id;
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      if (json.length > 0) { // something found
+        //showReviewList(json);
+        openReviews(id);
+      } else {
+        document.getElementById(
+            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+      }
+    }
+  };
+  const searchedid = apartment;
+  console.log('http://localhost:3000/api/results?id=' + searchedid);
+  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
+      true);
+  xmlhttp.send();
+}
+
+/*function showReviewList(json) {
+
+
+  let i;
+  const container = document.getElementById('container');
+  container.innerHTML = '';
+
+  for (i in json) {
+
+    const header = document.getElementById('header');
+
+    const div = document.createElement('div');
+    div.setAttribute('id', 'review');
+    div.setAttribute('class', 'del');
+    container.appendChild(div);
+
+    const h = document.createElement('h3');
+    h.innerHTML = 'Kunto';
+    div.appendChild(h);
+
+    const p = document.createElement('p');
+    div.appendChild(p);
+
+    const h2 = document.createElement('h3');
+    h2.innerHTML = 'Viihtyvyys';
+    div.appendChild(h2);
+
+    const p2 = document.createElement('p');
+    div.appendChild(p2);
+
+    const h3 = document.createElement('h3');
+    h3.innerHTML = 'Kokonaisarvosana';
+    div.appendChild(h3);
+
+    const p3 = document.createElement('p');
+    div.appendChild(p3);
+
+    const h4 = document.createElement('h3');
+    h4.innerHTML = 'Vapaa sana';
+    div.appendChild(h4);
+
+    const p4 = document.createElement('p');
+    div.appendChild(p4);
+
+    header.innerHTML = json[i].address;
+    p.innerHTML = json[i].shape;
+    p2.innerHTML = json[i].comfort;
+    p3.innerHTML = json[i].grade;
+    p4.innerHTML = json[i].free_word;
+  }
+  countAverage(json);
+}*/
+
 //Count average
 function countAverage(json) {
 
@@ -210,7 +298,6 @@ function countAverage(json) {
 
 //Get apartment address to review from header
 function makeQueryForAddNewReview(apartment) {
-
   const id = apartment;
 
   const xmlhttp = new XMLHttpRequest();
@@ -219,7 +306,7 @@ function makeQueryForAddNewReview(apartment) {
       json = JSON.parse(xmlhttp.responseText);
       showAddReview(json);
       if (json.length > 0) { // something found
-        showAddReview(json);
+        //showAddReview(json);
       } else {
         document.getElementById(
             'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
@@ -235,6 +322,9 @@ function makeQueryForAddNewReview(apartment) {
 
 //Get apartment address and id to review form
 function showAddReview(json) {
+
+  const modal2 = document.getElementById('modal2');
+  modal2.style.display = 'block';
 
   const addrress = document.getElementById('apartmentaddress');
 
@@ -261,6 +351,7 @@ function showAddReview(json) {
 //Send review form
 function makeQueryForSendForm() {
 
+  alert("Arvostelu vastaanotettu!");
   const id = document.getElementById('idvalue').innerText;
   const shape = document.getElementById('shape').value;
   const comfort = document.getElementById('comfort').value;

@@ -85,6 +85,29 @@ app.get("/api/address", function (req, res) {
   })()
 });
 
+//GET APARTMENTS FROM DATABASE
+app.get("/api/apartments", function (req, res) {
+  var q = url.parse(req.url, true).query;
+  var string;
+
+  var sql = "SELECT id, address"
+      + " FROM apartments";
+
+  (async () => {
+    try {
+      const rows = await query(sql);
+      string = JSON.stringify(rows);
+      res.send(string);
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
+});
+
 //GET CHATS FROM DATABASE
 app.get("/chat", function (req, res) {
   var q = url.parse(req.url, true).query;
@@ -221,13 +244,13 @@ app.post("/action", urlencodedParser, function (req, res) {
   const sql = 'INSERT INTO reviews (id, shape, comfort, grade, free_word) VALUES ( ?, ?, ?, ?, ?)';
 
   (async () => {
-      try {
-        const result = await query(sql, [jsonObj.id, jsonObj.shape, jsonObj.comfort, jsonObj.grade, jsonObj.free_word]);
-        let insertedId = result.insertId;
-        res.send("POST succesful: " + req.body);
+    try {
+      const result = await query(sql, [jsonObj.id, jsonObj.shape, jsonObj.comfort, jsonObj.grade, jsonObj.free_word]);
+      let insertedId = result.insertId;
+      res.send("POST succesful: " + req.body);
 
-      } catch (err) {
-        console.log("Insertion into tables was unsuccessful!" + err);
-      }
-    })()
+    } catch (err) {
+      console.log("Insertion into tables was unsuccessful!" + err);
+    }
+  })()
 });

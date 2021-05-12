@@ -103,6 +103,10 @@ ul#apartments li a:hover{
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
 
 #newchat {
@@ -110,7 +114,7 @@ ul#apartments li a:hover{
     text-align: center;
 }
 
-ul#chat{
+ul#chat {
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 0;
@@ -118,6 +122,9 @@ ul#chat{
     flex-direction: column;
     flex-wrap: nowrap;
     cursor: pointer;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 ul#chat li{
@@ -136,14 +143,16 @@ button{
     border-style: solid;
     padding: 20px;
     margin-bottom: 10px;
-    width: 80%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
     list-style: none;
+    background-color: lightgray;
 }
 
 #answer{
     margin-bottom: 10px;
+    width: 47%;
 }
 
 
