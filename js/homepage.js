@@ -1,4 +1,4 @@
-//Search apartment from page
+/** Search apartment from page by address */
 function searchApartment() {
   let input, uppercase, ul, li, h3, i, text;
 
@@ -22,15 +22,17 @@ function searchApartment() {
   }
 }
 
-//Get apartments from database
+/** Get all apartments from database */
 function makeQueryForApartments(){
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
-      if (json.length > 0) { // something found
+      if (json.length > 0) {
         showApartments(json);
+        showApartments2(json);
       } else {
+        console.log("Ei löytynyt yhtäkään asuntoa");
       }
     }
   };
@@ -39,96 +41,81 @@ function makeQueryForApartments(){
   xmlhttp.send();
 }
 
+/**
+ * Get the clicked apartment address from database to display the address in the header of the form
+ * @param {int} id - id of clicked apartment
+ */
+function makeQueryForAddNewReview(id) {
+  const apartment = id;
+
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      json = JSON.parse(xmlhttp.responseText);
+      showAddReview(json);
+      if (json.length > 0) {
+      } else {
+        document.getElementById('apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
+      }
+    }
+  };
+  console.log('http://localhost:3000/api/address?id=' + apartment);
+  xmlhttp.open('GET', 'http://localhost:3000/api/address?id=' + apartment, true);
+  xmlhttp.send();
+}
+
+/**
+ * All the apartments retrieved from the database are displayed in a list on the page
+ * @param {json} json - json of apartments retrieved from the database
+ */
 function showApartments(json){
   let i;
-  let string;
+  let address;
   let id;
 
   for (i in json) {
-    string = json[i].address;
-    console.log("osoite " + string.toString());
+    address = json[i].address;
     id = json[i].id;
 
     const apartmentlist = document.getElementsByClassName('review');
     const figcaptions = document.getElementsByClassName('header');
     const ratebuttons = document.getElementsByClassName('rate');
 
-    figcaptions[i].innerHTML = string;
+    figcaptions[i].innerHTML = address;
 
     apartmentlist[i].setAttribute('id', id);
-    console.log("id on " + id.toString());
     apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
-    ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
-    //console.log("setting id:s to apartments");
+    //ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
   }
 }
 
-
-function openReviews(id){
-
-  console.log("before makequery...");
-  console.log("afteer makequery...");
-
-
-  const modal = document.getElementById('modal');
-  modal.style.display = 'block';
-
+function showApartments2(){
   let i;
-  const container = document.getElementById('container');
-  container.innerHTML = '';
+  let address;
+  let id;
 
   for (i in json) {
+    address = json[i].address;
+    id = json[i].id;
 
-    const header = document.getElementById('header');
+    const apartmentlist = document.getElementsByClassName('review');
+    const figcaptions = document.getElementsByClassName('header');
+    const ratebuttons = document.getElementsByClassName('rate');
 
-    const div = document.createElement('div');
-    div.setAttribute('id', 'review');
-    div.setAttribute('class', 'del');
-    container.appendChild(div);
+    figcaptions[i].innerHTML = address;
 
-    const h = document.createElement('h3');
-    h.innerHTML = 'Kunto';
-    div.appendChild(h);
-
-    const p = document.createElement('p');
-    div.appendChild(p);
-
-    const h2 = document.createElement('h3');
-    h2.innerHTML = 'Viihtyvyys';
-    div.appendChild(h2);
-
-    const p2 = document.createElement('p');
-    div.appendChild(p2);
-
-    const h3 = document.createElement('h3');
-    h3.innerHTML = 'Kokonaisarvosana';
-    div.appendChild(h3);
-
-    const p3 = document.createElement('p');
-    div.appendChild(p3);
-
-    const h4 = document.createElement('h3');
-    h4.innerHTML = 'Vapaa sana';
-    div.appendChild(h4);
-
-    const p4 = document.createElement('p');
-    div.appendChild(p4);
-
-    header.innerHTML = json[i].address;
-    p.innerHTML = json[i].shape;
-    p2.innerHTML = json[i].comfort;
-    p3.innerHTML = json[i].grade;
-    p4.innerHTML = json[i].free_word;
+    apartmentlist[i].setAttribute('id', id);
+    apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
+    ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
   }
-  countAverage(json);
 }
 
-
-
-//Window onload execute immediately after the page loaded
+/** Window onload execute immediately after the page loaded */
 window.onload = function() {
 
+  //Get all apartments from database
   makeQueryForApartments();
+
   //Get input field for search apartment
   document.getElementById('search').value = '';
 
@@ -136,22 +123,25 @@ window.onload = function() {
   makeQueryForChat();
 
   //VIEW REVIEWS
+
   //Get the modal
   const modal = document.getElementById('modal');
   const apartments = document.getElementsByClassName('review');
 
-  //Close the modal, when the user clicks on <span> (x)
+  //Close the modal, when the user clicks on x
   const span = document.getElementsByClassName('close')[0];
   span.onclick = function() {
-    // $('.del').remove();
     modal.style.display = 'none';
   };
 
+  //Display modal when user clicks partments image
   apartments.onclick = function (){
     modal.style.display = 'block';
   }
 
   //ADD REVIEW
+
+  //Get the modal
   const modal2 = document.getElementById('modal2');
   const ratebuttons = document.getElementsByClassName('rate');
 
@@ -161,12 +151,10 @@ window.onload = function() {
     modal2.style.display = 'none';
   };
 
+  //Display modal when user clicks ratebutton
   ratebuttons.onclick = function() {
-    //getApartmentId();
     modal2.style.display = 'block';
   };
-
-
 
   // Close modal when user clicks outside the "pop up window".
   window.onclick = function(event) {
@@ -182,40 +170,44 @@ window.onload = function() {
 //QUERIES TO THE DATABASE
 let json;
 
+/**
+ * Get clicked apartments reviews from database
+ * @param {int} id - id of clicked apartment
+ */
 function makeQueryForShowReviews(id) {
 
-  console.log("inside makequeryforshowreviews");
   const apartment = id;
-
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
       if (json.length > 0) { // something found
-        //showReviewList(json);
         openReviews(id);
       } else {
-        document.getElementById(
-            'rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
+        document.getElementById('rating').innerHTML = '<br/>Arvosteluita ei löytynyt yhtään.';
       }
     }
   };
-  const searchedid = apartment;
-  console.log('http://localhost:3000/api/results?id=' + searchedid);
-  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + searchedid,
+  console.log('http://localhost:3000/api/results?id=' + apartment);
+  xmlhttp.open('GET', 'http://localhost:3000/api/results?id=' + apartment,
       true);
   xmlhttp.send();
 }
 
-/*function showReviewList(json) {
+/**
+ * Open clicked apartments reviews in list
+ * @param {int} id - id of clicked apartment
+ */
+function openReviews(id){
 
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
 
-  let i;
   const container = document.getElementById('container');
   container.innerHTML = '';
 
+  let i;
   for (i in json) {
-
     const header = document.getElementById('header');
 
     const div = document.createElement('div');
@@ -258,9 +250,12 @@ function makeQueryForShowReviews(id) {
     p4.innerHTML = json[i].free_word;
   }
   countAverage(json);
-}*/
+}
 
-//Count average
+/**
+ * Calculate the average of the apartments reviews
+ * @param {json} json - json of reviews retrieved from the database
+ */
 function countAverage(json) {
 
   let sumcomfort = 0;
@@ -282,7 +277,6 @@ function countAverage(json) {
     } else if (json[i].shape === 'Erinomainen') {
       json[i].shape = 5;
     }
-
     sumshape = sumshape + json[i].shape;
   }
 
@@ -291,36 +285,14 @@ function countAverage(json) {
   const averagegrade = (sumgrade / json.length).toFixed(0);
 
   document.getElementById('averageshape').innerHTML = averageshape.toString();
-  document.getElementById(
-      'averagecomfort').innerHTML = averagecomfort.toString();
+  document.getElementById('averagecomfort').innerHTML = averagecomfort.toString();
   document.getElementById('averagegrade').innerHTML = averagegrade.toString();
 }
 
-//Get apartment address to review from header
-function makeQueryForAddNewReview(apartment) {
-  const id = apartment;
-
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      json = JSON.parse(xmlhttp.responseText);
-      showAddReview(json);
-      if (json.length > 0) { // something found
-        //showAddReview(json);
-      } else {
-        document.getElementById(
-            'apartmentaddress').innerHTML = '<br/>Ei löytynyt asunnon osoitetta.';
-      }
-    }
-  };
-  const searchedid = id;
-  console.log('http://localhost:3000/api/address?id=' + searchedid);
-  xmlhttp.open('GET', 'http://localhost:3000/api/address?id=' + searchedid,
-      true);
-  xmlhttp.send();
-}
-
-//Get apartment address and id to review form
+/**
+ * Get apartment address and id to review form
+ *  @param {json} json - apartments address and id from database
+ */
 function showAddReview(json) {
 
   const modal2 = document.getElementById('modal2');
@@ -329,9 +301,9 @@ function showAddReview(json) {
   const addrress = document.getElementById('apartmentaddress');
 
   const id = document.getElementById('idvalue');
+
   let stringaddress;
   let idstring;
-
   let i;
   let string;
 
@@ -348,7 +320,7 @@ function showAddReview(json) {
   }
 }
 
-//Send review form
+/** Send review form */
 function makeQueryForSendForm() {
 
   alert("Arvostelu vastaanotettu!");
@@ -364,29 +336,26 @@ function makeQueryForSendForm() {
       free_word + '"}';
 
   const xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      //document.getElementById('test').innerHTML = xmlhttp.responseText;
-    }
-  };
 
-  console.log('http://localhost:3000/action');
-  xmlhttp.open('POST', 'http://localhost:3000/action', true);
+  console.log('http://localhost:3000/api/sendform');
+  xmlhttp.open('POST', 'http://localhost:3000/api/sendform', true);
   xmlhttp.setRequestHeader('Content-Type', 'application/json');
   xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
   xmlhttp.send(newReview);
 }
 
 //CHAT
+/** Get all chats from database when page loading */
 function makeQueryForChat() {
 
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       json = JSON.parse(xmlhttp.responseText);
-      if (json.length > 0) { // something found
+      if (json.length > 0) {
         showChat(json);
       } else {
+        console.log("Yhtään chattiä ei löytynyt!");
       }
     }
   };
@@ -395,6 +364,10 @@ function makeQueryForChat() {
   xmlhttp.send();
 }
 
+/**
+ * Dispaly list of chats from database
+ * @param {json} json - chat header and username from database
+ */
 function showChat(json) {
 
   let stringheader;
@@ -420,12 +393,19 @@ function showChat(json) {
   }
 }
 
+/**
+ * Open the clicked chat's answers
+ * @param {int} id - id of clicked chat's header
+ */
 function openChat(id) {
 
   const container = document.getElementById('answers');
   container.innerHTML = '';
 
+  //Get chat's header from the database
   makeQueryForChatHeader(id);
+
+  //Get chat's answers from the database
   makeQueryForContent(id);
 
   const sendbutton = document.getElementById('sendbutton');
@@ -442,7 +422,7 @@ function openChat(id) {
   }
 }
 
-//Send new chat to database
+/** Send new chat to database */
 function makeQueryForSendChat() {
 
   if (document.getElementById('chatTitle').value === '') {
@@ -453,11 +433,6 @@ function makeQueryForSendChat() {
     const newChat = '{"username": "' + user + '", "header": "' + header + '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        //addNewChat();
-      }
-    };
     console.log('http://localhost:3000/addchat');
     xmlhttp.open('POST', 'http://localhost:3000/addchat', true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
@@ -469,10 +444,13 @@ function makeQueryForSendChat() {
   }
 }
 
-//Send new answer to particular chat
+/**
+ * Send new answer to particular chat
+ * @param {int} id - id of that chat where user is sending answer
+ */
 function makeQueryForSendAnswer(id) {
 
-  if (document.getElementById('chatTitle').value === '') {
+  if (document.getElementById('answer').value === '') {
     alert('Täytä kenttä!!');
   } else {
     var clicked_id = id;
@@ -482,12 +460,6 @@ function makeQueryForSendAnswer(id) {
         '"}';
 
     const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        //showChatAnswer();
-        //document.getElementById('testanswer').innerHTML = xmlhttp.responseText;
-      }
-    };
     console.log('http://localhost:3000/addchatanswer');
     xmlhttp.open('POST', 'http://localhost:3000/addchatanswer', true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
@@ -498,7 +470,10 @@ function makeQueryForSendAnswer(id) {
   }
 }
 
-//Get clicked chats id from database
+/**
+ * Get clicked chats id from database
+ * @param {int} id - id of clicked chat's header
+ */
 function makeQueryForChatHeader(id) {
 
   var clicked_id = id;
@@ -510,19 +485,35 @@ function makeQueryForChatHeader(id) {
       if (json.length > 0) { // something found
         showHeader();
       } else {
-        console.log('Yhtään otsikkoa ei löytynyt!:(( ');
+        console.log('Otsikkoa ei löytynyt!');
       }
     }
   };
   console.log('http://localhost:3000/chatheader?id=' + clicked_id);
-  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id,
-      true);
+  xmlhttp.open('GET', 'http://localhost:3000/chatheader?id=' + clicked_id, true);
   xmlhttp.send();
 }
 
+/** Show chat's header */
+function showHeader() {
+
+  let i;
+  let stringheader;
+
+  for (i in json) {
+    var header = document.getElementById('chatheader');
+    stringheader = json[i].header;
+    header.innerHTML = stringheader;
+  }
+}
+
+/**
+ * Get chat's answers from the database
+ * @param {int} id - id of clicked chat's header
+ */
 function makeQueryForContent(id) {
 
-  var click = id;
+  var clicked_id = id;
 
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -531,15 +522,16 @@ function makeQueryForContent(id) {
       if (json.length > 0) { // something found
         showContent();
       } else {
-        console.log('Yhtään vastausta ei löytynyt!:(( ');
+        console.log('Yhtään vastausta ei löytynyt!');
       }
     }
   };
-  console.log('http://localhost:3000/chatcontent?id=' + click);
-  xmlhttp.open('GET', 'http://localhost:3000/chatcontent?id=' + click, true);
+  console.log('http://localhost:3000/chatcontent?id=' + clicked_id);
+  xmlhttp.open('GET', 'http://localhost:3000/chatcontent?id=' + clicked_id, true);
   xmlhttp.send();
 }
 
+/** Show chat answers */
 function showContent() {
 
   let i;
@@ -555,36 +547,6 @@ function showContent() {
     chatcontents.appendChild(newanswer);
 
     newanswer.innerHTML = answer;
-  }
-}
-
-function showHeader() {
-
-  let i;
-  let stringheader;
-
-  for (i in json) {
-    var header = document.getElementById('chatheader');
-    stringheader = json[i].header;
-    header.innerHTML = stringheader;
-  }
-}
-
-function showParticularChat(json) {
-
-  let i;
-  let string;
-  let stringanswer;
-
-  for (i in json) {
-    string = json[i].id_chat + ', ' + json[i].answer;
-
-    const chatcontents = document.getElementById('chat');
-    const newanswer = document.createElement('li');
-    chatcontents.appendChild(newanswer);
-
-    stringanswer = json[i].answer;
-    newanswer.innerHTML = stringanswer;
   }
 }
 

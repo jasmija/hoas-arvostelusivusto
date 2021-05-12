@@ -224,7 +224,7 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
     try {
       var result = await query(sql, [json.id_chat, json.answer]);
       let insertedId = result.insertId;
-      res.send("POST succesful: " + req.body);
+      //res.send("POST succesful: " + req.body);
 
     } catch (err) {
       console.log("Insertion into tables was unsuccessful!" + err);
@@ -234,7 +234,7 @@ app.post("/addchatanswer", urlencodedParser, function (req, res) {
 
 
 //INSERT REVIEWS TO DATABASE
-app.post("/action", urlencodedParser, function (req, res) {
+app.post("/api/sendform", urlencodedParser, function (req, res) {
 
   let jsonObj = req.body;
 
