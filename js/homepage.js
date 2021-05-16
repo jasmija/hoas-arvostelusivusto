@@ -113,13 +113,10 @@ function showApartments(json){
 
     const apartmentlist = document.getElementsByClassName('review');
     const figcaptions = document.getElementsByClassName('header');
-    const ratebuttons = document.getElementsByClassName('rate');
-
     figcaptions[i].innerHTML = address;
 
     apartmentlist[i].setAttribute('id', id);
     apartmentlist[i].setAttribute('onclick', 'makeQueryForShowReviews(' + id + ')');
-    //ratebuttons[i].setAttribute('onclick', 'makeQueryForAddNewReview(' + id + ')');
   }
 }
 
